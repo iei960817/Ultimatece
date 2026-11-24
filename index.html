@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ULTIMATE — 极简奢华婚礼空间美学</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: #FFFFFF;
+      --bg-subtle: #F8F8F6;
+      --bg-card: #FFFFFF;
+      --ink-primary: #111111;
+      --ink-secondary: #5C5C5C;
+      --ink-muted: #8E8E8E;
+      --border-light: #E6E6E2;
+      --border-dark: #111111;
+      --accent-gold: #A68A56;
+      --font-display: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Serif SC', -apple-system, sans-serif;
+      --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ================= SPLASH SCREEN (WHITE + CENTER BLACK DOT + ULTIMATE) ================= */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.85s var(--ease-luxury), visibility 0.85s var(--ease-luxury);
+    }
+    #splash-screen.is-exiting {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-dot-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+    }
+    .splash-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #111111;
+      transition: transform 0.95s var(--ease-luxury), opacity 0.5s ease;
+      animation: dotPulse 2.8s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.24); }
+    }
+    #splash-screen.is-exiting .splash-dot {
+      animation: none;
+      transform: scale(48);
+      opacity: 0;
+    }
+    .splash-brand {
+      margin-top: 22px;
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
+      font-weight: 500;
+      color: #111111;
+      transition: opacity 0.5s ease, transform 0.7s var(--ease-luxury);
+    }
+    #splash-screen.is-exiting .splash-brand {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .splash-hint {
+      position: fixed;
+      bottom: 38px;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      transition: opacity 0.4s ease;
+    }
+    #splash-screen.is-exiting .splash-hint { opacity: 0; }
+
+    /* ================= MAIN SITE WRAPPER ================= */
+    #main-site {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.9s var(--ease-luxury) 0.15s, transform 0.9s var(--ease-luxury) 0.15s;
+    }
+    #main-site.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================= TOP RIGHT NAVIGATION ================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink-primary);
+      cursor: pointer;
+    }
+    .brand-logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink-primary);
+      display: inline-block;
+    }
+    .brand-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.28em;
+      font-weight: 500;
+    }
+    .top-right-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-tab-btn {
+      position: relative;
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      padding: 8px 2px;
+      transition: color 0.25s ease;
+    }
+    .nav-tab-btn:hover,
+    .nav-tab-btn.active {
+      color: var(--ink-primary);
+      font-weight: 500;
+    }
+    .nav-tab-btn.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1.5px;
+      background: var(--ink-primary);
+    }
+    .admin-trigger-btn {
+      background: var(--bg-subtle);
+      color: var(--ink-primary);
+      border: 1px solid var(--border-light);
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+    .admin-trigger-btn:hover {
+      border-color: var(--ink-primary);
+      background: #FFFFFF;
+    }
+    .admin-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16a34a;
+      display: none;
+    }
+    .admin-badge-dot.live { display: inline-block; }
+
+    /* ================= HERO BANNER ================= */
+    .hero-strip {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 56px 32px 40px;
+      border-bottom: 1px solid var(--border-light);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 36px;
+      align-items: end;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.6vw, 3.1rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink-primary);
+    }
+    .hero-subtitle {
+      color: var(--ink-secondary);
+      font-size: 0.94rem;
+      max-width: 460px;
+      justify-self: end;
+    }
+
+    /* ================= TAB PANELS ================= */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 56px 32px 96px;
+    }
+    .tab-panel { display: none; animation: fadeTab 0.45s var(--ease-luxury); }
+    .tab-panel.active { display: block; }
+    @keyframes fadeTab {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 400;
+    }
+    .section-desc {
+      color: var(--ink-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ================= PORTFOLIO & 2D / 3D / ACTUAL SWITCHER ================= */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 36px;
+    }
+    .project-card {
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      transition: border-color 0.3s ease;
+    }
+    .project-card:hover { border-color: #C8C8C2; }
+    .visual-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #F2F2EE;
+    }
+    .visual-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.35s ease;
+    }
+    /* Simulated 3D concept look when no custom 3D image is uploaded yet */
+    .visual-layer.concept-3d.simulated-look {
+      filter: contrast(1.08) saturate(1.18) brightness(1.03);
+    }
+    .grid-overlay-3d {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.22) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.22) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .visual-stage.mode-3d .grid-overlay-3d { opacity: 1; }
+
+    /* Split compare clip */
+    .split-top-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      clip-path: inset(0 50% 0 0);
+      pointer-events: none;
+    }
+    .split-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #FFFFFF;
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+      pointer-events: none;
+      display: none;
+    }
+    .visual-stage.mode-compare .split-divider { display: block; }
+    .split-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #111111;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .split-range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 12;
+      display: none;
+    }
+    .visual-stage.mode-compare .split-range { display: block; }
+
+    .mode-pill-bar {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 15;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .mode-switch-group {
+      pointer-events: auto;
+      display: inline-flex;
+      background: rgba(17, 17, 17, 0.78);
+      backdrop-filter: blur(6px);
+      padding: 3px;
+      border-radius: 2px;
+      gap: 2px;
+    }
+    .mode-btn {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      border: none;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border-radius: 1px;
+      transition: all 0.2s ease;
+    }
+    .mode-btn.active {
+      background: #FFFFFF;
+      color: #111111;
+      font-weight: 600;
+    }
+    .stage-tag {
+      background: rgba(255,255,255,0.9);
+      color: #111111;
+      padding: 4px 9px;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      border-radius: 1px;
+    }
+
+    .project-body { padding: 22px 24px 26px; }
+    .project-meta {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+    }
+
+    /* ================= PRICING & CARPET CALCULATOR ================= */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .package-card {
+      border: 1px solid var(--border-light);
+      padding: 30px 26px;
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .package-card.featured {
+      border-color: var(--ink-primary);
+      background: var(--bg-subtle);
+    }
+    .pkg-tier {
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+    .pkg-name {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      margin-bottom: 8px;
+    }
+    .pkg-price {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .pkg-desc {
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+      margin-bottom: 18px;
+    }
+    .pkg-list {
+      list-style: none;
+      border-top: 1px solid var(--border-light);
+      padding-top: 16px;
+      margin-bottom: 22px;
+      font-size: 0.86rem;
+      color: var(--ink-primary);
+    }
+    .pkg-list li { padding: 5px 0; }
+    .pkg-list li::before { content: "— "; color: var(--accent-gold); }
+
+    .pricing-lower {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .panel-box {
+      border: 1px solid var(--border-light);
+      padding: 28px;
+      background: var(--bg-card);
+    }
+    .panel-box-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      margin-bottom: 6px;
+    }
+    .panel-box-sub {
+      font-size: 0.85rem;
+      color: var(--ink-secondary);
+      margin-bottom: 22px;
+    }
+    .addon-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border-light);
+      gap: 12px;
+    }
+    .addon-row:last-child { border-bottom: none; }
+    .addon-name { font-size: 0.9rem; font-weight: 500; }
+    .addon-note { font-size: 0.78rem; color: var(--ink-muted); }
+    .addon-price { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; white-space: nowrap; }
+
+    /* Carpet Calculator */
+    .calc-label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      margin-bottom: 10px;
+      margin-top: 18px;
+    }
+    .calc-label:first-of-type { margin-top: 0; }
+    .option-group {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .option-group.two-col { grid-template-columns: repeat(2, 1fr); }
+    .calc-choice-btn {
+      padding: 11px 8px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      color: var(--ink-primary);
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+    .calc-choice-btn.active {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border-color: var(--ink-primary);
+    }
+    .width-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-light);
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: #FFFFFF;
+      color: var(--ink-primary);
+    }
+    .input-field:focus { outline: none; border-color: var(--ink-primary); }
+    .calc-result-box {
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+    }
+    .calc-formula {
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+      margin-bottom: 8px;
+    }
+    .calc-total {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+    .btn-dark {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border: 1px solid var(--ink-primary);
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-dark:hover { background: #2B2B2B; }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink-primary);
+      border: 1px solid var(--ink-primary);
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-outline:hover { background: var(--bg-subtle); }
+
+    /* ================= ABOUT US ================= */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+    .about-story p {
+      margin-bottom: 18px;
+      color: var(--ink-secondary);
+      font-size: 0.96rem;
+    }
+    .about-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .metric-card {
+      border: 1px solid var(--border-light);
+      padding: 20px;
+      background: var(--bg-subtle);
+    }
+    .metric-num {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 600;
+    }
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+      margin-top: 4px;
+    }
+
+    /* ================= FOOTER ================= */
+    .site-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 28px 32px;
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+    }
+
+    /* ================= ADMIN MODAL (GITHUB LOGIN + CMS EDITOR) ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      background: rgba(17, 17, 17, 0.56);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      width: 100%;
+      max-width: 920px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #FFFFFF;
+      border: 1px solid var(--ink-primary);
+      padding: 32px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+    }
+    .close-modal-btn {
+      background: none;
+      border: 1px solid var(--border-light);
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .github-login-box {
+      text-align: center;
+      padding: 36px 20px;
+      border: 1px dashed var(--border-light);
+      background: var(--bg-subtle);
+    }
+    .cms-subtabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 12px;
+    }
+    .cms-subtab {
+      padding: 8px 14px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      cursor: pointer;
+      font-size: 0.84rem;
+    }
+    .cms-subtab.active {
+      background: var(--ink-primary);
+      color: #FFFFFF;
+      border-color: var(--ink-primary);
+    }
+    .cms-section { display: none; }
+    .cms-section.active { display: block; }
+    .cms-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cms-project-item {
+      border: 1px solid var(--border-light);
+      padding: 18px;
+      margin-bottom: 18px;
+      background: var(--bg-subtle);
+    }
+    .toast-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9000;
+      background: #111111;
+      color: #FFFFFF;
+      padding: 12px 18px;
+      font-size: 0.84rem;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+    .toast-banner.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .hero-strip, .pricing-lower, .about-grid, .cms-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .hero-subtitle { justify-self: start; }
+      .header-inner { padding: 0 18px; }
+      .top-right-nav { gap: 14px; }
+      .nav-tab-btn { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SPLASH SCREEN ================= -->
+  <div id="splash-screen" role="button" tabindex="0" aria-label="点击进入 ULTIMATE 网站">
+    <div class="splash-dot-wrap">
+      <div class="splash-dot"></div>
+    </div>
+    <div id="splash-brand-text" class="splash-brand">ULTIMATE</div>
+    <div id="splash-hint-text" class="splash-hint">点击任意处进入空间</div>
+  </div>
+
+  <!-- ================= MAIN WEBSITE ================= -->
+  <div id="main-site">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand-logo" onclick="switchMainTab('portfolio')">
+          <span class="brand-logo-dot"></span>
+          <span id="header-brand-text" class="brand-logo-text">ULTIMATE</span>
+        </a>
+
+        <nav class="top-right-nav" aria-label="主导航">
+          <button class="nav-tab-btn active" data-tab="portfolio" onclick="switchMainTab('portfolio')">作品</button>
+          <button class="nav-tab-btn" data-tab="pricing" onclick="switchMainTab('pricing')">价钱</button>
+          <button class="nav-tab-btn" data-tab="about" onclick="switchMainTab('about')">关于我们</button>
+          <button class="admin-trigger-btn" onclick="openAdminModal()">
+            <span id="admin-status-dot" class="admin-badge-dot"></span>
+            <span id="admin-btn-label">GitHub 后台</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero-strip">
+      <div>
+        <div id="hero-eyebrow" class="hero-eyebrow">3D SPATIAL WEDDING ATELIER</div>
+        <h1 id="hero-title" class="hero-title">以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。</h1>
+      </div>
+      <p id="hero-subtitle" class="hero-subtitle">
+        先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。所有文字与作品图均支持后台实时替换。
+      </p>
+    </section>
+
+    <main class="container">
+      <!-- TAB 1: 作品 (PORTFOLIO) -->
+      <section id="tab-portfolio" class="tab-panel active">
+        <div class="section-head">
+          <div>
+            <h2 id="portfolio-heading" class="section-title">精选作品 · 3D 概念与实景</h2>
+            <p id="portfolio-subheading" class="section-desc">每组作品可切换「3D 概念图」、「左右对比」或「实际完成品」，支持在后台随时替换 2D/3D 图片。</p>
+          </div>
+        </div>
+        <div id="portfolio-grid" class="portfolio-grid"></div>
+      </section>
+
+      <!-- TAB 2: 价钱 (PRICING & CARPET CALCULATOR) -->
+      <section id="tab-pricing" class="tab-panel">
+        <div class="section-head">
+          <div>
+            <h2 id="pricing-heading" class="section-title">价钱方案与地毯计算器</h2>
+            <p id="pricing-subheading" class="section-desc">常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。</p>
+          </div>
+        </div>
+
+        <div id="packages-grid" class="packages-grid"></div>
+
+        <div class="pricing-lower">
+          <!-- Add-ons -->
+          <div class="panel-box">
+            <h3 id="addons-title" class="panel-box-title">单独加购项目 (Add-ons)</h3>
+            <p id="addons-subtitle" class="panel-box-sub">可根据宴会厅动线与仪式流程自由叠加</p>
+            <div id="addons-list"></div>
+          </div>
+
+          <!-- Carpet Calculator -->
+          <div class="panel-box">
+            <h3 id="calc-title" class="panel-box-title">地毯 / 舞台走道简易计算器</h3>
+            <p id="calc-subtitle" class="panel-box-sub">选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）</p>
+
+            <label class="calc-label">1. 选择长度（ft）</label>
+            <div class="option-group" id="length-options">
+              <button type="button" class="calc-choice-btn active" data-len="40" onclick="selectLength(40)">40 ft</button>
+              <button type="button" class="calc-choice-btn" data-len="52" onclick="selectLength(52)">52 ft</button>
+              <button type="button" class="calc-choice-btn" data-len="60" onclick="selectLength(60)">60 ft</button>
+              <button type="button" class="calc-choice-btn" data-len="80" onclick="selectLength(80)">80 ft</button>
+            </div>
+
+            <label class="calc-label">2. 选择宽度（ft，可手动微调）</label>
+            <div class="option-group" id="width-presets">
+              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(4)">4 ft</button>
+              <button type="button" class="calc-choice-btn active" onclick="setWidthPreset(6)">6 ft</button>
+              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(8)">8 ft</button>
+              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(10)">10 ft</button>
+            </div>
+            <div class="width-input-row">
+              <input id="carpet-width-input" type="number" min="1" max="60" step="0.5" value="6" class="input-field" oninput="recalcCarpet()" />
+              <span style="font-size:0.84rem; color:var(--ink-secondary); white-space:nowrap;">ft 宽</span>
+            </div>
+
+            <label class="calc-label">3. 选择结构类型</label>
+            <div class="option-group two-col">
+              <button type="button" id="base-no-wood-btn" class="calc-choice-btn active" onclick="selectWoodBase(false)">
+                无木底 (RM 1.50 / sqft)
+              </button>
+              <button type="button" id="base-with-wood-btn" class="calc-choice-btn" onclick="selectWoodBase(true)">
+                有木底 (RM 4.00 / sqft)
+              </button>
+            </div>
+
+            <div class="calc-result-box">
+              <div id="calc-formula-text" class="calc-formula">40 ft × 6 ft = 240 sqft × RM 1.50 / sqft</div>
+              <div id="calc-total-price" class="calc-total">RM 360.00</div>
+              <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="button" class="btn-dark" onclick="copyCarpetQuote()">复制报价明细</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: 关于我们 (ABOUT US) -->
+      <section id="tab-about" class="tab-panel">
+        <div class="section-head">
+          <div>
+            <h2 id="about-heading" class="section-title">关于 ULTIMATE</h2>
+            <p id="about-subheading" class="section-desc">先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。</p>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-story">
+            <p id="about-p1"></p>
+            <p id="about-p2"></p>
+            <p id="about-p3"></p>
+            <div class="about-metrics" id="about-metrics"></div>
+          </div>
+          <div class="panel-box">
+            <h3 id="contact-card-title" class="panel-box-title">预约 3D 空间提案</h3>
+            <p id="contact-card-desc" class="panel-box-sub">欢迎提供婚礼日期与宴会厅尺寸，我们将为您安排一对一 3D 空间规划。</p>
+            <p style="font-size:0.88rem; margin-bottom:10px;"><strong>工作室：</strong><span id="studio-location">Kuala Lumpur · 预约制空间</span></p>
+            <p style="font-size:0.88rem; margin-bottom:10px;"><strong>联络电邮：</strong><span id="studio-email">hello@ultimate-atelier.my</span></p>
+            <p style="font-size:0.88rem; margin-bottom:20px;"><strong>Instagram / 作品集：</strong><span id="studio-social">@ultimate.wedding.my</span></p>
+            <button type="button" class="btn-dark" onclick="switchMainTab('pricing')">前往查看价钱与地毯计算器</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div id="footer-copy">© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved.</div>
+      <div style="display:flex; gap:18px; align-items:center;">
+        <button type="button" class="btn-outline" style="padding:5px 12px; font-size:0.76rem;" onclick="replaySplash()">重温开场黑点</button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ================= GITHUB LOGIN & CMS EDITOR MODAL ================= -->
+  <div id="admin-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div>
+          <h2 id="modal-title" class="modal-title">ULTIMATE 后台管理 · 作品替换与全文编辑</h2>
+          <p style="font-size:0.78rem; color:var(--ink-secondary);">支持 GitHub 登录验证、2D/3D 概念图与实景图替换、全站文字编辑及 JSON 导出备份。</p>
+        </div>
+        <button class="close-modal-btn" onclick="closeAdminModal()" aria-label="关闭">×</button>
+      </div>
+
+      <!-- Step 1: GitHub Login -->
+      <div id="github-login-view" class="github-login-box">
+        <p style="font-size:1rem; font-weight:500; margin-bottom:8px;">使用 GitHub 账号登录后台</p>
+        <p style="font-size:0.84rem; color:var(--ink-secondary); max-width:520px; margin:0 auto 20px;">
+          填写您的 GitHub 用户名（可选填拥有 <code>repo</code> 权限的 Personal Access Token 用于直接同步仓库 <code>data/site-config.json</code>，或以本地预览模式进入编辑并导出文件）。
+        </p>
+        <div style="max-width:440px; margin:0 auto 18px; text-align:left;">
+          <label class="calc-label">GitHub 用户名</label>
+          <input id="gh-username-input" type="text" class="input-field" placeholder="例如：your-github-handle" />
+          <label class="calc-label">GitHub Token（可选，用于推送更新到仓库）</label>
+          <input id="gh-token-input" type="password" class="input-field" placeholder="ghp_xxxxxxxxxxxx（留空则为本地/导出模式）" />
+          <label class="calc-label">仓库路径（可选，格式：owner/repo）</label>
+          <input id="gh-repo-input" type="text" class="input-field" placeholder="例如：your-handle/ultimate-wedding" />
+        </div>
+        <button type="button" class="btn-dark" onclick="loginWithGitHub()">继续使用 GitHub 登录</button>
+      </div>
+
+      <!-- Step 2: Logged-in Editor -->
+      <div id="cms-editor-view" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px; padding:12px 16px; background:var(--bg-subtle); border:1px solid var(--border-light);">
+          <div style="font-size:0.85rem;">
+            已登录 GitHub：<strong id="gh-active-user"></strong>
+            <span id="gh-sync-mode-badge" style="margin-left:8px; color:var(--accent-gold);"></span>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn-dark" onclick="saveAllChanges()">保存并应用到页面</button>
+            <button type="button" class="btn-outline" onclick="downloadConfigJSON()">下载 site-config.json</button>
+            <button type="button" class="btn-outline" onclick="logoutGitHub()">退出登录</button>
+          </div>
+        </div>
+
+        <div class="cms-subtabs">
+          <button type="button" class="cms-subtab active" data-cms="cms-portfolio" onclick="switchCmsTab('cms-portfolio')">1. 作品与 2D/3D 图替换</button>
+          <button type="button" class="cms-subtab" data-cms="cms-texts" onclick="switchCmsTab('cms-texts')">2. 全站文字编辑</button>
+          <button type="button" class="cms-subtab" data-cms="cms-pricing" onclick="switchCmsTab('cms-pricing')">3. 配套与加购价钱</button>
+          <button type="button" class="cms-subtab" data-cms="cms-github" onclick="switchCmsTab('cms-github')">4. GitHub 仓库同步设置</button>
+        </div>
+
+        <!-- CMS Subtab 1: Portfolio 2D/3D/Actual Editor -->
+        <div id="cms-portfolio" class="cms-section active">
+          <p style="font-size:0.84rem; color:var(--ink-secondary); margin-bottom:14px;">
+            您可以为每个作品上传本地图片（自动转 Base64 预览）或填入图片网址（支持 <strong>3D 概念图</strong> 与 <strong>实际完成品</strong> 切换）。
+          </p>
+          <div id="cms-portfolio-list"></div>
+          <button type="button" class="btn-outline" onclick="addNewPortfolioItem()">+ 新增一组婚礼作品</button>
+        </div>
+
+        <!-- CMS Subtab 2: All Texts Editor -->
+        <div id="cms-texts" class="cms-section">
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">开场品牌字样</label>
+              <input id="edit-splash-brand" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">开场提示文字</label>
+              <input id="edit-splash-hint" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">顶部小标语 (Eyebrow)</label>
+              <input id="edit-hero-eyebrow" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">主标题 (Hero Title)</label>
+              <input id="edit-hero-title" type="text" class="input-field" />
+            </div>
+          </div>
+          <label class="calc-label">主副标题描述</label>
+          <textarea id="edit-hero-subtitle" rows="2" class="input-field"></textarea>
+
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">作品区标题</label>
+              <input id="edit-portfolio-heading" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">价钱区标题</label>
+              <input id="edit-pricing-heading" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">关于我们标题</label>
+              <input id="edit-about-heading" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">页脚版权文字</label>
+              <input id="edit-footer-copy" type="text" class="input-field" />
+            </div>
+          </div>
+
+          <label class="calc-label">关于我们 · 第一段</label>
+          <textarea id="edit-about-p1" rows="2" class="input-field"></textarea>
+          <label class="calc-label">关于我们 · 第二段</label>
+          <textarea id="edit-about-p2" rows="2" class="input-field"></textarea>
+          <label class="calc-label">关于我们 · 第三段</label>
+          <textarea id="edit-about-p3" rows="2" class="input-field"></textarea>
+
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">工作室地点</label>
+              <input id="edit-studio-location" type="text" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">联络电邮</label>
+              <input id="edit-studio-email" type="text" class="input-field" />
+            </div>
+          </div>
+        </div>
+
+        <!-- CMS Subtab 3: Pricing & Carpet Rates -->
+        <div id="cms-pricing" class="cms-section">
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">无木底单价 (RM / sqft)</label>
+              <input id="edit-rate-no-wood" type="number" step="0.1" class="input-field" />
+            </div>
+            <div>
+              <label class="calc-label">有木底单价 (RM / sqft)</label>
+              <input id="edit-rate-with-wood" type="number" step="0.1" class="input-field" />
+            </div>
+          </div>
+          <label class="calc-label">常规配套 JSON（可直接修改名称、价格、描述与项目）</label>
+          <textarea id="edit-packages-json" rows="9" class="input-field" style="font-family:monospace; font-size:0.8rem;"></textarea>
+          <label class="calc-label">单独加购项目 JSON</label>
+          <textarea id="edit-addons-json" rows="7" class="input-field" style="font-family:monospace; font-size:0.8rem;"></textarea>
+        </div>
+
+        <!-- CMS Subtab 4: GitHub Sync -->
+        <div id="cms-github" class="cms-section">
+          <p style="font-size:0.86rem; color:var(--ink-secondary); margin-bottom:14px;">
+            如果您已将本项目上传到 GitHub 仓库，填入 <code>owner/repo</code> 与具有仓库读写权限的 Token，点击「推送到 GitHub」即可直接更新仓库中的 <code>data/site-config.json</code>。
+          </p>
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">仓库路径 (owner/repo)</label>
+              <input id="sync-repo-input" type="text" class="input-field" placeholder="username/ultimate-wedding-studio" />
+            </div>
+            <div>
+              <label class="calc-label">分支 (Branch)</label>
+              <input id="sync-branch-input" type="text" class="input-field" value="main" />
+            </div>
+          </div>
+          <label class="calc-label">GitHub Personal Access Token</label>
+          <input id="sync-token-input" type="password" class="input-field" placeholder="ghp_..." />
+          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" class="btn-dark" onclick="pushConfigToGitHub()">推送到 GitHub (data/site-config.json)</button>
+            <button type="button" class="btn-outline" onclick="resetToDefaultConfig()">恢复出厂预设数据</button>
+          </div>
+          <p id="github-sync-status" style="margin-top:12px; font-size:0.84rem; color:var(--ink-secondary);"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast-banner"></div>
+
+  <script>
+    // ================= DEFAULT CONFIG & SAMPLE SVG DATA =================
+    function svgPlaceholder(title, subtitle, bg1, bg2, accent) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="${bg1}"/>
+            <stop offset="100%" stop-color="${bg2}"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="900" fill="url(#g)"/>
+        <rect x="90" y="90" width="1020" height="720" fill="none" stroke="${accent}" stroke-opacity="0.35" stroke-width="2"/>
+        <circle cx="600" cy="390" r="145" fill="none" stroke="${accent}" stroke-opacity="0.45" stroke-width="2"/>
+        <line x1="260" y1="620" x2="940" y2="620" stroke="${accent}" stroke-opacity="0.4" stroke-width="2"/>
+        <text x="600" y="380" text-anchor="middle" fill="#181818" font-family="Georgia, serif" font-size="44" letter-spacing="6">${title}</text>
+        <text x="600" y="438" text-anchor="middle" fill="#555555" font-family="sans-serif" font-size="24" letter-spacing="3">${subtitle}</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
+    const DEFAULT_CONFIG = {
+      texts: {
+        splashBrand: "ULTIMATE",
+        splashHint: "点击任意处进入空间",
+        heroEyebrow: "3D SPATIAL WEDDING ATELIER",
+        heroTitle: "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。",
+        heroSubtitle: "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。所有文字与作品图均支持后台实时替换。",
+        portfolioHeading: "精选作品 · 3D 概念与实景",
+        portfolioSubheading: "每组作品可切换「3D 概念图」、「左右对比」或「实际完成品」，支持在后台随时替换 2D/3D 图片。",
+        pricingHeading: "价钱方案与地毯计算器",
+        pricingSubheading: "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
+        addonsTitle: "单独加购项目 (Add-ons)",
+        addonsSubtitle: "可根据宴会厅动线与仪式流程自由叠加",
+        calcTitle: "地毯 / 舞台走道简易计算器",
+        calcSubtitle: "选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）",
+        aboutHeading: "关于 ULTIMATE",
+        aboutSubheading: "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
+        aboutP1: "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
+        aboutP2: "在正式进场搭建前，我们会依据新人选定的宴会厅尺寸建立 3D 空间模型，让您提前看见拱门高度、走道比例、花艺层次与灯光氛围。",
+        aboutP3: "从方案推演到现场落地，我们的制作团队严格把控每一个结构细节，让 3D 概念图成为婚礼当天真实可触的浪漫现场。",
+        studioLocation: "Kuala Lumpur · 预约制空间",
+        studioEmail: "hello@ultimate-atelier.my",
+        studioSocial: "@ultimate.wedding.my",
+        footerCopy: "© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved."
+      },
+      carpetRates: {
+        lengths: [40, 52, 60, 80],
+        noWoodPerSqft: 1.5,
+        withWoodPerSqft: 4.0
+      },
+      packages: [
+        {
+          tier: "ESSENTIAL",
+          name: "静谧序曲配套 (Serenity)",
+          price: "RM 6,800",
+          featured: false,
+          desc: "适合精致午宴或现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
+          items: [
+            "1 套主舞台建筑感背景与花艺点缀",
+            "1 组 3D 空间概念渲染图（含 1 次调整）",
+            "迎宾签到台极简陈设与花器组",
+            "专业进场搭建与活动后撤场服务"
+          ]
+        },
+        {
+          tier: "SIGNATURE · 推荐",
+          name: "三维境象配套 (3D Atelier)",
+          price: "RM 12,800",
+          featured: true,
+          desc: "ULTIMATE 招牌方案：完整 3D 空间还原 + 双视角氛围灯影与花艺层次。",
+          items: [
+            "主舞台立面造型 + 立体花艺与光影层次",
+            "完整 3D 概念渲染图 + 重点视角实景对齐",
+            "迎宾区 + 拍照打卡空间 + 主桌花艺",
+            "含 40ft 无木底标准走道地毯（可升级木底/加长）"
+          ]
+        },
+        {
+          tier: "BESPOKE",
+          name: "高定空间全案 (Bespoke)",
+          price: "RM 22,500",
+          featured: false,
+          desc: "面向大型晚宴与高度定制视觉需求，从空间结构到灯光氛围全案统筹。",
+          items: [
+            "定制大型舞台结构、多层次花艺与灯光设计",
+            "多角度 3D 空间预演（含日间/晚宴光影模拟）",
+            "迎宾廊道、拍照区、香槟塔/蛋糕区整体美学",
+            "专属项目总监现场督导与完整空间深化"
+          ]
+        }
+      ],
+      addons: [
+        { name: "额外 3D 空间视角渲染（单张）", note: "适合需要查看特定机位或灯光切换效果", price: "RM 380" },
+        { name: "加长 / 加宽地毯木底结构升级", note: "按实际 sqft 差价计算（无木 RM1.50 / 有木 RM4.00）", price: "按计算器" },
+        { name: "迎宾廊道立柱花艺与柔光灯带", note: "提升宾客入场仪式感（一对）", price: "RM 1,650" },
+        { name: "主桌镜面/亚克力长桌花艺陈设", note: "含烛台、餐盘美学搭配与花材升级", price: "RM 2,200" },
+        { name: "超长夜场拆场 / 跨城运输附加费", note: "视宴会厅地点与凌晨拆场时段评估", price: "RM 600+" }
+      ],
+      portfolio: [
+        {
+          id: "proj-1",
+          title: "白昼之境 · 极简拱廊婚礼",
+          category: "3D CONCEPT & REALIZED",
+          description: "以纯白与暖沙色花艺勾勒干净线条，在 3D 阶段先确认拱门高度与走道比例，现场严格还原光影。",
+          conceptImg: svgPlaceholder("3D CONCEPT VIEW", "ARCHITECTURAL ARCH & LIGHTING", "#ECEAE4", "#D8D4C8", "#111111"),
+          actualImg: svgPlaceholder("ACTUAL SETUP", "WHITE & SAND FLORAL STAGE", "#F7F6F2", "#E6E2D8", "#A68A56"),
+          hasCustomConcept: false
+        },
+        {
+          id: "proj-2",
+          title: "曜黑与暖金 · 晚宴主舞台",
+          category: "3D CONCEPT & REALIZED",
+          description: "深邃黑调与柔和暖光形成强烈对比，先通过 3D 渲染测算舞台景深与宾客席视线。",
+          conceptImg: svgPlaceholder("3D CONCEPT VIEW", "DEPTH & SPOTLIGHT SIMULATION", "#E4E6EA", "#C8CDD6", "#111111"),
+          actualImg: svgPlaceholder("ACTUAL SETUP", "EVENING BANQUET STAGE", "#F4F2EC", "#DDD7C8", "#A68A56"),
+          hasCustomConcept: false
+        },
+        {
+          id: "proj-3",
+          title: "晨曦庭院 · 仪式长廊",
+          category: "3D CONCEPT & REALIZED",
+          description: "结合走道地毯延伸视觉长度，让新人步入场地的每一步都拥有清晰而克制的仪式节奏。",
+          conceptImg: svgPlaceholder("3D CONCEPT VIEW", "AISLE PROPORTION & PERSPECTIVE", "#EAECE8", "#D2D7CE", "#111111"),
+          actualImg: svgPlaceholder("ACTUAL SETUP", "CEREMONY AISLE & FLORALS", "#F8F7F4", "#E5E0D5", "#A68A56"),
+          hasCustomConcept: false
+        }
+      ]
+    };
+
+    const STORAGE_KEY = "ULTIMATE_WEDDING_SITE_CONFIG_V1";
+    const AUTH_KEY = "ULTIMATE_WEDDING_GH_SESSION_V1";
+
+    let siteConfig = loadConfig();
+    let ghSession = loadSession();
+
+    // Carpet calculator state
+    let calcState = {
+      lengthFt: 40,
+      widthFt: 6,
+      withWood: false
+    };
+
+    function loadConfig() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(DEFAULT_CONFIG);
+        const parsed = JSON.parse(raw);
+        return {
+          texts: { ...DEFAULT_CONFIG.texts, ...(parsed.texts || {}) },
+          carpetRates: { ...DEFAULT_CONFIG.carpetRates, ...(parsed.carpetRates || {}) },
+          packages: Array.isArray(parsed.packages) ? parsed.packages : structuredClone(DEFAULT_CONFIG.packages),
+          addons: Array.isArray(parsed.addons) ? parsed.addons : structuredClone(DEFAULT_CONFIG.addons),
+          portfolio: Array.isArray(parsed.portfolio) ? parsed.portfolio : structuredClone(DEFAULT_CONFIG.portfolio)
+        };
+      } catch (e) {
+        return structuredClone(DEFAULT_CONFIG);
+      }
+    }
+
+    function saveConfigToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(siteConfig));
+    }
+
+    function loadSession() {
+      try {
+        return JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function saveSessionToStorage() {
+      if (ghSession) localStorage.setItem(AUTH_KEY, JSON.stringify(ghSession));
+      else localStorage.removeItem(AUTH_KEY);
+    }
+
+    // ================= SPLASH & NAVIGATION =================
+    function enterSite() {
+      const splash = document.getElementById("splash-screen");
+      const main = document.getElementById("main-site");
+      splash.classList.add("is-exiting");
+      main.classList.add("is-visible");
+    }
+
+    function replaySplash() {
+      const splash = document.getElementById("splash-screen");
+      const main = document.getElementById("main-site");
+      main.classList.remove("is-visible");
+      splash.classList.remove("is-exiting");
+    }
+
+    document.getElementById("splash-screen").addEventListener("click", enterSite);
+    document.getElementById("splash-screen").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        enterSite();
+      }
+    });
+
+    function switchMainTab(tabName) {
+      document.querySelectorAll(".nav-tab-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabName);
+      });
+      document.querySelectorAll(".tab-panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.id === "tab-" + tabName);
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ================= RENDER SITE =================
+    function renderAll() {
+      const t = siteConfig.texts;
+      document.getElementById("splash-brand-text").textContent = t.splashBrand;
+      document.getElementById("splash-hint-text").textContent = t.splashHint;
+      document.getElementById("header-brand-text").textContent = t.splashBrand;
+      document.getElementById("hero-eyebrow").textContent = t.heroEyebrow;
+      document.getElementById("hero-title").textContent = t.heroTitle;
+      document.getElementById("hero-subtitle").textContent = t.heroSubtitle;
+
+      document.getElementById("portfolio-heading").textContent = t.portfolioHeading;
+      document.getElementById("portfolio-subheading").textContent = t.portfolioSubheading;
+
+      document.getElementById("pricing-heading").textContent = t.pricingHeading;
+      document.getElementById("pricing-subheading").textContent = t.pricingSubheading;
+      document.getElementById("addons-title").textContent = t.addonsTitle;
+      document.getElementById("addons-subtitle").textContent = t.addonsSubtitle;
+      document.getElementById("calc-title").textContent = t.calcTitle;
+      document.getElementById("calc-subtitle").textContent = t.calcSubtitle;
+
+      document.getElementById("about-heading").textContent = t.aboutHeading;
+      document.getElementById("about-subheading").textContent = t.aboutSubheading;
+      document.getElementById("about-p1").textContent = t.aboutP1;
+      document.getElementById("about-p2").textContent = t.aboutP2;
+      document.getElementById("about-p3").textContent = t.aboutP3;
+      document.getElementById("studio-location").textContent = t.studioLocation;
+      document.getElementById("studio-email").textContent = t.studioEmail;
+      document.getElementById("studio-social").textContent = t.studioSocial;
+      document.getElementById("footer-copy").textContent = t.footerCopy;
+
+      renderAboutMetrics();
+      renderPortfolio();
+      renderPackagesAndAddons();
+      updateCarpetButtons();
+      recalcCarpet();
+      updateAuthBadge();
+    }
+
+    function renderAboutMetrics() {
+      const metrics = [
+        { num: "100%", label: "先出 3D 空间预演再搭建" },
+        { num: "40–80 ft", label: "多规格场地地毯快速测算" },
+        { num: "RM 1.5 / 4", label: "无木底 / 有木底清晰单价" },
+        { num: "CMS", label: "支持后台替换图片与文案" }
+      ];
+      document.getElementById("about-metrics").innerHTML = metrics.map((m) => `
+        <div class="metric-card">
+          <div class="metric-num">${escapeHtml(m.num)}</div>
+          <div class="metric-label">${escapeHtml(m.label)}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderPortfolio() {
+      const grid = document.getElementById("portfolio-grid");
+      grid.innerHTML = siteConfig.portfolio.map((item, idx) => {
+        const simClass = item.hasCustomConcept ? "" : "simulated-look";
+        return `
+          <article class="project-card" data-index="${idx}">
+            <div class="visual-stage mode-compare" id="stage-${idx}">
+              <!-- Base layer: Actual completed photo -->
+              <img src="${item.actualImg}" alt="${escapeHtml(item.title)} 实际完成品" class="visual-layer" />
+
+              <!-- Top layer: 3D concept render -->
+              <div class="split-top-layer" id="split-top-${idx}">
+                <img src="${item.conceptImg}" alt="${escapeHtml(item.title)} 3D 概念图" class="visual-layer concept-3d ${simClass}" />
+              </div>
+
+              <div class="grid-overlay-3d"></div>
+              <div class="split-divider" id="split-divider-${idx}">
+                <div class="split-knob">⇄</div>
+              </div>
+              <input type="range" min="0" max="100" value="50" class="split-range" aria-label="拖动对比 3D 概念图与实际完成品" oninput="scrubCompare(${idx}, this.value)" />
+
+              <div class="mode-pill-bar">
+                <div class="mode-switch-group">
+                  <button type="button" class="mode-btn" id="btn-3d-${idx}" onclick="setCardViewMode(${idx}, '3d')">3D 概念图</button>
+                  <button type="button" class="mode-btn active" id="btn-compare-${idx}" onclick="setCardViewMode(${idx}, 'compare')">对比滑杆</button>
+                  <button type="button" class="mode-btn" id="btn-actual-${idx}" onclick="setCardViewMode(${idx}, 'actual')">实际完成品</button>
+                </div>
+                <span class="stage-tag" id="tag-${idx}">左 3D / 右实景</span>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
+              <h3 class="project-title">${escapeHtml(item.title)}</h3>
+              <p class="project-desc">${escapeHtml(item.description)}</p>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function setCardViewMode(idx, mode) {
+      const stage = document.getElementById(`stage-${idx}`);
+      const topLayer = document.getElementById(`split-top-${idx}`);
+      const tag = document.getElementById(`tag-${idx}`);
+
+      document.getElementById(`btn-3d-${idx}`).classList.toggle("active", mode === "3d");
+      document.getElementById(`btn-compare-${idx}`).classList.toggle("active", mode === "compare");
+      document.getElementById(`btn-actual-${idx}`).classList.toggle("active", mode === "actual");
+
+      stage.classList.remove("mode-3d", "mode-compare", "mode-actual");
+      stage.classList.add(`mode-${mode}`);
+
+      if (mode === "3d") {
+        topLayer.style.clipPath = "inset(0 0% 0 0)";
+        tag.textContent = "3D 概念图";
+      } else if (mode === "actual") {
+        topLayer.style.clipPath = "inset(0 100% 0 0)";
+        tag.textContent = "实际完成品";
+      } else {
+        const range = stage.querySelector(".split-range");
+        scrubCompare(idx, range ? range.value : 50);
+        tag.textContent = "左 3D / 右实景";
+      }
+    }
+
+    function scrubCompare(idx, pct) {
+      const val = Number(pct);
+      const rightInset = 100 - val;
+      const topLayer = document.getElementById(`split-top-${idx}`);
+      const divider = document.getElementById(`split-divider-${idx}`);
+      if (topLayer) topLayer.style.clipPath = `inset(0 ${rightInset}% 0 0)`;
+      if (divider) divider.style.left = `${val}%`;
+    }
+
+    function renderPackagesAndAddons() {
+      const pkgGrid = document.getElementById("packages-grid");
+      pkgGrid.innerHTML = siteConfig.packages.map((pkg) => `
+        <div class="package-card ${pkg.featured ? "featured" : ""}">
+          <div>
+            <div class="pkg-tier">${escapeHtml(pkg.tier)}</div>
+            <h3 class="pkg-name">${escapeHtml(pkg.name)}</h3>
+            <div class="pkg-price">${escapeHtml(pkg.price)}</div>
+            <p class="pkg-desc">${escapeHtml(pkg.desc)}</p>
+            <ul class="pkg-list">
+              ${(pkg.items || []).map((li) => `<li>${escapeHtml(li)}</li>`).join("")}
+            </ul>
+          </div>
+          <button type="button" class="btn-outline" onclick="switchMainTab('about')">咨询此配套档期</button>
+        </div>
+      `).join("");
+
+      const addonsEl = document.getElementById("addons-list");
+      addonsEl.innerHTML = siteConfig.addons.map((ad) => `
+        <div class="addon-row">
+          <div>
+            <div class="addon-name">${escapeHtml(ad.name)}</div>
+            <div class="addon-note">${escapeHtml(ad.note)}</div>
+          </div>
+          <div class="addon-price">${escapeHtml(ad.price)}</div>
+        </div>
+      `).join("");
+    }
+
+    // ================= CARPET CALCULATOR =================
+    function updateCarpetButtons() {
+      const rNoWood = Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5).toFixed(2);
+      const rWithWood = Number(siteConfig.carpetRates.withWoodPerSqft ?? 4.0).toFixed(2);
+      document.getElementById("base-no-wood-btn").textContent = `无木底 (RM ${rNoWood} / sqft)`;
+      document.getElementById("base-with-wood-btn").textContent = `有木底 (RM ${rWithWood} / sqft)`;
+    }
+
+    function selectLength(len) {
+      calcState.lengthFt = Number(len);
+      document.querySelectorAll("#length-options .calc-choice-btn").forEach((btn) => {
+        btn.classList.toggle("active", Number(btn.dataset.len) === calcState.lengthFt);
+      });
+      recalcCarpet();
+    }
+
+    function setWidthPreset(w) {
+      calcState.widthFt = Number(w);
+      document.getElementById("carpet-width-input").value = w;
+      document.querySelectorAll("#width-presets .calc-choice-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.textContent.trim() === `${w} ft`);
+      });
+      recalcCarpet();
+    }
+
+    function selectWoodBase(withWood) {
+      calcState.withWood = Boolean(withWood);
+      document.getElementById("base-no-wood-btn").classList.toggle("active", !calcState.withWood);
+      document.getElementById("base-with-wood-btn").classList.toggle("active", calcState.withWood);
+      recalcCarpet();
+    }
+
+    function recalcCarpet() {
+      const widthVal = Math.max(0.5, Number(document.getElementById("carpet-width-input").value) || 0);
+      calcState.widthFt = widthVal;
+      const sqft = calcState.lengthFt * calcState.widthFt;
+      const rate = calcState.withWood
+        ? Number(siteConfig.carpetRates.withWoodPerSqft ?? 4.0)
+        : Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5);
+      const total = sqft * rate;
+      const baseLabel = calcState.withWood ? "有木底" : "无木底";
+
+      document.getElementById("calc-formula-text").textContent =
+        `${calcState.lengthFt} ft × ${calcState.widthFt} ft = ${sqft.toFixed(1)} sqft × RM ${rate.toFixed(2)} / sqft（${baseLabel}）`;
+      document.getElementById("calc-total-price").textContent = `RM ${total.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function copyCarpetQuote() {
+      const formula = document.getElementById("calc-formula-text").textContent;
+      const total = document.getElementById("calc-total-price").textContent;
+      const text = `【ULTIMATE 地毯/走道报价预估】\n规格与算式：${formula}\n预估金额：${total}`;
+      navigator.clipboard?.writeText(text).then(() => {
+        showToast("已复制地毯报价明细");
+      }).catch(() => {
+        showToast("报价明细已准备好");
+      });
+    }
+
+    // ================= GITHUB LOGIN & CMS EDITOR =================
+    function openAdminModal() {
+      document.getElementById("admin-modal").classList.add("open");
+      refreshModalView();
+    }
+
+    function closeAdminModal() {
+      document.getElementById("admin-modal").classList.remove("open");
+    }
+
+    function updateAuthBadge() {
+      const dot = document.getElementById("admin-status-dot");
+      const label = document.getElementById("admin-btn-label");
+      if (ghSession && ghSession.username) {
+        dot.classList.add("live");
+        label.textContent = `@${ghSession.username}`;
+      } else {
+        dot.classList.remove("live");
+        label.textContent = "GitHub 后台";
+      }
+    }
+
+    function refreshModalView() {
+      const loggedIn = Boolean(ghSession && ghSession.username);
+      document.getElementById("github-login-view").style.display = loggedIn ? "none" : "block";
+      document.getElementById("cms-editor-view").style.display = loggedIn ? "block" : "none";
+      if (loggedIn) {
+        document.getElementById("gh-active-user").textContent = `@${ghSession.username}`;
+        document.getElementById("gh-sync-mode-badge").textContent = ghSession.token
+          ? "· 已配置 Token（可直推 GitHub）"
+          : "· 本地编辑模式（可导出 JSON 或配置 Token）";
+        populateCmsForms();
+      }
+    }
+
+    function loginWithGitHub() {
+      const rawUser = document.getElementById("gh-username-input").value.trim().replace(/^@/, "");
+      const token = document.getElementById("gh-token-input").value.trim();
+      const repo = document.getElementById("gh-repo-input").value.trim();
+      if (!rawUser) {
+        showToast("请先输入您的 GitHub 用户名");
+        return;
+      }
+      ghSession = {
+        username: rawUser,
+        token: token,
+        repo: repo,
+        branch: "main",
+        loggedInAt: new Date().toISOString()
+      };
+      saveSessionToStorage();
+      updateAuthBadge();
+      refreshModalView();
+      showToast(`欢迎回来，@${rawUser}`);
+    }
+
+    function logoutGitHub() {
+      ghSession = null;
+      saveSessionToStorage();
+      updateAuthBadge();
+      refreshModalView();
+      showToast("已退出 GitHub 后台");
+    }
+
+    function switchCmsTab(tabId) {
+      document.querySelectorAll(".cms-subtab").forEach((b) => b.classList.toggle("active", b.dataset.cms === tabId));
+      document.querySelectorAll(".cms-section").forEach((s) => s.classList.toggle("active", s.id === tabId));
+    }
+
+    function populateCmsForms() {
+      const t = siteConfig.texts;
+      document.getElementById("edit-splash-brand").value = t.splashBrand;
+      document.getElementById("edit-splash-hint").value = t.splashHint;
+      document.getElementById("edit-hero-eyebrow").value = t.heroEyebrow;
+      document.getElementById("edit-hero-title").value = t.heroTitle;
+      document.getElementById("edit-hero-subtitle").value = t.heroSubtitle;
+      document.getElementById("edit-portfolio-heading").value = t.portfolioHeading;
+      document.getElementById("edit-pricing-heading").value = t.pricingHeading;
+      document.getElementById("edit-about-heading").value = t.aboutHeading;
+      document.getElementById("edit-footer-copy").value = t.footerCopy;
+      document.getElementById("edit-about-p1").value = t.aboutP1;
+      document.getElementById("edit-about-p2").value = t.aboutP2;
+      document.getElementById("edit-about-p3").value = t.aboutP3;
+      document.getElementById("edit-studio-location").value = t.studioLocation;
+      document.getElementById("edit-studio-email").value = t.studioEmail;
+
+      document.getElementById("edit-rate-no-wood").value = siteConfig.carpetRates.noWoodPerSqft;
+      document.getElementById("edit-rate-with-wood").value = siteConfig.carpetRates.withWoodPerSqft;
+      document.getElementById("edit-packages-json").value = JSON.stringify(siteConfig.packages, null, 2);
+      document.getElementById("edit-addons-json").value = JSON.stringify(siteConfig.addons, null, 2);
+
+      document.getElementById("sync-repo-input").value = ghSession?.repo || "";
+      document.getElementById("sync-branch-input").value = ghSession?.branch || "main";
+      document.getElementById("sync-token-input").value = ghSession?.token || "";
+
+      renderCmsPortfolioList();
+    }
+
+    function renderCmsPortfolioList() {
+      const wrap = document.getElementById("cms-portfolio-list");
+      wrap.innerHTML = siteConfig.portfolio.map((p, idx) => `
+        <div class="cms-project-item">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <strong>作品 #${idx + 1}：${escapeHtml(p.title)}</strong>
+            ${siteConfig.portfolio.length > 1 ? `<button type="button" class="btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="removePortfolioItem(${idx})">删除</button>` : ""}
+          </div>
+          <div class="cms-grid-2">
+            <div>
+              <label class="calc-label">作品名称</label>
+              <input type="text" class="input-field" value="${escapeAttr(p.title)}" onchange="updatePortfolioField(${idx}, 'title', this.value)" />
+            </div>
+            <div>
+              <label class="calc-label">分类标签</label>
+              <input type="text" class="input-field" value="${escapeAttr(p.category || '')}" onchange="updatePortfolioField(${idx}, 'category', this.value)" />
+            </div>
+          </div>
+          <label class="calc-label">作品简介</label>
+          <input type="text" class="input-field" value="${escapeAttr(p.description || '')}" onchange="updatePortfolioField(${idx}, 'description', this.value)" />
+
+          <div class="cms-grid-2" style="margin-top:10px;">
+            <div>
+              <label class="calc-label">3D 概念图（上传图片或贴网址）</label>
+              <input type="file" accept="image/*" style="font-size:0.78rem; margin-bottom:6px;" onchange="handleImageUpload(${idx}, 'conceptImg', this)" />
+              <input type="text" class="input-field" value="${escapeAttr(p.conceptImg)}" placeholder="图片 URL 或 Data URI" onchange="updatePortfolioField(${idx}, 'conceptImg', this.value)" />
+            </div>
+            <div>
+              <label class="calc-label">实际完成品（上传图片或贴网址）</label>
+              <input type="file" accept="image/*" style="font-size:0.78rem; margin-bottom:6px;" onchange="handleImageUpload(${idx}, 'actualImg', this)" />
+              <input type="text" class="input-field" value="${escapeAttr(p.actualImg)}" placeholder="图片 URL 或 Data URI" onchange="updatePortfolioField(${idx}, 'actualImg', this.value)" />
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function updatePortfolioField(idx, field, val) {
+      siteConfig.portfolio[idx][field] = val;
+      if (field === "conceptImg") {
+        siteConfig.portfolio[idx].hasCustomConcept = true;
+      }
+    }
+
+    function handleImageUpload(idx, field, inputEl) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        siteConfig.portfolio[idx][field] = e.target.result;
+        if (field === "conceptImg") siteConfig.portfolio[idx].hasCustomConcept = true;
+        renderCmsPortfolioList();
+        showToast("图片已载入，点击「保存并应用到页面」即可生效");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function addNewPortfolioItem() {
+      siteConfig.portfolio.push({
+        id: "proj-" + Date.now(),
+        title: "全新婚礼空间案例",
+        category: "3D CONCEPT & REALIZED",
+        description: "请在此填写该场婚礼的 3D 概念与现场布置亮点。",
+        conceptImg: svgPlaceholder("3D CONCEPT", "NEW WEDDING DESIGN", "#ECEAE4", "#D8D4C8", "#111111"),
+        actualImg: svgPlaceholder("ACTUAL SETUP", "NEW WEDDING REALIZED", "#F7F6F2", "#E6E2D8", "#A68A56"),
+        hasCustomConcept: false
+      });
+      renderCmsPortfolioList();
+    }
+
+    function removePortfolioItem(idx) {
+      siteConfig.portfolio.splice(idx, 1);
+      renderCmsPortfolioList();
+    }
+
+    function saveAllChanges() {
+      const t = siteConfig.texts;
+      t.splashBrand = document.getElementById("edit-splash-brand").value.trim() || "ULTIMATE";
+      t.splashHint = document.getElementById("edit-splash-hint").value.trim() || "点击任意处进入空间";
+      t.heroEyebrow = document.getElementById("edit-hero-eyebrow").value.trim();
+      t.heroTitle = document.getElementById("edit-hero-title").value.trim();
+      t.heroSubtitle = document.getElementById("edit-hero-subtitle").value.trim();
+      t.portfolioHeading = document.getElementById("edit-portfolio-heading").value.trim();
+      t.pricingHeading = document.getElementById("edit-pricing-heading").value.trim();
+      t.aboutHeading = document.getElementById("edit-about-heading").value.trim();
+      t.footerCopy = document.getElementById("edit-footer-copy").value.trim();
+      t.aboutP1 = document.getElementById("edit-about-p1").value.trim();
+      t.aboutP2 = document.getElementById("edit-about-p2").value.trim();
+      t.aboutP3 = document.getElementById("edit-about-p3").value.trim();
+      t.studioLocation = document.getElementById("edit-studio-location").value.trim();
+      t.studioEmail = document.getElementById("edit-studio-email").value.trim();
+
+      siteConfig.carpetRates.noWoodPerSqft = Math.max(0, Number(document.getElementById("edit-rate-no-wood").value) || 1.5);
+      siteConfig.carpetRates.withWoodPerSqft = Math.max(0, Number(document.getElementById("edit-rate-with-wood").value) || 4.0);
+
+      try {
+        siteConfig.packages = JSON.parse(document.getElementById("edit-packages-json").value);
+        siteConfig.addons = JSON.parse(document.getElementById("edit-addons-json").value);
+      } catch (e) {
+        showToast("配套或加购 JSON 格式有误，请检查括号与逗号");
+        return;
+      }
+
+      if (ghSession) {
+        ghSession.repo = document.getElementById("sync-repo-input").value.trim() || ghSession.repo;
+        ghSession.branch = document.getElementById("sync-branch-input").value.trim() || "main";
+        ghSession.token = document.getElementById("sync-token-input").value.trim() || ghSession.token;
+        saveSessionToStorage();
+      }
+
+      saveConfigToStorage();
+      renderAll();
+      showToast("已保存并更新全站内容");
+    }
+
+    function downloadConfigJSON() {
+      const blob = new Blob([JSON.stringify(siteConfig, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "site-config.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("已下载 site-config.json，可放入 data/ 目录提交至 GitHub");
+    }
+
+    async function pushConfigToGitHub() {
+      const repo = document.getElementById("sync-repo-input").value.trim();
+      const branch = document.getElementById("sync-branch-input").value.trim() || "main";
+      const token = document.getElementById("sync-token-input").value.trim();
+      const statusEl = document.getElementById("github-sync-status");
+
+      if (!repo || !token) {
+        statusEl.textContent = "请先填写仓库路径（owner/repo）与 GitHub Token。";
+        return;
+      }
+
+      saveAllChanges();
+      statusEl.textContent = "正在连接 GitHub API 更新 data/site-config.json...";
+
+      const path = "data/site-config.json";
+      const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+      const headers = {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      };
+
+      try {
+        let sha = undefined;
+        const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
+        if (getRes.ok) {
+          const existing = await getRes.json();
+          sha = existing.sha;
+        }
+
+        const contentStr = JSON.stringify(siteConfig, null, 2);
+        const bytes = new TextEncoder().encode(contentStr);
+        let binary = "";
+        bytes.forEach((b) => { binary += String.fromCharCode(b); });
+        const base64Content = btoa(binary);
+
+        const putRes = await fetch(apiUrl, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({
+            message: `chore: update ULTIMATE site config via CMS (@${ghSession?.username || "admin"})`,
+            content: base64Content,
+            branch,
+            ...(sha ? { sha } : {})
+          })
+        });
+
+        if (!putRes.ok) {
+          const errData = await putRes.json().catch(() => ({}));
+          throw new Error(errData.message || `HTTP ${putRes.status}`);
+        }
+        statusEl.textContent = `推送成功！已更新 ${repo} (${branch}) 的 ${path}。`;
+        showToast("已成功同步至 GitHub 仓库");
+      } catch (err) {
+        statusEl.textContent = `同步失败（${err.message}）。您仍可使用「下载 site-config.json」手动提交。`;
+        showToast("GitHub 直推未完成，可使用 JSON 导出");
+      }
+    }
+
+    function resetToDefaultConfig() {
+      siteConfig = structuredClone(DEFAULT_CONFIG);
+      saveConfigToStorage();
+      populateCmsForms();
+      renderAll();
+      showToast("已恢复出厂默认内容");
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "").replace(/[&<>"']/g, (m) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[m]));
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str);
+    }
+
+    // Boot
+    renderAll();
+  </script>
+</body>
+</html>

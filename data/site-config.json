@@ -1,0 +1,13 @@
+{
+  "note": "此文件可由后台导出覆盖，或通过后台 GitHub 直推功能自动更新",
+  "carpetRates": {
+    "lengths": [
+      40,
+      52,
+      60,
+      80
+    ],
+    "noWoodPerSqft": 1.5,
+    "withWoodPerSqft": 4.0
+  }
+}
