@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#EAE8E1"/>
+  <rect x="100" y="100" width="1000" height="700" fill="none" stroke="#111111" stroke-opacity="0.35" stroke-width="2"/>
+  <text x="600" y="420" text-anchor="middle" fill="#111111" font-family="Georgia, serif" font-size="44" letter-spacing="6">3D CONCEPT VIEW</text>
+  <text x="600" y="475" text-anchor="middle" fill="#5C5C5C" font-family="sans-serif" font-size="22" letter-spacing="3">请在 /admin 后台上传您的 3D 概念图</text>
+</svg>

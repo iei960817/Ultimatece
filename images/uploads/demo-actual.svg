@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#F7F5F0"/>
+  <rect x="100" y="100" width="1000" height="700" fill="none" stroke="#A68A56" stroke-opacity="0.45" stroke-width="2"/>
+  <text x="600" y="420" text-anchor="middle" fill="#111111" font-family="Georgia, serif" font-size="44" letter-spacing="6">ACTUAL SETUP</text>
+  <text x="600" y="475" text-anchor="middle" fill="#A68A56" font-family="sans-serif" font-size="22" letter-spacing="3">请在 /admin 后台上传您的实际完成品照片</text>
+</svg>

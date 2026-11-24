@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "zh-Hans"
+
+collections:
+  - name: "site_settings"
+    label: "全站内容管理（作品 / 价钱 / 文字）"
+    files:
+      - name: "site_config"
+        label: "ULTIMATE 网站总配置"
+        file: "data/site-config.json"
+        fields:
+          - label: "1. 精选作品列表（3D 概念图 & 实际完成品）"
+            name: "portfolio"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.category}})"
+            fields:
+              - { label: "作品名称", name: "title", widget: "string", default: "全新婚礼空间案例" }
+              - { label: "英文副标签", name: "category", widget: "string", default: "3D CONCEPT & REALIZED" }
+              - { label: "作品简介", name: "description", widget: "text" }
+              - { label: "3D 概念效果图", name: "conceptImg", widget: "image" }
+              - { label: "实际完成品照片", name: "actualImg", widget: "image" }
+
+          - label: "2. 常规婚礼布置配套"
+            name: "packages"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "档次标签", name: "tier", widget: "string", default: "SIGNATURE" }
+              - { label: "配套名称", name: "name", widget: "string" }
+              - { label: "配套价格", name: "price", widget: "string", default: "RM 12,800" }
+              - { label: "是否主推高亮", name: "featured", widget: "boolean", default: false }
+              - { label: "配套简介", name: "desc", widget: "text" }
+              - label: "包含服务明细"
+                name: "items"
+                widget: "list"
+                field: { label: "条目", name: "item", widget: "string" }
+
+          - label: "3. 单独加购项目 (Add-ons)"
+            name: "addons"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "加购项目名称", name: "name", widget: "string" }
+              - { label: "说明备注", name: "note", widget: "string" }
+              - { label: "价格显示", name: "price", widget: "string" }
+
+          - label: "4. 地毯计算器单价设置"
+            name: "carpetRates"
+            widget: "object"
+            fields:
+              - { label: "无木底每平方尺价格 (RM/sqft)", name: "noWoodPerSqft", widget: "number", value_type: "float", default: 1.5 }
+              - { label: "有木底每平方尺价格 (RM/sqft)", name: "withWoodPerSqft", widget: "number", value_type: "float", default: 4.0 }
+
+          - label: "5. 全站文字与关于我们编辑"
+            name: "texts"
+            widget: "object"
+            fields:
+              - { label: "开场白屏品牌字样", name: "splashBrand", widget: "string", default: "ULTIMATE" }
+              - { label: "开场白屏提示语", name: "splashHint", widget: "string", default: "点击任意处进入空间" }
+              - { label: "首页顶部英文小标语", name: "heroEyebrow", widget: "string" }
+              - { label: "首页主标题", name: "heroTitle", widget: "string" }
+              - { label: "首页副标题", name: "heroSubtitle", widget: "text" }
+              - { label: "作品区主标题", name: "portfolioHeading", widget: "string" }
+              - { label: "作品区副标题", name: "portfolioSubheading", widget: "text" }
+              - { label: "价钱区主标题", name: "pricingHeading", widget: "string" }
+              - { label: "价钱区副标题", name: "pricingSubheading", widget: "text" }
+              - { label: "单独加购区标题", name: "addonsTitle", widget: "string" }
+              - { label: "单独加购区副标题", name: "addonsSubtitle", widget: "string" }
+              - { label: "地毯计算器标题", name: "calcTitle", widget: "string" }
+              - { label: "地毯计算器副标题", name: "calcSubtitle", widget: "string" }
+              - { label: "关于我们主标题", name: "aboutHeading", widget: "string" }
+              - { label: "关于我们副标题", name: "aboutSubheading", widget: "string" }
+              - { label: "关于我们 · 第一段", name: "aboutP1", widget: "text" }
+              - { label: "关于我们 · 第二段", name: "aboutP2", widget: "text" }
+              - { label: "关于我们 · 第三段", name: "aboutP3", widget: "text" }
+              - { label: "工作室地址", name: "studioLocation", widget: "string" }
+              - { label: "联络电邮", name: "studioEmail", widget: "string" }
+              - { label: "Instagram / 社交账号", name: "studioSocial", widget: "string" }
+              - { label: "页脚版权声明", name: "footerCopy", widget: "string" }

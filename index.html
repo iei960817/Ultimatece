@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     :root {
       --bg-canvas: #FFFFFF;
@@ -35,7 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* ================= SPLASH SCREEN (SILKY SMOOTH ENTRANCE) ================= */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -95,7 +95,6 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.18); }
     }
-    /* Silky subtle expansion instead of jarring giant black flash */
     #splash-screen.is-exiting .splash-dot {
       animation: none;
       transform: scale(2.8);
@@ -133,7 +132,6 @@
     }
     #splash-screen.is-exiting .splash-hint { opacity: 0; }
 
-    /* ================= MAIN SITE WRAPPER & STAGGERED ENTRANCE ================= */
     #main-site {
       opacity: 0;
       transform: translateY(18px);
@@ -147,7 +145,6 @@
       transform: translateY(0);
     }
 
-    /* ================= TOP NAVIGATION (DESKTOP + MOBILE RESPONSIVE) ================= */
     .site-header {
       position: sticky;
       top: 0;
@@ -193,15 +190,15 @@
     .top-right-nav {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 34px;
     }
     .nav-tab-btn {
       position: relative;
       background: none;
       border: none;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
+      font-size: 0.92rem;
+      letter-spacing: 0.1em;
       color: var(--ink-secondary);
       cursor: pointer;
       padding: 10px 2px;
@@ -225,36 +222,7 @@
       height: 1.5px;
       background: var(--ink-primary);
     }
-    .admin-trigger-btn {
-      background: var(--bg-subtle);
-      color: var(--ink-primary);
-      border: 1px solid var(--border-light);
-      padding: 8px 14px;
-      min-height: 38px;
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      border-radius: 2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.25s ease;
-      white-space: nowrap;
-    }
-    .admin-trigger-btn:hover {
-      border-color: var(--ink-primary);
-      background: #FFFFFF;
-    }
-    .admin-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #16a34a;
-      display: none;
-    }
-    .admin-badge-dot.live { display: inline-block; }
 
-    /* ================= HERO BANNER ================= */
     .hero-strip {
       max-width: 1320px;
       margin: 0 auto;
@@ -287,7 +255,6 @@
       justify-self: end;
     }
 
-    /* ================= TAB PANELS ================= */
     .container {
       max-width: 1320px;
       margin: 0 auto;
@@ -317,7 +284,6 @@
       font-size: 0.9rem;
     }
 
-    /* ================= PORTFOLIO & 3D / ACTUAL SWITCHER + EXPAND BUTTON ================= */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -337,6 +303,7 @@
       overflow: hidden;
       background: #F2F2EE;
       touch-action: pan-y;
+      user-select: none;
     }
     .visual-layer {
       position: absolute;
@@ -344,7 +311,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.35s ease;
       user-select: none;
       -webkit-user-drag: none;
     }
@@ -361,8 +327,10 @@
         linear-gradient(to right, rgba(255,255,255,0.22) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.22) 1px, transparent 1px);
       background-size: 32px 32px;
+      z-index: 4;
     }
-    .visual-stage.mode-3d .grid-overlay-3d { opacity: 1; }
+    .visual-stage.mode-3d .grid-overlay-3d,
+    .lightbox-stage.mode-3d .grid-overlay-3d { opacity: 1; }
 
     .split-top-layer {
       position: absolute;
@@ -370,6 +338,7 @@
       overflow: hidden;
       clip-path: inset(0 50% 0 0);
       pointer-events: none;
+      z-index: 3;
     }
     .split-divider {
       position: absolute;
@@ -378,47 +347,52 @@
       left: 50%;
       width: 2px;
       background: #FFFFFF;
-      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+      box-shadow: 0 0 14px rgba(0,0,0,0.45);
       pointer-events: none;
       display: none;
-      z-index: 10;
+      z-index: 12;
     }
-    .visual-stage.mode-compare .split-divider { display: block; }
+    .visual-stage.mode-compare .split-divider,
+    .lightbox-stage.mode-compare .split-divider { display: block; }
+
     .split-knob {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: #111111;
       color: #FFFFFF;
       border: 2px solid #FFFFFF;
-      font-size: 0.74rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
     }
     .split-range {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
+      margin: 0;
       opacity: 0;
       cursor: ew-resize;
-      z-index: 12;
+      z-index: 15;
       display: none;
+      touch-action: none;
     }
-    .visual-stage.mode-compare .split-range { display: block; }
+    .visual-stage.mode-compare .split-range,
+    .lightbox-stage.mode-compare .split-range { display: block; }
 
     .mode-pill-bar {
       position: absolute;
       top: 12px;
       left: 12px;
       right: 12px;
-      z-index: 16;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -451,13 +425,12 @@
       font-weight: 600;
     }
 
-    /* Bottom bar inside image stage: status tag + Expand Fullscreen button */
     .stage-bottom-bar {
       position: absolute;
       bottom: 12px;
       left: 12px;
       right: 12px;
-      z-index: 16;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -514,12 +487,11 @@
       color: var(--ink-secondary);
     }
 
-    /* ================= FULLSCREEN LIGHTBOX WITH INTERACTIVE COMPARE ================= */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
       z-index: 8000;
-      background: rgba(12, 12, 12, 0.94);
+      background: rgba(12, 12, 12, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       display: none;
@@ -572,7 +544,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 14px auto;
+      margin: 12px auto;
       width: 100%;
       max-width: 1280px;
       min-height: 0;
@@ -582,26 +554,67 @@
       width: 100%;
       max-width: 1120px;
       aspect-ratio: 4 / 3;
-      max-height: 70vh;
+      max-height: 68vh;
       background: #1B1B1B;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.22);
       overflow: hidden;
-      touch-action: pan-y;
+      touch-action: none;
+      user-select: none;
     }
     .lightbox-stage .split-knob {
-      width: 44px;
-      height: 44px;
-      font-size: 0.85rem;
+      width: 48px;
+      height: 48px;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.5);
     }
+
     .lightbox-controls {
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      flex-wrap: wrap;
       gap: 12px;
+    }
+    .lb-slider-bar-wrap {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+    }
+    .lb-visible-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: rgba(255,255,255,0.28);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+    .lb-visible-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #111111;
+      cursor: ew-resize;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .lb-visible-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #111111;
+      cursor: ew-resize;
     }
     .lb-mode-group {
       display: inline-flex;
@@ -626,7 +639,6 @@
       font-weight: 600;
     }
 
-    /* ================= PRICING & CARPET CALCULATOR ================= */
     .packages-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -713,7 +725,6 @@
     .addon-note { font-size: 0.78rem; color: var(--ink-muted); }
     .addon-price { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; white-space: nowrap; }
 
-    /* Carpet Calculator */
     .calc-label {
       display: block;
       font-size: 0.78rem;
@@ -806,7 +817,6 @@
     }
     .btn-outline:hover { background: var(--bg-subtle); }
 
-    /* ================= ABOUT US ================= */
     .about-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -840,7 +850,6 @@
       margin-top: 4px;
     }
 
-    /* ================= FOOTER ================= */
     .site-footer {
       border-top: 1px solid var(--border-light);
       padding: 28px 32px calc(28px + env(safe-area-inset-bottom, 0px));
@@ -855,91 +864,6 @@
       color: var(--ink-muted);
     }
 
-    /* ================= ADMIN MODAL (GITHUB LOGIN + CMS EDITOR) ================= */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 5000;
-      background: rgba(17, 17, 17, 0.56);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-card {
-      width: 100%;
-      max-width: 920px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: #FFFFFF;
-      border: 1px solid var(--ink-primary);
-      padding: 28px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-    }
-    .modal-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      border-bottom: 1px solid var(--border-light);
-      padding-bottom: 16px;
-      margin-bottom: 22px;
-    }
-    .modal-title {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-    }
-    .close-modal-btn {
-      background: none;
-      border: 1px solid var(--border-light);
-      width: 38px;
-      height: 38px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-    .github-login-box {
-      text-align: center;
-      padding: 32px 16px;
-      border: 1px dashed var(--border-light);
-      background: var(--bg-subtle);
-    }
-    .cms-subtabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--border-light);
-      padding-bottom: 12px;
-    }
-    .cms-subtab {
-      padding: 8px 13px;
-      min-height: 38px;
-      border: 1px solid var(--border-light);
-      background: #FFFFFF;
-      cursor: pointer;
-      font-size: 0.82rem;
-    }
-    .cms-subtab.active {
-      background: var(--ink-primary);
-      color: #FFFFFF;
-      border-color: var(--ink-primary);
-    }
-    .cms-section { display: none; }
-    .cms-section.active { display: block; }
-    .cms-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .cms-project-item {
-      border: 1px solid var(--border-light);
-      padding: 16px;
-      margin-bottom: 16px;
-      background: var(--bg-subtle);
-    }
     .toast-banner {
       position: fixed;
       bottom: max(24px, env(safe-area-inset-bottom, 24px));
@@ -964,97 +888,35 @@
       transform: translate(-50%, 0);
     }
 
-    /* ================= MOBILE OPTIMIZATION (<= 768px) ================= */
     @media (max-width: 860px) {
-      .hero-strip, .pricing-lower, .about-grid, .cms-grid-2 {
+      .hero-strip, .pricing-lower, .about-grid {
         grid-template-columns: 1fr;
       }
       .hero-subtitle { justify-self: start; }
     }
 
     @media (max-width: 680px) {
-      .header-inner {
-        height: auto;
-        min-height: 62px;
-        padding: 10px 16px;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .brand-logo-text {
-        font-size: 1.08rem;
-        letter-spacing: 0.22em;
-      }
-      .top-right-nav {
-        width: 100%;
-        justify-content: space-between;
-        gap: 6px;
-        border-top: 1px solid var(--border-light);
-        padding-top: 6px;
-      }
-      .nav-tab-btn {
-        font-size: 0.85rem;
-        padding: 8px 4px;
-        min-height: 40px;
-      }
-      .admin-trigger-btn {
-        padding: 6px 10px;
-        min-height: 34px;
-        font-size: 0.74rem;
-      }
-      .hero-strip {
-        padding: 32px 16px 26px;
-        gap: 14px;
-      }
-      .container {
-        padding: 32px 16px 64px;
-      }
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .mode-btn {
-        padding: 6px 8px;
-        font-size: 0.7rem;
-      }
-      .expand-compare-btn {
-        padding: 6px 10px;
-        font-size: 0.72rem;
-      }
-      .project-body {
-        padding: 16px 16px 20px;
-      }
-      .panel-box {
-        padding: 20px 16px;
-      }
-      .option-group {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .option-group.two-col {
-        grid-template-columns: 1fr;
-      }
-      .about-metrics {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .site-footer {
-        padding: 22px 16px calc(22px + env(safe-area-inset-bottom, 0px));
-      }
-      .modal-card {
-        padding: 18px 16px;
-        max-height: 92vh;
-      }
-      .lightbox-overlay {
-        padding: max(12px, env(safe-area-inset-top, 12px)) 12px max(16px, env(safe-area-inset-bottom, 16px));
-      }
-      .lightbox-stage {
-        max-height: 62vh;
-      }
+      .header-inner { height: 64px; padding: 0 16px; }
+      .brand-logo-text { font-size: 1.05rem; letter-spacing: 0.22em; }
+      .top-right-nav { gap: 18px; }
+      .nav-tab-btn { font-size: 0.85rem; padding: 8px 2px; }
+      .hero-strip { padding: 32px 16px 26px; gap: 14px; }
+      .container { padding: 32px 16px 64px; }
+      .portfolio-grid { grid-template-columns: 1fr; gap: 24px; }
+      .mode-btn { padding: 6px 8px; font-size: 0.7rem; }
+      .expand-compare-btn { padding: 6px 10px; font-size: 0.72rem; }
+      .project-body { padding: 16px 16px 20px; }
+      .panel-box { padding: 20px 16px; }
+      .option-group { grid-template-columns: repeat(2, 1fr); }
+      .option-group.two-col { grid-template-columns: 1fr; }
+      .about-metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .site-footer { padding: 22px 16px calc(22px + env(safe-area-inset-bottom, 0px)); }
+      .lightbox-overlay { padding: max(12px, env(safe-area-inset-top, 12px)) 12px max(16px, env(safe-area-inset-bottom, 16px)); }
+      .lightbox-stage { max-height: 58vh; }
     }
   </style>
 </head>
 <body>
-
-  <!-- ================= SPLASH SCREEN ================= -->
   <div id="splash-screen" role="button" tabindex="0" aria-label="点击进入 ULTIMATE 网站">
     <div class="splash-dot-wrap">
       <div class="splash-ring"></div>
@@ -1064,7 +926,6 @@
     <div id="splash-hint-text" class="splash-hint">点击任意处进入空间</div>
   </div>
 
-  <!-- ================= MAIN WEBSITE ================= -->
   <div id="main-site">
     <header class="site-header">
       <div class="header-inner">
@@ -1077,10 +938,6 @@
           <button class="nav-tab-btn active" data-tab="portfolio" onclick="switchMainTab('portfolio')">作品</button>
           <button class="nav-tab-btn" data-tab="pricing" onclick="switchMainTab('pricing')">价钱</button>
           <button class="nav-tab-btn" data-tab="about" onclick="switchMainTab('about')">关于我们</button>
-          <button class="admin-trigger-btn" onclick="openAdminModal()">
-            <span id="admin-status-dot" class="admin-badge-dot"></span>
-            <span id="admin-btn-label">GitHub 后台</span>
-          </button>
         </nav>
       </div>
     </header>
@@ -1091,12 +948,11 @@
         <h1 id="hero-title" class="hero-title">以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。</h1>
       </div>
       <p id="hero-subtitle" class="hero-subtitle">
-        先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。所有文字与作品图均支持后台实时替换。
+        先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。
       </p>
     </section>
 
     <main class="container">
-      <!-- TAB 1: 作品 (PORTFOLIO) -->
       <section id="tab-portfolio" class="tab-panel active">
         <div class="section-head">
           <div>
@@ -1107,7 +963,6 @@
         <div id="portfolio-grid" class="portfolio-grid"></div>
       </section>
 
-      <!-- TAB 2: 价钱 (PRICING & CARPET CALCULATOR) -->
       <section id="tab-pricing" class="tab-panel">
         <div class="section-head">
           <div>
@@ -1119,14 +974,12 @@
         <div id="packages-grid" class="packages-grid"></div>
 
         <div class="pricing-lower">
-          <!-- Add-ons -->
           <div class="panel-box">
             <h3 id="addons-title" class="panel-box-title">单独加购项目 (Add-ons)</h3>
             <p id="addons-subtitle" class="panel-box-sub">可根据宴会厅动线与仪式流程自由叠加</p>
             <div id="addons-list"></div>
           </div>
 
-          <!-- Carpet Calculator -->
           <div class="panel-box">
             <h3 id="calc-title" class="panel-box-title">地毯 / 舞台走道简易计算器</h3>
             <p id="calc-subtitle" class="panel-box-sub">选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）</p>
@@ -1172,7 +1025,6 @@
         </div>
       </section>
 
-      <!-- TAB 3: 关于我们 (ABOUT US) -->
       <section id="tab-about" class="tab-panel">
         <div class="section-head">
           <div>
@@ -1208,12 +1060,11 @@
     </footer>
   </div>
 
-  <!-- ================= FULLSCREEN COMPARE LIGHTBOX ================= -->
   <div id="compare-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="lb-project-title">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
         <h3 id="lb-project-title">作品大图对比</h3>
-        <p id="lb-project-sub">左右拖动滑杆，或点击下方按钮切换 3D 概念图 / 实际完成品</p>
+        <p id="lb-project-sub">左右拖动图片上的滑杆或下方控制条，对比 3D 概念图与实际完成品</p>
       </div>
       <button type="button" class="lightbox-close-btn" onclick="closeCompareLightbox()">关闭大图 ✕</button>
     </div>
@@ -1236,6 +1087,11 @@
     </div>
 
     <div class="lightbox-controls">
+      <div class="lb-slider-bar-wrap" id="lb-slider-bar-wrap">
+        <span>3D 概念图</span>
+        <input id="lb-visible-slider" type="range" min="0" max="100" value="50" class="lb-visible-slider" aria-label="调节对比比例" oninput="scrubLightbox(this.value)" />
+        <span>实际完成品</span>
+      </div>
       <div class="lb-mode-group">
         <button type="button" class="lb-mode-btn" id="lb-btn-3d" onclick="setLightboxMode('3d')">只看 3D 概念图</button>
         <button type="button" class="lb-mode-btn active" id="lb-btn-compare" onclick="setLightboxMode('compare')">左右滑动对比</button>
@@ -1244,174 +1100,9 @@
     </div>
   </div>
 
-  <!-- ================= GITHUB LOGIN & CMS EDITOR MODAL ================= -->
-  <div id="admin-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-card">
-      <div class="modal-top">
-        <div>
-          <h2 id="modal-title" class="modal-title">ULTIMATE 后台管理 · 作品替换与全文编辑</h2>
-          <p style="font-size:0.78rem; color:var(--ink-secondary);">支持 GitHub 登录验证、2D/3D 概念图与实景图替换、全站文字编辑及 JSON 导出备份。</p>
-        </div>
-        <button class="close-modal-btn" onclick="closeAdminModal()" aria-label="关闭">×</button>
-      </div>
-
-      <!-- Step 1: GitHub Login -->
-      <div id="github-login-view" class="github-login-box">
-        <p style="font-size:1rem; font-weight:500; margin-bottom:8px;">使用 GitHub 账号登录后台</p>
-        <p style="font-size:0.84rem; color:var(--ink-secondary); max-width:520px; margin:0 auto 20px;">
-          填写您的 GitHub 用户名（可选填拥有 <code>repo</code> 权限的 Personal Access Token 用于直接同步仓库 <code>data/site-config.json</code>，或以本地预览模式进入编辑并导出文件）。
-        </p>
-        <div style="max-width:440px; margin:0 auto 18px; text-align:left;">
-          <label class="calc-label">GitHub 用户名</label>
-          <input id="gh-username-input" type="text" class="input-field" placeholder="例如：your-github-handle" />
-          <label class="calc-label">GitHub Token（可选，用于推送更新到仓库）</label>
-          <input id="gh-token-input" type="password" class="input-field" placeholder="ghp_xxxxxxxxxxxx（留空则为本地/导出模式）" />
-          <label class="calc-label">仓库路径（可选，格式：owner/repo）</label>
-          <input id="gh-repo-input" type="text" class="input-field" placeholder="例如：your-handle/ultimate-wedding" />
-        </div>
-        <button type="button" class="btn-dark" onclick="loginWithGitHub()">继续使用 GitHub 登录</button>
-      </div>
-
-      <!-- Step 2: Logged-in Editor -->
-      <div id="cms-editor-view" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px; padding:12px 16px; background:var(--bg-subtle); border:1px solid var(--border-light);">
-          <div style="font-size:0.85rem;">
-            已登录 GitHub：<strong id="gh-active-user"></strong>
-            <span id="gh-sync-mode-badge" style="margin-left:8px; color:var(--accent-gold);"></span>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button type="button" class="btn-dark" onclick="saveAllChanges()">保存并应用到页面</button>
-            <button type="button" class="btn-outline" onclick="downloadConfigJSON()">下载 site-config.json</button>
-            <button type="button" class="btn-outline" onclick="logoutGitHub()">退出登录</button>
-          </div>
-        </div>
-
-        <div class="cms-subtabs">
-          <button type="button" class="cms-subtab active" data-cms="cms-portfolio" onclick="switchCmsTab('cms-portfolio')">1. 作品与 2D/3D 图替换</button>
-          <button type="button" class="cms-subtab" data-cms="cms-texts" onclick="switchCmsTab('cms-texts')">2. 全站文字编辑</button>
-          <button type="button" class="cms-subtab" data-cms="cms-pricing" onclick="switchCmsTab('cms-pricing')">3. 配套与加购价钱</button>
-          <button type="button" class="cms-subtab" data-cms="cms-github" onclick="switchCmsTab('cms-github')">4. GitHub 仓库同步设置</button>
-        </div>
-
-        <!-- CMS Subtab 1: Portfolio 2D/3D/Actual Editor -->
-        <div id="cms-portfolio" class="cms-section active">
-          <p style="font-size:0.84rem; color:var(--ink-secondary); margin-bottom:14px;">
-            您可以为每个作品上传本地图片（自动转 Base64 预览）或填入图片网址（支持 <strong>3D 概念图</strong> 与 <strong>实际完成品</strong> 切换及放大对比）。
-          </p>
-          <div id="cms-portfolio-list"></div>
-          <button type="button" class="btn-outline" onclick="addNewPortfolioItem()">+ 新增一组婚礼作品</button>
-        </div>
-
-        <!-- CMS Subtab 2: All Texts Editor -->
-        <div id="cms-texts" class="cms-section">
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">开场品牌字样</label>
-              <input id="edit-splash-brand" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">开场提示文字</label>
-              <input id="edit-splash-hint" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">顶部小标语 (Eyebrow)</label>
-              <input id="edit-hero-eyebrow" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">主标题 (Hero Title)</label>
-              <input id="edit-hero-title" type="text" class="input-field" />
-            </div>
-          </div>
-          <label class="calc-label">主副标题描述</label>
-          <textarea id="edit-hero-subtitle" rows="2" class="input-field"></textarea>
-
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">作品区标题</label>
-              <input id="edit-portfolio-heading" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">价钱区标题</label>
-              <input id="edit-pricing-heading" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">关于我们标题</label>
-              <input id="edit-about-heading" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">页脚版权文字</label>
-              <input id="edit-footer-copy" type="text" class="input-field" />
-            </div>
-          </div>
-
-          <label class="calc-label">关于我们 · 第一段</label>
-          <textarea id="edit-about-p1" rows="2" class="input-field"></textarea>
-          <label class="calc-label">关于我们 · 第二段</label>
-          <textarea id="edit-about-p2" rows="2" class="input-field"></textarea>
-          <label class="calc-label">关于我们 · 第三段</label>
-          <textarea id="edit-about-p3" rows="2" class="input-field"></textarea>
-
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">工作室地点</label>
-              <input id="edit-studio-location" type="text" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">联络电邮</label>
-              <input id="edit-studio-email" type="text" class="input-field" />
-            </div>
-          </div>
-        </div>
-
-        <!-- CMS Subtab 3: Pricing & Carpet Rates -->
-        <div id="cms-pricing" class="cms-section">
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">无木底单价 (RM / sqft)</label>
-              <input id="edit-rate-no-wood" type="number" step="0.1" class="input-field" />
-            </div>
-            <div>
-              <label class="calc-label">有木底单价 (RM / sqft)</label>
-              <input id="edit-rate-with-wood" type="number" step="0.1" class="input-field" />
-            </div>
-          </div>
-          <label class="calc-label">常规配套 JSON（可直接修改名称、价格、描述与项目）</label>
-          <textarea id="edit-packages-json" rows="9" class="input-field" style="font-family:monospace; font-size:0.8rem;"></textarea>
-          <label class="calc-label">单独加购项目 JSON</label>
-          <textarea id="edit-addons-json" rows="7" class="input-field" style="font-family:monospace; font-size:0.8rem;"></textarea>
-        </div>
-
-        <!-- CMS Subtab 4: GitHub Sync -->
-        <div id="cms-github" class="cms-section">
-          <p style="font-size:0.86rem; color:var(--ink-secondary); margin-bottom:14px;">
-            如果您已将本项目上传到 GitHub 仓库，填入 <code>owner/repo</code> 与具有仓库读写权限的 Token，点击「推送到 GitHub」即可直接更新仓库中的 <code>data/site-config.json</code>。
-          </p>
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">仓库路径 (owner/repo)</label>
-              <input id="sync-repo-input" type="text" class="input-field" placeholder="username/ultimate-wedding-studio" />
-            </div>
-            <div>
-              <label class="calc-label">分支 (Branch)</label>
-              <input id="sync-branch-input" type="text" class="input-field" value="main" />
-            </div>
-          </div>
-          <label class="calc-label">GitHub Personal Access Token</label>
-          <input id="sync-token-input" type="password" class="input-field" placeholder="ghp_..." />
-          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button type="button" class="btn-dark" onclick="pushConfigToGitHub()">推送到 GitHub (data/site-config.json)</button>
-            <button type="button" class="btn-outline" onclick="resetToDefaultConfig()">恢复出厂预设数据</button>
-          </div>
-          <p id="github-sync-status" style="margin-top:12px; font-size:0.84rem; color:var(--ink-secondary);"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="toast" class="toast-banner"></div>
 
   <script>
-    // ================= DEFAULT CONFIG & SAMPLE SVG DATA =================
     function svgPlaceholder(title, subtitle, bg1, bg2, accent) {
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
         <defs>
@@ -1436,7 +1127,7 @@
         splashHint: "点击任意处进入空间",
         heroEyebrow: "3D SPATIAL WEDDING ATELIER",
         heroTitle: "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。",
-        heroSubtitle: "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。所有文字与作品图均支持后台实时替换。",
+        heroSubtitle: "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
         portfolioHeading: "精选作品 · 3D 概念与实景",
         portfolioSubheading: "每组作品可切换「3D 概念图」、「对比滑杆」或「实际完成品」，点击右下角「放大对比」可全屏细致查看。",
         pricingHeading: "价钱方案与地毯计算器",
@@ -1510,96 +1201,44 @@
       ],
       portfolio: [
         {
-          id: "proj-1",
           title: "白昼之境 · 极简拱廊婚礼",
           category: "3D CONCEPT & REALIZED",
           description: "以纯白与暖沙色花艺勾勒干净线条，在 3D 阶段先确认拱门高度与走道比例，现场严格还原光影。",
           conceptImg: svgPlaceholder("3D CONCEPT VIEW", "ARCHITECTURAL ARCH & LIGHTING", "#ECEAE4", "#D8D4C8", "#111111"),
           actualImg: svgPlaceholder("ACTUAL SETUP", "WHITE & SAND FLORAL STAGE", "#F7F6F2", "#E6E2D8", "#A68A56"),
           hasCustomConcept: false
-        },
-        {
-          id: "proj-2",
-          title: "曜黑与暖金 · 晚宴主舞台",
-          category: "3D CONCEPT & REALIZED",
-          description: "深邃黑调与柔和暖光形成强烈对比，先通过 3D 渲染测算舞台景深与宾客席视线。",
-          conceptImg: svgPlaceholder("3D CONCEPT VIEW", "DEPTH & SPOTLIGHT SIMULATION", "#E4E6EA", "#C8CDD6", "#111111"),
-          actualImg: svgPlaceholder("ACTUAL SETUP", "EVENING BANQUET STAGE", "#F4F2EC", "#DDD7C8", "#A68A56"),
-          hasCustomConcept: false
-        },
-        {
-          id: "proj-3",
-          title: "晨曦庭院 · 仪式长廊",
-          category: "3D CONCEPT & REALIZED",
-          description: "结合走道地毯延伸视觉长度，让新人步入场地的每一步都拥有清晰而克制的仪式节奏。",
-          conceptImg: svgPlaceholder("3D CONCEPT VIEW", "AISLE PROPORTION & PERSPECTIVE", "#EAECE8", "#D2D7CE", "#111111"),
-          actualImg: svgPlaceholder("ACTUAL SETUP", "CEREMONY AISLE & FLORALS", "#F8F7F4", "#E5E0D5", "#A68A56"),
-          hasCustomConcept: false
         }
       ]
     };
 
-    const STORAGE_KEY = "ULTIMATE_WEDDING_SITE_CONFIG_V1";
-    const AUTH_KEY = "ULTIMATE_WEDDING_GH_SESSION_V1";
+    let siteConfig = structuredClone(DEFAULT_CONFIG);
+    let calcState = { lengthFt: 40, widthFt: 6, withWood: false };
+    let lightboxState = { projectIndex: 0, mode: "compare", sliderPct: 50 };
 
-    let siteConfig = loadConfig();
-    let ghSession = loadSession();
-
-    let calcState = {
-      lengthFt: 40,
-      widthFt: 6,
-      withWood: false
-    };
-
-    // Lightbox state
-    let lightboxState = {
-      projectIndex: 0,
-      mode: "compare",
-      sliderPct: 50
-    };
-
-    function loadConfig() {
+    async function initSiteData() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return structuredClone(DEFAULT_CONFIG);
-        const parsed = JSON.parse(raw);
-        return {
-          texts: { ...DEFAULT_CONFIG.texts, ...(parsed.texts || {}) },
-          carpetRates: { ...DEFAULT_CONFIG.carpetRates, ...(parsed.carpetRates || {}) },
-          packages: Array.isArray(parsed.packages) ? parsed.packages : structuredClone(DEFAULT_CONFIG.packages),
-          addons: Array.isArray(parsed.addons) ? parsed.addons : structuredClone(DEFAULT_CONFIG.addons),
-          portfolio: Array.isArray(parsed.portfolio) ? parsed.portfolio : structuredClone(DEFAULT_CONFIG.portfolio)
-        };
-      } catch (e) {
-        return structuredClone(DEFAULT_CONFIG);
-      }
+        const res = await fetch("data/site-config.json?v=" + Date.now());
+        if (res.ok) {
+          const remote = await res.json();
+          siteConfig = {
+            texts: { ...DEFAULT_CONFIG.texts, ...(remote.texts || {}) },
+            carpetRates: { ...DEFAULT_CONFIG.carpetRates, ...(remote.carpetRates || {}) },
+            packages: Array.isArray(remote.packages) && remote.packages.length ? remote.packages : DEFAULT_CONFIG.packages,
+            addons: Array.isArray(remote.addons) && remote.addons.length ? remote.addons : DEFAULT_CONFIG.addons,
+            portfolio: Array.isArray(remote.portfolio) && remote.portfolio.length
+              ? remote.portfolio.map((item) => ({ ...item, hasCustomConcept: true }))
+              : DEFAULT_CONFIG.portfolio
+          };
+        }
+      } catch (e) {}
+      renderAll();
     }
 
-    function saveConfigToStorage() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(siteConfig));
-    }
-
-    function loadSession() {
-      try {
-        return JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function saveSessionToStorage() {
-      if (ghSession) localStorage.setItem(AUTH_KEY, JSON.stringify(ghSession));
-      else localStorage.removeItem(AUTH_KEY);
-    }
-
-    // ================= SPLASH & NAVIGATION =================
     function enterSite() {
       const splash = document.getElementById("splash-screen");
       const main = document.getElementById("main-site");
       splash.classList.add("is-exiting");
-      requestAnimationFrame(() => {
-        main.classList.add("is-visible");
-      });
+      requestAnimationFrame(() => main.classList.add("is-visible"));
     }
 
     function replaySplash() {
@@ -1627,7 +1266,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ================= RENDER SITE =================
     function renderAll() {
       const t = siteConfig.texts;
       document.getElementById("splash-brand-text").textContent = t.splashBrand;
@@ -1636,17 +1274,14 @@
       document.getElementById("hero-eyebrow").textContent = t.heroEyebrow;
       document.getElementById("hero-title").textContent = t.heroTitle;
       document.getElementById("hero-subtitle").textContent = t.heroSubtitle;
-
       document.getElementById("portfolio-heading").textContent = t.portfolioHeading;
       document.getElementById("portfolio-subheading").textContent = t.portfolioSubheading;
-
       document.getElementById("pricing-heading").textContent = t.pricingHeading;
       document.getElementById("pricing-subheading").textContent = t.pricingSubheading;
       document.getElementById("addons-title").textContent = t.addonsTitle;
       document.getElementById("addons-subtitle").textContent = t.addonsSubtitle;
       document.getElementById("calc-title").textContent = t.calcTitle;
       document.getElementById("calc-subtitle").textContent = t.calcSubtitle;
-
       document.getElementById("about-heading").textContent = t.aboutHeading;
       document.getElementById("about-subheading").textContent = t.aboutSubheading;
       document.getElementById("about-p1").textContent = t.aboutP1;
@@ -1662,7 +1297,6 @@
       renderPackagesAndAddons();
       updateCarpetButtons();
       recalcCarpet();
-      updateAuthBadge();
     }
 
     function renderAboutMetrics() {
@@ -1670,7 +1304,7 @@
         { num: "100%", label: "先出 3D 空间预演再搭建" },
         { num: "40–80 ft", label: "多规格场地地毯快速测算" },
         { num: "RM 1.5 / 4", label: "无木底 / 有木底清晰单价" },
-        { num: "CMS", label: "支持后台替换图片与文案" }
+        { num: "1 : 1", label: "概念效果图与现场实景还原" }
       ];
       document.getElementById("about-metrics").innerHTML = metrics.map((m) => `
         <div class="metric-card">
@@ -1687,20 +1321,15 @@
         return `
           <article class="project-card" data-index="${idx}">
             <div class="visual-stage mode-compare" id="stage-${idx}">
-              <!-- Base layer: Actual completed photo -->
               <img src="${item.actualImg}" alt="${escapeHtml(item.title)} 实际完成品" class="visual-layer" />
-
-              <!-- Top layer: 3D concept render -->
               <div class="split-top-layer" id="split-top-${idx}">
                 <img src="${item.conceptImg}" alt="${escapeHtml(item.title)} 3D 概念图" class="visual-layer concept-3d ${simClass}" />
               </div>
-
               <div class="grid-overlay-3d"></div>
               <div class="split-divider" id="split-divider-${idx}">
                 <div class="split-knob">⇄</div>
               </div>
               <input type="range" min="0" max="100" value="50" class="split-range" aria-label="拖动对比 3D 概念图与实际完成品" oninput="scrubCompare(${idx}, this.value)" />
-
               <div class="mode-pill-bar">
                 <div class="mode-switch-group">
                   <button type="button" class="mode-btn" id="btn-3d-${idx}" onclick="setCardViewMode(${idx}, '3d')">3D 概念图</button>
@@ -1708,7 +1337,6 @@
                   <button type="button" class="mode-btn" id="btn-actual-${idx}" onclick="setCardViewMode(${idx}, 'actual')">实际完成品</button>
                 </div>
               </div>
-
               <div class="stage-bottom-bar">
                 <span class="stage-tag" id="tag-${idx}">左 3D / 右实景</span>
                 <button type="button" class="expand-compare-btn" onclick="openCompareLightbox(${idx})" aria-label="放大对比大图">
@@ -1716,7 +1344,6 @@
                 </button>
               </div>
             </div>
-
             <div class="project-body">
               <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
               <h3 class="project-title">${escapeHtml(item.title)}</h3>
@@ -1731,14 +1358,11 @@
       const stage = document.getElementById(`stage-${idx}`);
       const topLayer = document.getElementById(`split-top-${idx}`);
       const tag = document.getElementById(`tag-${idx}`);
-
       document.getElementById(`btn-3d-${idx}`).classList.toggle("active", mode === "3d");
       document.getElementById(`btn-compare-${idx}`).classList.toggle("active", mode === "compare");
       document.getElementById(`btn-actual-${idx}`).classList.toggle("active", mode === "actual");
-
       stage.classList.remove("mode-3d", "mode-compare", "mode-actual");
       stage.classList.add(`mode-${mode}`);
-
       if (mode === "3d") {
         topLayer.style.clipPath = "inset(0 0% 0 0)";
         tag.textContent = "3D 概念图";
@@ -1761,7 +1385,6 @@
       if (divider) divider.style.left = `${val}%`;
     }
 
-    // ================= FULLSCREEN LIGHTBOX COMPARE =================
     function openCompareLightbox(idx) {
       const item = siteConfig.portfolio[idx];
       if (!item) return;
@@ -1770,35 +1393,25 @@
       let initialMode = "compare";
       if (cardStage?.classList.contains("mode-3d")) initialMode = "3d";
       else if (cardStage?.classList.contains("mode-actual")) initialMode = "actual";
-
       const initialPct = cardRange ? Number(cardRange.value) : 50;
 
-      lightboxState = {
-        projectIndex: idx,
-        mode: initialMode,
-        sliderPct: initialPct
-      };
-
+      lightboxState = { projectIndex: idx, mode: initialMode, sliderPct: initialPct };
       document.getElementById("lb-project-title").textContent = item.title;
       document.getElementById("lb-project-sub").textContent = item.description || "左右拖动滑杆，或点击下方按钮切换 3D 概念图 / 实际完成品";
       document.getElementById("lb-actual-img").src = item.actualImg;
-
       const lbConcept = document.getElementById("lb-concept-img");
       lbConcept.src = item.conceptImg;
       lbConcept.classList.toggle("simulated-look", !item.hasCustomConcept);
-
-      const lbRange = document.getElementById("lb-split-range");
-      lbRange.value = initialPct;
+      document.getElementById("lb-split-range").value = initialPct;
+      document.getElementById("lb-visible-slider").value = initialPct;
 
       setLightboxMode(initialMode);
-      const overlay = document.getElementById("compare-lightbox");
-      overlay.classList.add("open");
+      document.getElementById("compare-lightbox").classList.add("open");
       document.body.style.overflow = "hidden";
     }
 
     function closeCompareLightbox() {
-      const overlay = document.getElementById("compare-lightbox");
-      overlay.classList.remove("open");
+      document.getElementById("compare-lightbox").classList.remove("open");
       document.body.style.overflow = "";
     }
 
@@ -1807,63 +1420,84 @@
       const stage = document.getElementById("lb-stage");
       const topLayer = document.getElementById("lb-split-top");
       const tag = document.getElementById("lb-stage-tag");
-
+      const sliderBarWrap = document.getElementById("lb-slider-bar-wrap");
       document.getElementById("lb-btn-3d").classList.toggle("active", mode === "3d");
       document.getElementById("lb-btn-compare").classList.toggle("active", mode === "compare");
       document.getElementById("lb-btn-actual").classList.toggle("active", mode === "actual");
-
       stage.classList.remove("mode-3d", "mode-compare", "mode-actual");
       stage.classList.add(`mode-${mode}`);
-
       if (mode === "3d") {
         topLayer.style.clipPath = "inset(0 0% 0 0)";
         tag.textContent = "3D 概念图（大图）";
+        sliderBarWrap.style.visibility = "hidden";
       } else if (mode === "actual") {
         topLayer.style.clipPath = "inset(0 100% 0 0)";
         tag.textContent = "实际完成品（大图）";
+        sliderBarWrap.style.visibility = "hidden";
       } else {
-        const range = document.getElementById("lb-split-range");
-        scrubLightbox(range ? range.value : 50);
+        sliderBarWrap.style.visibility = "visible";
+        scrubLightbox(lightboxState.sliderPct);
         tag.textContent = "左 3D 概念图 / 右 实际完成品";
       }
     }
 
     function scrubLightbox(pct) {
-      const val = Number(pct);
+      const val = Math.max(0, Math.min(100, Number(pct)));
       lightboxState.sliderPct = val;
       const rightInset = 100 - val;
       const topLayer = document.getElementById("lb-split-top");
       const divider = document.getElementById("lb-split-divider");
+      const overlayRange = document.getElementById("lb-split-range");
+      const visibleSlider = document.getElementById("lb-visible-slider");
       if (topLayer) topLayer.style.clipPath = `inset(0 ${rightInset}% 0 0)`;
       if (divider) divider.style.left = `${val}%`;
+      if (overlayRange && Number(overlayRange.value) !== val) overlayRange.value = val;
+      if (visibleSlider && Number(visibleSlider.value) !== val) visibleSlider.value = val;
     }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeCompareLightbox();
-        closeAdminModal();
+    (function attachLightboxPointerDrag() {
+      const lbStage = document.getElementById("lb-stage");
+      let dragging = false;
+      function updateFromClientX(clientX) {
+        if (lightboxState.mode !== "compare") return;
+        const rect = lbStage.getBoundingClientRect();
+        if (!rect.width) return;
+        const pct = ((clientX - rect.left) / rect.width) * 100;
+        scrubLightbox(pct);
       }
+      lbStage.addEventListener("pointerdown", (e) => {
+        if (lightboxState.mode !== "compare") return;
+        dragging = true;
+        lbStage.setPointerCapture?.(e.pointerId);
+        updateFromClientX(e.clientX);
+      });
+      lbStage.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        updateFromClientX(e.clientX);
+      });
+      lbStage.addEventListener("pointerup", () => { dragging = false; });
+      lbStage.addEventListener("pointercancel", () => { dragging = false; });
+    })();
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeCompareLightbox();
     });
 
     function renderPackagesAndAddons() {
-      const pkgGrid = document.getElementById("packages-grid");
-      pkgGrid.innerHTML = siteConfig.packages.map((pkg) => `
+      document.getElementById("packages-grid").innerHTML = siteConfig.packages.map((pkg) => `
         <div class="package-card ${pkg.featured ? "featured" : ""}">
           <div>
             <div class="pkg-tier">${escapeHtml(pkg.tier)}</div>
             <h3 class="pkg-name">${escapeHtml(pkg.name)}</h3>
             <div class="pkg-price">${escapeHtml(pkg.price)}</div>
             <p class="pkg-desc">${escapeHtml(pkg.desc)}</p>
-            <ul class="pkg-list">
-              ${(pkg.items || []).map((li) => `<li>${escapeHtml(li)}</li>`).join("")}
-            </ul>
+            <ul class="pkg-list">${(pkg.items || []).map((li) => `<li>${escapeHtml(li)}</li>`).join("")}</ul>
           </div>
           <button type="button" class="btn-outline" onclick="switchMainTab('about')">咨询此配套档期</button>
         </div>
       `).join("");
 
-      const addonsEl = document.getElementById("addons-list");
-      addonsEl.innerHTML = siteConfig.addons.map((ad) => `
+      document.getElementById("addons-list").innerHTML = siteConfig.addons.map((ad) => `
         <div class="addon-row">
           <div>
             <div class="addon-name">${escapeHtml(ad.name)}</div>
@@ -1874,7 +1508,6 @@
       `).join("");
     }
 
-    // ================= CARPET CALCULATOR =================
     function updateCarpetButtons() {
       const rNoWood = Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5).toFixed(2);
       const rWithWood = Number(siteConfig.carpetRates.withWoodPerSqft ?? 4.0).toFixed(2);
@@ -1915,7 +1548,6 @@
         : Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5);
       const total = sqft * rate;
       const baseLabel = calcState.withWood ? "有木底" : "无木底";
-
       document.getElementById("calc-formula-text").textContent =
         `${calcState.lengthFt} ft × ${calcState.widthFt} ft = ${sqft.toFixed(1)} sqft × RM ${rate.toFixed(2)} / sqft（${baseLabel}）`;
       document.getElementById("calc-total-price").textContent = `RM ${total.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1925,302 +1557,7 @@
       const formula = document.getElementById("calc-formula-text").textContent;
       const total = document.getElementById("calc-total-price").textContent;
       const text = `【ULTIMATE 地毯/走道报价预估】\n规格与算式：${formula}\n预估金额：${total}`;
-      navigator.clipboard?.writeText(text).then(() => {
-        showToast("已复制地毯报价明细");
-      }).catch(() => {
-        showToast("报价明细已准备好");
-      });
-    }
-
-    // ================= GITHUB LOGIN & CMS EDITOR =================
-    function openAdminModal() {
-      document.getElementById("admin-modal").classList.add("open");
-      refreshModalView();
-    }
-
-    function closeAdminModal() {
-      document.getElementById("admin-modal").classList.remove("open");
-    }
-
-    function updateAuthBadge() {
-      const dot = document.getElementById("admin-status-dot");
-      const label = document.getElementById("admin-btn-label");
-      if (ghSession && ghSession.username) {
-        dot.classList.add("live");
-        label.textContent = `@${ghSession.username}`;
-      } else {
-        dot.classList.remove("live");
-        label.textContent = "GitHub 后台";
-      }
-    }
-
-    function refreshModalView() {
-      const loggedIn = Boolean(ghSession && ghSession.username);
-      document.getElementById("github-login-view").style.display = loggedIn ? "none" : "block";
-      document.getElementById("cms-editor-view").style.display = loggedIn ? "block" : "none";
-      if (loggedIn) {
-        document.getElementById("gh-active-user").textContent = `@${ghSession.username}`;
-        document.getElementById("gh-sync-mode-badge").textContent = ghSession.token
-          ? "· 已配置 Token（可直推 GitHub）"
-          : "· 本地编辑模式（可导出 JSON 或配置 Token）";
-        populateCmsForms();
-      }
-    }
-
-    function loginWithGitHub() {
-      const rawUser = document.getElementById("gh-username-input").value.trim().replace(/^@/, "");
-      const token = document.getElementById("gh-token-input").value.trim();
-      const repo = document.getElementById("gh-repo-input").value.trim();
-      if (!rawUser) {
-        showToast("请先输入您的 GitHub 用户名");
-        return;
-      }
-      ghSession = {
-        username: rawUser,
-        token: token,
-        repo: repo,
-        branch: "main",
-        loggedInAt: new Date().toISOString()
-      };
-      saveSessionToStorage();
-      updateAuthBadge();
-      refreshModalView();
-      showToast(`欢迎回来，@${rawUser}`);
-    }
-
-    function logoutGitHub() {
-      ghSession = null;
-      saveSessionToStorage();
-      updateAuthBadge();
-      refreshModalView();
-      showToast("已退出 GitHub 后台");
-    }
-
-    function switchCmsTab(tabId) {
-      document.querySelectorAll(".cms-subtab").forEach((b) => b.classList.toggle("active", b.dataset.cms === tabId));
-      document.querySelectorAll(".cms-section").forEach((s) => s.classList.toggle("active", s.id === tabId));
-    }
-
-    function populateCmsForms() {
-      const t = siteConfig.texts;
-      document.getElementById("edit-splash-brand").value = t.splashBrand;
-      document.getElementById("edit-splash-hint").value = t.splashHint;
-      document.getElementById("edit-hero-eyebrow").value = t.heroEyebrow;
-      document.getElementById("edit-hero-title").value = t.heroTitle;
-      document.getElementById("edit-hero-subtitle").value = t.heroSubtitle;
-      document.getElementById("edit-portfolio-heading").value = t.portfolioHeading;
-      document.getElementById("edit-pricing-heading").value = t.pricingHeading;
-      document.getElementById("edit-about-heading").value = t.aboutHeading;
-      document.getElementById("edit-footer-copy").value = t.footerCopy;
-      document.getElementById("edit-about-p1").value = t.aboutP1;
-      document.getElementById("edit-about-p2").value = t.aboutP2;
-      document.getElementById("edit-about-p3").value = t.aboutP3;
-      document.getElementById("edit-studio-location").value = t.studioLocation;
-      document.getElementById("edit-studio-email").value = t.studioEmail;
-
-      document.getElementById("edit-rate-no-wood").value = siteConfig.carpetRates.noWoodPerSqft;
-      document.getElementById("edit-rate-with-wood").value = siteConfig.carpetRates.withWoodPerSqft;
-      document.getElementById("edit-packages-json").value = JSON.stringify(siteConfig.packages, null, 2);
-      document.getElementById("edit-addons-json").value = JSON.stringify(siteConfig.addons, null, 2);
-
-      document.getElementById("sync-repo-input").value = ghSession?.repo || "";
-      document.getElementById("sync-branch-input").value = ghSession?.branch || "main";
-      document.getElementById("sync-token-input").value = ghSession?.token || "";
-
-      renderCmsPortfolioList();
-    }
-
-    function renderCmsPortfolioList() {
-      const wrap = document.getElementById("cms-portfolio-list");
-      wrap.innerHTML = siteConfig.portfolio.map((p, idx) => `
-        <div class="cms-project-item">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <strong>作品 #${idx + 1}：${escapeHtml(p.title)}</strong>
-            ${siteConfig.portfolio.length > 1 ? `<button type="button" class="btn-outline" style="padding:4px 10px; min-height:32px; font-size:0.75rem;" onclick="removePortfolioItem(${idx})">删除</button>` : ""}
-          </div>
-          <div class="cms-grid-2">
-            <div>
-              <label class="calc-label">作品名称</label>
-              <input type="text" class="input-field" value="${escapeAttr(p.title)}" onchange="updatePortfolioField(${idx}, 'title', this.value)" />
-            </div>
-            <div>
-              <label class="calc-label">分类标签</label>
-              <input type="text" class="input-field" value="${escapeAttr(p.category || '')}" onchange="updatePortfolioField(${idx}, 'category', this.value)" />
-            </div>
-          </div>
-          <label class="calc-label">作品简介</label>
-          <input type="text" class="input-field" value="${escapeAttr(p.description || '')}" onchange="updatePortfolioField(${idx}, 'description', this.value)" />
-
-          <div class="cms-grid-2" style="margin-top:10px;">
-            <div>
-              <label class="calc-label">3D 概念图（上传图片或贴网址）</label>
-              <input type="file" accept="image/*" style="font-size:0.78rem; margin-bottom:6px;" onchange="handleImageUpload(${idx}, 'conceptImg', this)" />
-              <input type="text" class="input-field" value="${escapeAttr(p.conceptImg)}" placeholder="图片 URL 或 Data URI" onchange="updatePortfolioField(${idx}, 'conceptImg', this.value)" />
-            </div>
-            <div>
-              <label class="calc-label">实际完成品（上传图片或贴网址）</label>
-              <input type="file" accept="image/*" style="font-size:0.78rem; margin-bottom:6px;" onchange="handleImageUpload(${idx}, 'actualImg', this)" />
-              <input type="text" class="input-field" value="${escapeAttr(p.actualImg)}" placeholder="图片 URL 或 Data URI" onchange="updatePortfolioField(${idx}, 'actualImg', this.value)" />
-            </div>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function updatePortfolioField(idx, field, val) {
-      siteConfig.portfolio[idx][field] = val;
-      if (field === "conceptImg") {
-        siteConfig.portfolio[idx].hasCustomConcept = true;
-      }
-    }
-
-    function handleImageUpload(idx, field, inputEl) {
-      const file = inputEl.files && inputEl.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        siteConfig.portfolio[idx][field] = e.target.result;
-        if (field === "conceptImg") siteConfig.portfolio[idx].hasCustomConcept = true;
-        renderCmsPortfolioList();
-        showToast("图片已载入，点击「保存并应用到页面」即可生效");
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function addNewPortfolioItem() {
-      siteConfig.portfolio.push({
-        id: "proj-" + Date.now(),
-        title: "全新婚礼空间案例",
-        category: "3D CONCEPT & REALIZED",
-        description: "请在此填写该场婚礼的 3D 概念与现场布置亮点。",
-        conceptImg: svgPlaceholder("3D CONCEPT", "NEW WEDDING DESIGN", "#ECEAE4", "#D8D4C8", "#111111"),
-        actualImg: svgPlaceholder("ACTUAL SETUP", "NEW WEDDING REALIZED", "#F7F6F2", "#E6E2D8", "#A68A56"),
-        hasCustomConcept: false
-      });
-      renderCmsPortfolioList();
-    }
-
-    function removePortfolioItem(idx) {
-      siteConfig.portfolio.splice(idx, 1);
-      renderCmsPortfolioList();
-    }
-
-    function saveAllChanges() {
-      const t = siteConfig.texts;
-      t.splashBrand = document.getElementById("edit-splash-brand").value.trim() || "ULTIMATE";
-      t.splashHint = document.getElementById("edit-splash-hint").value.trim() || "点击任意处进入空间";
-      t.heroEyebrow = document.getElementById("edit-hero-eyebrow").value.trim();
-      t.heroTitle = document.getElementById("edit-hero-title").value.trim();
-      t.heroSubtitle = document.getElementById("edit-hero-subtitle").value.trim();
-      t.portfolioHeading = document.getElementById("edit-portfolio-heading").value.trim();
-      t.pricingHeading = document.getElementById("edit-pricing-heading").value.trim();
-      t.aboutHeading = document.getElementById("edit-about-heading").value.trim();
-      t.footerCopy = document.getElementById("edit-footer-copy").value.trim();
-      t.aboutP1 = document.getElementById("edit-about-p1").value.trim();
-      t.aboutP2 = document.getElementById("edit-about-p2").value.trim();
-      t.aboutP3 = document.getElementById("edit-about-p3").value.trim();
-      t.studioLocation = document.getElementById("edit-studio-location").value.trim();
-      t.studioEmail = document.getElementById("edit-studio-email").value.trim();
-
-      siteConfig.carpetRates.noWoodPerSqft = Math.max(0, Number(document.getElementById("edit-rate-no-wood").value) || 1.5);
-      siteConfig.carpetRates.withWoodPerSqft = Math.max(0, Number(document.getElementById("edit-rate-with-wood").value) || 4.0);
-
-      try {
-        siteConfig.packages = JSON.parse(document.getElementById("edit-packages-json").value);
-        siteConfig.addons = JSON.parse(document.getElementById("edit-addons-json").value);
-      } catch (e) {
-        showToast("配套或加购 JSON 格式有误，请检查括号与逗号");
-        return;
-      }
-
-      if (ghSession) {
-        ghSession.repo = document.getElementById("sync-repo-input").value.trim() || ghSession.repo;
-        ghSession.branch = document.getElementById("sync-branch-input").value.trim() || "main";
-        ghSession.token = document.getElementById("sync-token-input").value.trim() || ghSession.token;
-        saveSessionToStorage();
-      }
-
-      saveConfigToStorage();
-      renderAll();
-      showToast("已保存并更新全站内容");
-    }
-
-    function downloadConfigJSON() {
-      const blob = new Blob([JSON.stringify(siteConfig, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "site-config.json";
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast("已下载 site-config.json，可放入 data/ 目录提交至 GitHub");
-    }
-
-    async function pushConfigToGitHub() {
-      const repo = document.getElementById("sync-repo-input").value.trim();
-      const branch = document.getElementById("sync-branch-input").value.trim() || "main";
-      const token = document.getElementById("sync-token-input").value.trim();
-      const statusEl = document.getElementById("github-sync-status");
-
-      if (!repo || !token) {
-        statusEl.textContent = "请先填写仓库路径（owner/repo）与 GitHub Token。";
-        return;
-      }
-
-      saveAllChanges();
-      statusEl.textContent = "正在连接 GitHub API 更新 data/site-config.json...";
-
-      const path = "data/site-config.json";
-      const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
-      const headers = {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/vnd.github+json",
-        "Content-Type": "application/json"
-      };
-
-      try {
-        let sha = undefined;
-        const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
-        if (getRes.ok) {
-          const existing = await getRes.json();
-          sha = existing.sha;
-        }
-
-        const contentStr = JSON.stringify(siteConfig, null, 2);
-        const bytes = new TextEncoder().encode(contentStr);
-        let binary = "";
-        bytes.forEach((b) => { binary += String.fromCharCode(b); });
-        const base64Content = btoa(binary);
-
-        const putRes = await fetch(apiUrl, {
-          method: "PUT",
-          headers,
-          body: JSON.stringify({
-            message: `chore: update ULTIMATE site config via CMS (@${ghSession?.username || "admin"})`,
-            content: base64Content,
-            branch,
-            ...(sha ? { sha } : {})
-          })
-        });
-
-        if (!putRes.ok) {
-          const errData = await putRes.json().catch(() => ({}));
-          throw new Error(errData.message || `HTTP ${putRes.status}`);
-        }
-        statusEl.textContent = `推送成功！已更新 ${repo} (${branch}) 的 ${path}。`;
-        showToast("已成功同步至 GitHub 仓库");
-      } catch (err) {
-        statusEl.textContent = `同步失败（${err.message}）。您仍可使用「下载 site-config.json」手动提交。`;
-        showToast("GitHub 直推未完成，可使用 JSON 导出");
-      }
-    }
-
-    function resetToDefaultConfig() {
-      siteConfig = structuredClone(DEFAULT_CONFIG);
-      saveConfigToStorage();
-      populateCmsForms();
-      renderAll();
-      showToast("已恢复出厂默认内容");
+      navigator.clipboard?.writeText(text).then(() => showToast("已复制地毯报价明细")).catch(() => showToast("报价明细已准备好"));
     }
 
     function showToast(msg) {
@@ -2237,12 +1574,17 @@
       }[m]));
     }
 
-    function escapeAttr(str) {
-      return escapeHtml(str);
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
     }
 
-    // Boot
-    renderAll();
+    initSiteData();
   </script>
 </body>
 </html>
