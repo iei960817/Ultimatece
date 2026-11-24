@@ -4,20 +4,27 @@
       "title": "新中式搭配",
       "category": "3D CONCEPT & REALIZED",
       "description": "传统加现代的创新感，先通过 3D 比例推演红金帷幔与屏风层次，再 1:1 还原现场。",
-      "conceptImg": "/images/uploads/03模型实体.jpg",
-      "actualImg": "/images/uploads/0314-背景2.jpg"
+      "conceptImg": "/images/uploads/0314-背景2.jpg",
+      "actualImg": "/images/uploads/03模型实体.jpg"
+    },
+    {
+      "title": "音符与星星人的碰撞",
+      "category": "3D CONCEPT & REALIZED",
+      "description": "音乐元素+剧场带来超梦幻的视觉体验",
+      "conceptImg": "/images/uploads/0725-1.jpg",
+      "actualImg": "/images/uploads/7255-.jpg"
     }
   ],
   "packages": [
     {
       "tier": "ESSENTIAL",
       "name": "静谧序曲配套 (Serenity)",
-      "price": "RM 6,800",
+      "price": "RM 4800",
       "featured": false,
-      "desc": "适合精致午宴或现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
+      "desc": "适合现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
       "items": [
-        "1 套主舞台建筑感背景与花艺点缀",
-        "1 组 3D 空间概念渲染图（含 1 次调整）",
+        "主背景+渲染图",
+        "回忆照片墙",
         "迎宾签到台极简陈设与花器组",
         "专业进场搭建与活动后撤场服务"
       ]
