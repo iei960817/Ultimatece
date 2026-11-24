@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ULTIMATE — 极简奢华婚礼空间美学</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,11 +19,12 @@
       --border-dark: #111111;
       --accent-gold: #A68A56;
       --font-display: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', 'Noto Serif SC', -apple-system, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, sans-serif;
       --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
       background-color: var(--bg-canvas);
@@ -34,7 +35,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= SPLASH SCREEN (WHITE + CENTER BLACK DOT + ULTIMATE) ================= */
+    /* ================= SPLASH SCREEN (SILKY SMOOTH ENTRANCE) ================= */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -46,10 +47,17 @@
       justify-content: center;
       cursor: pointer;
       user-select: none;
-      transition: opacity 0.85s var(--ease-luxury), visibility 0.85s var(--ease-luxury);
+      opacity: 1;
+      transform: scale(1);
+      will-change: opacity, transform;
+      transition:
+        opacity 1.15s var(--ease-smooth),
+        transform 1.15s var(--ease-smooth),
+        visibility 1.15s var(--ease-smooth);
     }
     #splash-screen.is-exiting {
       opacity: 0;
+      transform: scale(1.03);
       visibility: hidden;
       pointer-events: none;
     }
@@ -58,79 +66,107 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 120px;
-      height: 120px;
+      width: 96px;
+      height: 96px;
+    }
+    .splash-ring {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(17, 17, 17, 0.16);
+      animation: ringBreathe 3.2s ease-in-out infinite;
+      transition: transform 1.1s var(--ease-smooth), opacity 0.8s ease;
+    }
+    @keyframes ringBreathe {
+      0%, 100% { transform: scale(0.85); opacity: 0.35; }
+      50% { transform: scale(1.35); opacity: 0.85; }
     }
     .splash-dot {
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       background-color: #111111;
-      transition: transform 0.95s var(--ease-luxury), opacity 0.5s ease;
-      animation: dotPulse 2.8s ease-in-out infinite;
+      will-change: transform, opacity;
+      transition: transform 1.05s var(--ease-smooth), opacity 0.85s ease;
+      animation: dotPulse 3.2s ease-in-out infinite;
     }
     @keyframes dotPulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.24); }
+      50% { transform: scale(1.18); }
     }
+    /* Silky subtle expansion instead of jarring giant black flash */
     #splash-screen.is-exiting .splash-dot {
       animation: none;
-      transform: scale(48);
+      transform: scale(2.8);
+      opacity: 0;
+    }
+    #splash-screen.is-exiting .splash-ring {
+      animation: none;
+      transform: scale(4.5);
       opacity: 0;
     }
     .splash-brand {
-      margin-top: 22px;
+      margin-top: 20px;
       font-family: var(--font-display);
-      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
-      letter-spacing: 0.42em;
-      text-indent: 0.42em;
+      font-size: clamp(1.35rem, 4vw, 1.9rem);
+      letter-spacing: 0.44em;
+      text-indent: 0.44em;
       font-weight: 500;
       color: #111111;
-      transition: opacity 0.5s ease, transform 0.7s var(--ease-luxury);
+      transition: opacity 0.75s ease, transform 1.05s var(--ease-smooth), letter-spacing 1.05s var(--ease-smooth);
     }
     #splash-screen.is-exiting .splash-brand {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(-8px);
+      letter-spacing: 0.56em;
     }
     .splash-hint {
       position: fixed;
-      bottom: 38px;
+      bottom: max(36px, env(safe-area-inset-bottom, 36px));
       font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.24em;
+      text-indent: 0.24em;
       color: var(--ink-muted);
       text-transform: uppercase;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.55s ease;
     }
     #splash-screen.is-exiting .splash-hint { opacity: 0; }
 
-    /* ================= MAIN SITE WRAPPER ================= */
+    /* ================= MAIN SITE WRAPPER & STAGGERED ENTRANCE ================= */
     #main-site {
       opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.9s var(--ease-luxury) 0.15s, transform 0.9s var(--ease-luxury) 0.15s;
+      transform: translateY(18px);
+      will-change: opacity, transform;
+      transition:
+        opacity 1.1s var(--ease-smooth) 0.18s,
+        transform 1.1s var(--ease-smooth) 0.18s;
     }
     #main-site.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ================= TOP RIGHT NAVIGATION ================= */
+    /* ================= TOP NAVIGATION (DESKTOP + MOBILE RESPONSIVE) ================= */
     .site-header {
       position: sticky;
       top: 0;
       z-index: 200;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-light);
+      padding-top: env(safe-area-inset-top, 0px);
     }
     .header-inner {
       max-width: 1320px;
       margin: 0 auto;
       padding: 0 32px;
-      height: 76px;
+      height: 74px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
     .brand-logo {
       display: inline-flex;
@@ -139,6 +175,7 @@
       text-decoration: none;
       color: var(--ink-primary);
       cursor: pointer;
+      flex-shrink: 0;
     }
     .brand-logo-dot {
       width: 8px;
@@ -156,7 +193,7 @@
     .top-right-nav {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 26px;
     }
     .nav-tab-btn {
       position: relative;
@@ -167,8 +204,12 @@
       letter-spacing: 0.08em;
       color: var(--ink-secondary);
       cursor: pointer;
-      padding: 8px 2px;
+      padding: 10px 2px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
       transition: color 0.25s ease;
+      white-space: nowrap;
     }
     .nav-tab-btn:hover,
     .nav-tab-btn.active {
@@ -180,7 +221,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0;
+      bottom: 4px;
       height: 1.5px;
       background: var(--ink-primary);
     }
@@ -189,14 +230,16 @@
       color: var(--ink-primary);
       border: 1px solid var(--border-light);
       padding: 8px 14px;
+      min-height: 38px;
       font-size: 0.78rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       cursor: pointer;
       border-radius: 2px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.25s ease;
+      white-space: nowrap;
     }
     .admin-trigger-btn:hover {
       border-color: var(--ink-primary);
@@ -215,7 +258,7 @@
     .hero-strip {
       max-width: 1320px;
       margin: 0 auto;
-      padding: 56px 32px 40px;
+      padding: 52px 32px 38px;
       border-bottom: 1px solid var(--border-light);
       display: grid;
       grid-template-columns: 1.4fr 1fr;
@@ -223,7 +266,7 @@
       align-items: end;
     }
     .hero-eyebrow {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--accent-gold);
@@ -232,9 +275,9 @@
     }
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 3.6vw, 3.1rem);
+      font-size: clamp(1.75rem, 3.6vw, 3.05rem);
       font-weight: 400;
-      line-height: 1.2;
+      line-height: 1.24;
       color: var(--ink-primary);
     }
     .hero-subtitle {
@@ -248,12 +291,12 @@
     .container {
       max-width: 1320px;
       margin: 0 auto;
-      padding: 56px 32px 96px;
+      padding: 48px 32px 92px;
     }
-    .tab-panel { display: none; animation: fadeTab 0.45s var(--ease-luxury); }
+    .tab-panel { display: none; animation: fadeTab 0.5s var(--ease-luxury); }
     .tab-panel.active { display: block; }
     @keyframes fadeTab {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .section-head {
@@ -261,12 +304,12 @@
       justify-content: space-between;
       align-items: flex-end;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 36px;
+      gap: 14px;
+      margin-bottom: 32px;
     }
     .section-title {
       font-family: var(--font-display);
-      font-size: 2.1rem;
+      font-size: clamp(1.65rem, 3vw, 2.1rem);
       font-weight: 400;
     }
     .section-desc {
@@ -274,11 +317,11 @@
       font-size: 0.9rem;
     }
 
-    /* ================= PORTFOLIO & 2D / 3D / ACTUAL SWITCHER ================= */
+    /* ================= PORTFOLIO & 3D / ACTUAL SWITCHER + EXPAND BUTTON ================= */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 36px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 32px;
     }
     .project-card {
       border: 1px solid var(--border-light);
@@ -286,12 +329,14 @@
       transition: border-color 0.3s ease;
     }
     .project-card:hover { border-color: #C8C8C2; }
+
     .visual-stage {
       position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
       overflow: hidden;
       background: #F2F2EE;
+      touch-action: pan-y;
     }
     .visual-layer {
       position: absolute;
@@ -300,8 +345,9 @@
       height: 100%;
       object-fit: cover;
       transition: opacity 0.35s ease;
+      user-select: none;
+      -webkit-user-drag: none;
     }
-    /* Simulated 3D concept look when no custom 3D image is uploaded yet */
     .visual-layer.concept-3d.simulated-look {
       filter: contrast(1.08) saturate(1.18) brightness(1.03);
     }
@@ -318,7 +364,6 @@
     }
     .visual-stage.mode-3d .grid-overlay-3d { opacity: 1; }
 
-    /* Split compare clip */
     .split-top-layer {
       position: absolute;
       inset: 0;
@@ -336,6 +381,7 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.35);
       pointer-events: none;
       display: none;
+      z-index: 10;
     }
     .visual-stage.mode-compare .split-divider { display: block; }
     .split-knob {
@@ -343,17 +389,17 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: #111111;
       color: #FFFFFF;
       border: 2px solid #FFFFFF;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.28);
     }
     .split-range {
       position: absolute;
@@ -372,29 +418,29 @@
       top: 12px;
       left: 12px;
       right: 12px;
-      z-index: 15;
+      z-index: 16;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       pointer-events: none;
     }
     .mode-switch-group {
       pointer-events: auto;
       display: inline-flex;
-      background: rgba(17, 17, 17, 0.78);
-      backdrop-filter: blur(6px);
+      background: rgba(17, 17, 17, 0.82);
+      backdrop-filter: blur(8px);
       padding: 3px;
       border-radius: 2px;
       gap: 2px;
     }
     .mode-btn {
       background: transparent;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255,255,255,0.78);
       border: none;
-      padding: 5px 10px;
+      padding: 6px 10px;
       font-size: 0.72rem;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       cursor: pointer;
       border-radius: 1px;
       transition: all 0.2s ease;
@@ -404,18 +450,54 @@
       color: #111111;
       font-weight: 600;
     }
+
+    /* Bottom bar inside image stage: status tag + Expand Fullscreen button */
+    .stage-bottom-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 16;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
     .stage-tag {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.92);
       color: #111111;
-      padding: 4px 9px;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      border-radius: 1px;
+      padding: 5px 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .expand-compare-btn {
+      pointer-events: auto;
+      background: rgba(17, 17, 17, 0.88);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.28);
+      backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .expand-compare-btn:hover {
+      background: #111111;
+      border-color: #FFFFFF;
+      transform: translateY(-1px);
     }
 
-    .project-body { padding: 22px 24px 26px; }
+    .project-body { padding: 20px 22px 24px; }
     .project-meta {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       letter-spacing: 0.12em;
       color: var(--ink-muted);
       text-transform: uppercase;
@@ -423,7 +505,7 @@
     }
     .project-title {
       font-family: var(--font-display);
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 500;
       margin-bottom: 8px;
     }
@@ -432,16 +514,128 @@
       color: var(--ink-secondary);
     }
 
+    /* ================= FULLSCREEN LIGHTBOX WITH INTERACTIVE COMPARE ================= */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 8000;
+      background: rgba(12, 12, 12, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: max(16px, env(safe-area-inset-top, 16px)) 20px max(20px, env(safe-area-inset-bottom, 20px));
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-smooth);
+    }
+    .lightbox-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-header {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: #FFFFFF;
+    }
+    .lightbox-title-wrap h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+      font-weight: 400;
+      color: #FFFFFF;
+    }
+    .lightbox-title-wrap p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.68);
+    }
+    .lightbox-close-btn {
+      background: rgba(255,255,255,0.12);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 8px 14px;
+      min-height: 40px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .lightbox-close-btn:hover { background: rgba(255,255,255,0.22); }
+
+    .lightbox-stage-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 14px auto;
+      width: 100%;
+      max-width: 1280px;
+      min-height: 0;
+    }
+    .lightbox-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1120px;
+      aspect-ratio: 4 / 3;
+      max-height: 70vh;
+      background: #1B1B1B;
+      border: 1px solid rgba(255,255,255,0.2);
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+    .lightbox-stage .split-knob {
+      width: 44px;
+      height: 44px;
+      font-size: 0.85rem;
+    }
+    .lightbox-controls {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .lb-mode-group {
+      display: inline-flex;
+      background: rgba(255,255,255,0.12);
+      padding: 4px;
+      border-radius: 2px;
+      gap: 4px;
+    }
+    .lb-mode-btn {
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .lb-mode-btn.active {
+      background: #FFFFFF;
+      color: #111111;
+      font-weight: 600;
+    }
+
     /* ================= PRICING & CARPET CALCULATOR ================= */
     .packages-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-bottom: 44px;
     }
     .package-card {
       border: 1px solid var(--border-light);
-      padding: 30px 26px;
+      padding: 28px 24px;
       background: var(--bg-card);
       display: flex;
       flex-direction: column;
@@ -460,12 +654,12 @@
     }
     .pkg-name {
       font-family: var(--font-display);
-      font-size: 1.65rem;
+      font-size: 1.6rem;
       margin-bottom: 8px;
     }
     .pkg-price {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 600;
       margin-bottom: 14px;
     }
@@ -488,23 +682,23 @@
     .pricing-lower {
       display: grid;
       grid-template-columns: 1fr 1.15fr;
-      gap: 32px;
+      gap: 28px;
       align-items: start;
     }
     .panel-box {
       border: 1px solid var(--border-light);
-      padding: 28px;
+      padding: 26px;
       background: var(--bg-card);
     }
     .panel-box-title {
       font-family: var(--font-display);
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       margin-bottom: 6px;
     }
     .panel-box-sub {
       font-size: 0.85rem;
       color: var(--ink-secondary);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
     .addon-row {
       display: flex;
@@ -537,11 +731,12 @@
     }
     .option-group.two-col { grid-template-columns: repeat(2, 1fr); }
     .calc-choice-btn {
-      padding: 11px 8px;
+      padding: 12px 8px;
+      min-height: 44px;
       border: 1px solid var(--border-light);
       background: #FFFFFF;
       color: var(--ink-primary);
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
@@ -559,16 +754,18 @@
     }
     .input-field {
       width: 100%;
-      padding: 10px 12px;
+      padding: 11px 12px;
+      min-height: 44px;
       border: 1px solid var(--border-light);
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       background: #FFFFFF;
       color: var(--ink-primary);
+      border-radius: 0;
     }
     .input-field:focus { outline: none; border-color: var(--ink-primary); }
     .calc-result-box {
-      margin-top: 24px;
+      margin-top: 22px;
       padding: 20px;
       background: var(--bg-subtle);
       border: 1px solid var(--border-light);
@@ -580,7 +777,7 @@
     }
     .calc-total {
       font-family: var(--font-display);
-      font-size: 2.1rem;
+      font-size: 2.05rem;
       font-weight: 600;
       color: var(--ink-primary);
     }
@@ -588,8 +785,9 @@
       background: var(--ink-primary);
       color: #FFFFFF;
       border: 1px solid var(--ink-primary);
-      padding: 10px 18px;
-      font-size: 0.82rem;
+      padding: 11px 18px;
+      min-height: 44px;
+      font-size: 0.84rem;
       letter-spacing: 0.08em;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -599,7 +797,8 @@
       background: transparent;
       color: var(--ink-primary);
       border: 1px solid var(--ink-primary);
-      padding: 9px 16px;
+      padding: 10px 16px;
+      min-height: 42px;
       font-size: 0.82rem;
       letter-spacing: 0.08em;
       cursor: pointer;
@@ -611,7 +810,7 @@
     .about-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
-      gap: 44px;
+      gap: 40px;
       align-items: start;
     }
     .about-story p {
@@ -622,17 +821,17 @@
     .about-metrics {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 28px;
+      gap: 16px;
+      margin-top: 26px;
     }
     .metric-card {
       border: 1px solid var(--border-light);
-      padding: 20px;
+      padding: 18px;
       background: var(--bg-subtle);
     }
     .metric-num {
       font-family: var(--font-display);
-      font-size: 1.85rem;
+      font-size: 1.75rem;
       font-weight: 600;
     }
     .metric-label {
@@ -644,7 +843,7 @@
     /* ================= FOOTER ================= */
     .site-footer {
       border-top: 1px solid var(--border-light);
-      padding: 28px 32px;
+      padding: 28px 32px calc(28px + env(safe-area-inset-bottom, 0px));
       max-width: 1320px;
       margin: 0 auto;
       display: flex;
@@ -666,7 +865,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
     }
     .modal-backdrop.open { display: flex; }
     .modal-card {
@@ -676,49 +875,52 @@
       overflow-y: auto;
       background: #FFFFFF;
       border: 1px solid var(--ink-primary);
-      padding: 32px;
+      padding: 28px;
       box-shadow: 0 24px 60px rgba(0,0,0,0.2);
     }
     .modal-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: 12px;
       border-bottom: 1px solid var(--border-light);
       padding-bottom: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
     .modal-title {
       font-family: var(--font-display);
-      font-size: 1.65rem;
+      font-size: 1.55rem;
     }
     .close-modal-btn {
       background: none;
       border: 1px solid var(--border-light);
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      flex-shrink: 0;
     }
     .github-login-box {
       text-align: center;
-      padding: 36px 20px;
+      padding: 32px 16px;
       border: 1px dashed var(--border-light);
       background: var(--bg-subtle);
     }
     .cms-subtabs {
       display: flex;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 8px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       border-bottom: 1px solid var(--border-light);
       padding-bottom: 12px;
     }
     .cms-subtab {
-      padding: 8px 14px;
+      padding: 8px 13px;
+      min-height: 38px;
       border: 1px solid var(--border-light);
       background: #FFFFFF;
       cursor: pointer;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
     .cms-subtab.active {
       background: var(--ink-primary);
@@ -734,38 +936,119 @@
     }
     .cms-project-item {
       border: 1px solid var(--border-light);
-      padding: 18px;
-      margin-bottom: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
       background: var(--bg-subtle);
     }
     .toast-banner {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9000;
+      bottom: max(24px, env(safe-area-inset-bottom, 24px));
+      left: 50%;
+      transform: translate(-50%, 14px);
+      z-index: 9500;
       background: #111111;
       color: #FFFFFF;
-      padding: 12px 18px;
+      padding: 12px 20px;
       font-size: 0.84rem;
       letter-spacing: 0.05em;
       opacity: 0;
-      transform: translateY(10px);
       transition: all 0.25s ease;
       pointer-events: none;
+      white-space: nowrap;
+      max-width: 92vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .toast-banner.show {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(-50%, 0);
     }
 
+    /* ================= MOBILE OPTIMIZATION (<= 768px) ================= */
     @media (max-width: 860px) {
       .hero-strip, .pricing-lower, .about-grid, .cms-grid-2 {
         grid-template-columns: 1fr;
       }
       .hero-subtitle { justify-self: start; }
-      .header-inner { padding: 0 18px; }
-      .top-right-nav { gap: 14px; }
-      .nav-tab-btn { font-size: 0.82rem; }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        height: auto;
+        min-height: 62px;
+        padding: 10px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .brand-logo-text {
+        font-size: 1.08rem;
+        letter-spacing: 0.22em;
+      }
+      .top-right-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 6px;
+        border-top: 1px solid var(--border-light);
+        padding-top: 6px;
+      }
+      .nav-tab-btn {
+        font-size: 0.85rem;
+        padding: 8px 4px;
+        min-height: 40px;
+      }
+      .admin-trigger-btn {
+        padding: 6px 10px;
+        min-height: 34px;
+        font-size: 0.74rem;
+      }
+      .hero-strip {
+        padding: 32px 16px 26px;
+        gap: 14px;
+      }
+      .container {
+        padding: 32px 16px 64px;
+      }
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .mode-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+      }
+      .expand-compare-btn {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+      }
+      .project-body {
+        padding: 16px 16px 20px;
+      }
+      .panel-box {
+        padding: 20px 16px;
+      }
+      .option-group {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .option-group.two-col {
+        grid-template-columns: 1fr;
+      }
+      .about-metrics {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .site-footer {
+        padding: 22px 16px calc(22px + env(safe-area-inset-bottom, 0px));
+      }
+      .modal-card {
+        padding: 18px 16px;
+        max-height: 92vh;
+      }
+      .lightbox-overlay {
+        padding: max(12px, env(safe-area-inset-top, 12px)) 12px max(16px, env(safe-area-inset-bottom, 16px));
+      }
+      .lightbox-stage {
+        max-height: 62vh;
+      }
     }
   </style>
 </head>
@@ -774,6 +1057,7 @@
   <!-- ================= SPLASH SCREEN ================= -->
   <div id="splash-screen" role="button" tabindex="0" aria-label="点击进入 ULTIMATE 网站">
     <div class="splash-dot-wrap">
+      <div class="splash-ring"></div>
       <div class="splash-dot"></div>
     </div>
     <div id="splash-brand-text" class="splash-brand">ULTIMATE</div>
@@ -817,7 +1101,7 @@
         <div class="section-head">
           <div>
             <h2 id="portfolio-heading" class="section-title">精选作品 · 3D 概念与实景</h2>
-            <p id="portfolio-subheading" class="section-desc">每组作品可切换「3D 概念图」、「左右对比」或「实际完成品」，支持在后台随时替换 2D/3D 图片。</p>
+            <p id="portfolio-subheading" class="section-desc">每组作品可切换「3D 概念图」、「对比滑杆」或「实际完成品」，点击右下角「放大对比」可全屏细致查看。</p>
           </div>
         </div>
         <div id="portfolio-grid" class="portfolio-grid"></div>
@@ -863,7 +1147,7 @@
               <button type="button" class="calc-choice-btn" onclick="setWidthPreset(10)">10 ft</button>
             </div>
             <div class="width-input-row">
-              <input id="carpet-width-input" type="number" min="1" max="60" step="0.5" value="6" class="input-field" oninput="recalcCarpet()" />
+              <input id="carpet-width-input" type="number" inputmode="decimal" min="1" max="60" step="0.5" value="6" class="input-field" oninput="recalcCarpet()" />
               <span style="font-size:0.84rem; color:var(--ink-secondary); white-space:nowrap;">ft 宽</span>
             </div>
 
@@ -919,9 +1203,45 @@
     <footer class="site-footer">
       <div id="footer-copy">© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved.</div>
       <div style="display:flex; gap:18px; align-items:center;">
-        <button type="button" class="btn-outline" style="padding:5px 12px; font-size:0.76rem;" onclick="replaySplash()">重温开场黑点</button>
+        <button type="button" class="btn-outline" style="padding:6px 14px; min-height:36px; font-size:0.76rem;" onclick="replaySplash()">重温开场黑点</button>
       </div>
     </footer>
+  </div>
+
+  <!-- ================= FULLSCREEN COMPARE LIGHTBOX ================= -->
+  <div id="compare-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="lb-project-title">
+    <div class="lightbox-header">
+      <div class="lightbox-title-wrap">
+        <h3 id="lb-project-title">作品大图对比</h3>
+        <p id="lb-project-sub">左右拖动滑杆，或点击下方按钮切换 3D 概念图 / 实际完成品</p>
+      </div>
+      <button type="button" class="lightbox-close-btn" onclick="closeCompareLightbox()">关闭大图 ✕</button>
+    </div>
+
+    <div class="lightbox-stage-wrap">
+      <div class="lightbox-stage mode-compare" id="lb-stage">
+        <img id="lb-actual-img" src="" alt="实际完成品大图" class="visual-layer" />
+        <div class="split-top-layer" id="lb-split-top">
+          <img id="lb-concept-img" src="" alt="3D 概念图大图" class="visual-layer concept-3d" />
+        </div>
+        <div class="grid-overlay-3d"></div>
+        <div class="split-divider" id="lb-split-divider">
+          <div class="split-knob">⇄</div>
+        </div>
+        <input id="lb-split-range" type="range" min="0" max="100" value="50" class="split-range" aria-label="大图对比滑杆" oninput="scrubLightbox(this.value)" />
+        <div class="stage-bottom-bar">
+          <span class="stage-tag" id="lb-stage-tag">左 3D 概念图 / 右 实际完成品</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lightbox-controls">
+      <div class="lb-mode-group">
+        <button type="button" class="lb-mode-btn" id="lb-btn-3d" onclick="setLightboxMode('3d')">只看 3D 概念图</button>
+        <button type="button" class="lb-mode-btn active" id="lb-btn-compare" onclick="setLightboxMode('compare')">左右滑动对比</button>
+        <button type="button" class="lb-mode-btn" id="lb-btn-actual" onclick="setLightboxMode('actual')">只看实际完成品</button>
+      </div>
+    </div>
   </div>
 
   <!-- ================= GITHUB LOGIN & CMS EDITOR MODAL ================= -->
@@ -976,7 +1296,7 @@
         <!-- CMS Subtab 1: Portfolio 2D/3D/Actual Editor -->
         <div id="cms-portfolio" class="cms-section active">
           <p style="font-size:0.84rem; color:var(--ink-secondary); margin-bottom:14px;">
-            您可以为每个作品上传本地图片（自动转 Base64 预览）或填入图片网址（支持 <strong>3D 概念图</strong> 与 <strong>实际完成品</strong> 切换）。
+            您可以为每个作品上传本地图片（自动转 Base64 预览）或填入图片网址（支持 <strong>3D 概念图</strong> 与 <strong>实际完成品</strong> 切换及放大对比）。
           </p>
           <div id="cms-portfolio-list"></div>
           <button type="button" class="btn-outline" onclick="addNewPortfolioItem()">+ 新增一组婚礼作品</button>
@@ -1118,7 +1438,7 @@
         heroTitle: "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。",
         heroSubtitle: "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。所有文字与作品图均支持后台实时替换。",
         portfolioHeading: "精选作品 · 3D 概念与实景",
-        portfolioSubheading: "每组作品可切换「3D 概念图」、「左右对比」或「实际完成品」，支持在后台随时替换 2D/3D 图片。",
+        portfolioSubheading: "每组作品可切换「3D 概念图」、「对比滑杆」或「实际完成品」，点击右下角「放大对比」可全屏细致查看。",
         pricingHeading: "价钱方案与地毯计算器",
         pricingSubheading: "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
         addonsTitle: "单独加购项目 (Add-ons)",
@@ -1225,11 +1545,17 @@
     let siteConfig = loadConfig();
     let ghSession = loadSession();
 
-    // Carpet calculator state
     let calcState = {
       lengthFt: 40,
       widthFt: 6,
       withWood: false
+    };
+
+    // Lightbox state
+    let lightboxState = {
+      projectIndex: 0,
+      mode: "compare",
+      sliderPct: 50
     };
 
     function loadConfig() {
@@ -1271,7 +1597,9 @@
       const splash = document.getElementById("splash-screen");
       const main = document.getElementById("main-site");
       splash.classList.add("is-exiting");
-      main.classList.add("is-visible");
+      requestAnimationFrame(() => {
+        main.classList.add("is-visible");
+      });
     }
 
     function replaySplash() {
@@ -1379,7 +1707,13 @@
                   <button type="button" class="mode-btn active" id="btn-compare-${idx}" onclick="setCardViewMode(${idx}, 'compare')">对比滑杆</button>
                   <button type="button" class="mode-btn" id="btn-actual-${idx}" onclick="setCardViewMode(${idx}, 'actual')">实际完成品</button>
                 </div>
+              </div>
+
+              <div class="stage-bottom-bar">
                 <span class="stage-tag" id="tag-${idx}">左 3D / 右实景</span>
+                <button type="button" class="expand-compare-btn" onclick="openCompareLightbox(${idx})" aria-label="放大对比大图">
+                  <span>⤢</span><span>放大对比</span>
+                </button>
               </div>
             </div>
 
@@ -1426,6 +1760,90 @@
       if (topLayer) topLayer.style.clipPath = `inset(0 ${rightInset}% 0 0)`;
       if (divider) divider.style.left = `${val}%`;
     }
+
+    // ================= FULLSCREEN LIGHTBOX COMPARE =================
+    function openCompareLightbox(idx) {
+      const item = siteConfig.portfolio[idx];
+      if (!item) return;
+      const cardStage = document.getElementById(`stage-${idx}`);
+      const cardRange = cardStage ? cardStage.querySelector(".split-range") : null;
+      let initialMode = "compare";
+      if (cardStage?.classList.contains("mode-3d")) initialMode = "3d";
+      else if (cardStage?.classList.contains("mode-actual")) initialMode = "actual";
+
+      const initialPct = cardRange ? Number(cardRange.value) : 50;
+
+      lightboxState = {
+        projectIndex: idx,
+        mode: initialMode,
+        sliderPct: initialPct
+      };
+
+      document.getElementById("lb-project-title").textContent = item.title;
+      document.getElementById("lb-project-sub").textContent = item.description || "左右拖动滑杆，或点击下方按钮切换 3D 概念图 / 实际完成品";
+      document.getElementById("lb-actual-img").src = item.actualImg;
+
+      const lbConcept = document.getElementById("lb-concept-img");
+      lbConcept.src = item.conceptImg;
+      lbConcept.classList.toggle("simulated-look", !item.hasCustomConcept);
+
+      const lbRange = document.getElementById("lb-split-range");
+      lbRange.value = initialPct;
+
+      setLightboxMode(initialMode);
+      const overlay = document.getElementById("compare-lightbox");
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCompareLightbox() {
+      const overlay = document.getElementById("compare-lightbox");
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    function setLightboxMode(mode) {
+      lightboxState.mode = mode;
+      const stage = document.getElementById("lb-stage");
+      const topLayer = document.getElementById("lb-split-top");
+      const tag = document.getElementById("lb-stage-tag");
+
+      document.getElementById("lb-btn-3d").classList.toggle("active", mode === "3d");
+      document.getElementById("lb-btn-compare").classList.toggle("active", mode === "compare");
+      document.getElementById("lb-btn-actual").classList.toggle("active", mode === "actual");
+
+      stage.classList.remove("mode-3d", "mode-compare", "mode-actual");
+      stage.classList.add(`mode-${mode}`);
+
+      if (mode === "3d") {
+        topLayer.style.clipPath = "inset(0 0% 0 0)";
+        tag.textContent = "3D 概念图（大图）";
+      } else if (mode === "actual") {
+        topLayer.style.clipPath = "inset(0 100% 0 0)";
+        tag.textContent = "实际完成品（大图）";
+      } else {
+        const range = document.getElementById("lb-split-range");
+        scrubLightbox(range ? range.value : 50);
+        tag.textContent = "左 3D 概念图 / 右 实际完成品";
+      }
+    }
+
+    function scrubLightbox(pct) {
+      const val = Number(pct);
+      lightboxState.sliderPct = val;
+      const rightInset = 100 - val;
+      const topLayer = document.getElementById("lb-split-top");
+      const divider = document.getElementById("lb-split-divider");
+      if (topLayer) topLayer.style.clipPath = `inset(0 ${rightInset}% 0 0)`;
+      if (divider) divider.style.left = `${val}%`;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeCompareLightbox();
+        closeAdminModal();
+      }
+    });
 
     function renderPackagesAndAddons() {
       const pkgGrid = document.getElementById("packages-grid");
@@ -1618,7 +2036,7 @@
         <div class="cms-project-item">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <strong>作品 #${idx + 1}：${escapeHtml(p.title)}</strong>
-            ${siteConfig.portfolio.length > 1 ? `<button type="button" class="btn-outline" style="padding:4px 10px; font-size:0.75rem;" onclick="removePortfolioItem(${idx})">删除</button>` : ""}
+            ${siteConfig.portfolio.length > 1 ? `<button type="button" class="btn-outline" style="padding:4px 10px; min-height:32px; font-size:0.75rem;" onclick="removePortfolioItem(${idx})">删除</button>` : ""}
           </div>
           <div class="cms-grid-2">
             <div>
