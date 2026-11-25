@@ -42,6 +42,7 @@
       overflow-x: hidden;
     }
 
+    /* 环境柔光 + 微粒星尘 */
     .ambient-glass-bg {
       position: fixed;
       inset: 0;
@@ -49,7 +50,7 @@
       pointer-events: none;
       overflow: hidden;
       opacity: 0;
-      transition: opacity 1.1s var(--ease-smooth);
+      transition: opacity 1.3s var(--ease-smooth);
     }
     body.site-entered .ambient-glass-bg { opacity: 1; }
 
@@ -91,6 +92,7 @@
       pointer-events: none;
     }
 
+    /* Apple Liquid Glass */
     .apple-glass {
       position: relative;
       background: var(--glass-surface);
@@ -121,6 +123,7 @@
       z-index: 1;
     }
 
+    /* 开场纯白黑点与自然扩散过渡 */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -132,49 +135,73 @@
       justify-content: center;
       cursor: pointer;
       user-select: none;
+      overflow: hidden;
       opacity: 1;
-      transform: scale(1);
-      will-change: opacity, transform;
+      visibility: visible;
       transition:
-        opacity 1.15s var(--ease-smooth),
-        transform 1.15s var(--ease-smooth),
-        visibility 1.15s var(--ease-smooth);
+        opacity 1.25s var(--ease-smooth) 0.25s,
+        visibility 1.25s var(--ease-smooth) 0.25s;
     }
     #splash-screen.is-exiting {
       opacity: 0;
-      transform: scale(1.03);
       visibility: hidden;
       pointer-events: none;
+    }
+    .splash-ripple-wave {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0) 35%, rgba(214, 188, 138, 0.26) 65%, rgba(190, 208, 232, 0.22) 85%, rgba(255,255,255,0) 100%);
+      transform: scale(0.2);
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transition: transform 1.45s var(--ease-smooth), opacity 1.1s ease;
+    }
+    #splash-screen.is-exiting .splash-ripple-wave {
+      transform: scale(95);
+      opacity: 1;
     }
     .splash-dot-wrap {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 96px;
-      height: 96px;
+      width: 112px;
+      height: 112px;
+      transition: transform 0.5s var(--ease-luxury);
+    }
+    #splash-screen:hover .splash-dot-wrap {
+      transform: scale(1.06);
     }
     .splash-ring {
       position: absolute;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 1px solid rgba(17, 17, 17, 0.16);
       animation: ringBreathe 3.2s ease-in-out infinite;
-      transition: transform 1.1s var(--ease-smooth), opacity 0.8s ease;
+      transition: transform 1.3s var(--ease-smooth), opacity 0.95s ease;
+    }
+    .splash-ring.ring-outer {
+      width: 68px;
+      height: 68px;
+      border-color: rgba(166, 138, 86, 0.22);
+      animation-delay: -1.1s;
     }
     @keyframes ringBreathe {
-      0%, 100% { transform: scale(0.85); opacity: 0.35; }
-      50% { transform: scale(1.35); opacity: 0.85; }
+      0%, 100% { transform: scale(0.86); opacity: 0.35; }
+      50% { transform: scale(1.32); opacity: 0.85; }
     }
     .splash-dot {
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: radial-gradient(circle at 32% 30%, #4b4d56 0%, #111111 72%);
       box-shadow: 0 6px 18px rgba(17, 17, 17, 0.22), inset 0 1px 1.5px rgba(255,255,255,0.45);
       will-change: transform, opacity;
-      transition: transform 1.05s var(--ease-smooth), opacity 0.85s ease;
+      transition: transform 1.2s var(--ease-smooth), opacity 0.9s ease;
       animation: dotPulse 3.2s ease-in-out infinite;
     }
     @keyframes dotPulse {
@@ -183,28 +210,28 @@
     }
     #splash-screen.is-exiting .splash-dot {
       animation: none;
-      transform: scale(2.8);
+      transform: scale(6);
       opacity: 0;
     }
     #splash-screen.is-exiting .splash-ring {
       animation: none;
-      transform: scale(4.5);
+      transform: scale(10);
       opacity: 0;
     }
     .splash-brand {
-      margin-top: 20px;
+      margin-top: 22px;
       font-family: var(--font-display);
-      font-size: clamp(1.35rem, 4vw, 1.9rem);
+      font-size: clamp(1.4rem, 4vw, 1.95rem);
       letter-spacing: 0.44em;
       text-indent: 0.44em;
       font-weight: 500;
       color: #111111;
-      transition: opacity 0.75s ease, transform 1.05s var(--ease-smooth), letter-spacing 1.05s var(--ease-smooth);
+      transition: opacity 0.85s ease, transform 1.2s var(--ease-smooth), letter-spacing 1.2s var(--ease-smooth);
     }
     #splash-screen.is-exiting .splash-brand {
       opacity: 0;
-      transform: translateY(-8px);
-      letter-spacing: 0.56em;
+      transform: translateY(-14px) scale(1.04);
+      letter-spacing: 0.6em;
     }
     .splash-hint {
       position: fixed;
@@ -214,24 +241,49 @@
       text-indent: 0.24em;
       color: var(--ink-muted);
       text-transform: uppercase;
-      transition: opacity 0.55s ease;
+      transition: opacity 0.55s ease, transform 0.7s ease;
     }
-    #splash-screen.is-exiting .splash-hint { opacity: 0; }
+    #splash-screen.is-exiting .splash-hint {
+      opacity: 0;
+      transform: translateY(8px);
+    }
 
+    /* 主站：从黑点中心自然浮现展开 */
     #main-site {
       position: relative;
       z-index: 5;
       opacity: 0;
-      transform: translateY(18px);
-      will-change: opacity, transform;
+      transform: scale(0.975) translateY(22px);
+      filter: blur(8px);
+      transform-origin: 50% 24%;
+      will-change: opacity, transform, filter;
       transition:
-        opacity 1.1s var(--ease-smooth) 0.18s,
-        transform 1.1s var(--ease-smooth) 0.18s;
+        opacity 1.25s var(--ease-smooth) 0.22s,
+        transform 1.35s var(--ease-smooth) 0.22s,
+        filter 1.15s var(--ease-smooth) 0.22s;
     }
     #main-site.is-visible {
       opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+
+    /* 首页区块逐层错峰入场动画 */
+    .reveal-stage {
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 1.05s var(--ease-luxury),
+        transform 1.05s var(--ease-luxury);
+    }
+    #main-site.is-visible .reveal-stage {
+      opacity: 1;
       transform: translateY(0);
     }
+    #main-site.is-visible .reveal-delay-1 { transition-delay: 0.34s; }
+    #main-site.is-visible .reveal-delay-2 { transition-delay: 0.48s; }
+    #main-site.is-visible .reveal-delay-3 { transition-delay: 0.62s; }
+    #main-site.is-visible .reveal-delay-4 { transition-delay: 0.74s; }
 
     .site-header {
       position: sticky;
@@ -269,6 +321,10 @@
       border-radius: 50%;
       background: var(--ink-primary);
       display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .brand-logo:hover .brand-logo-dot {
+      transform: scale(1.35);
     }
     .brand-logo-text {
       font-family: var(--font-display);
@@ -279,7 +335,7 @@
     .top-right-nav {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 14px;
     }
     .nav-tab-btn {
       position: relative;
@@ -290,17 +346,17 @@
       letter-spacing: 0.1em;
       color: var(--ink-secondary);
       cursor: pointer;
-      padding: 10px 12px;
+      padding: 10px 14px;
       min-height: 44px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
-      transition: color 0.25s ease, background 0.25s ease;
+      transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
       white-space: nowrap;
     }
     .nav-tab-btn:hover {
       color: var(--ink-primary);
-      background: rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.72);
     }
     .nav-tab-btn.active {
       color: #FFFFFF;
@@ -309,49 +365,176 @@
       box-shadow: 0 4px 14px rgba(17, 17, 17, 0.14);
     }
 
-    .hero-strip {
-      max-width: 1320px;
-      margin: 24px auto 0;
-      padding: 40px 36px;
-      border-radius: 24px;
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 36px;
-      align-items: end;
-    }
-    .hero-eyebrow {
-      font-size: 0.74rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3.6vw, 3.05rem);
-      font-weight: 400;
-      line-height: 1.24;
-      color: var(--ink-primary);
-    }
-    .hero-subtitle {
-      color: var(--ink-secondary);
-      font-size: 0.94rem;
-      max-width: 460px;
-      justify-self: end;
-    }
-
     .container {
       max-width: 1320px;
       margin: 0 auto;
-      padding: 44px 32px 92px;
+      padding: 32px 32px 92px;
     }
-    .tab-panel { display: none; animation: fadeTab 0.5s var(--ease-luxury); }
-    .tab-panel.active { display: block; }
+    .tab-panel { display: none; }
+    .tab-panel.active {
+      display: block;
+      animation: fadeTab 0.6s var(--ease-luxury);
+    }
     @keyframes fadeTab {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* 首页专属版块样式 */
+    .home-hero-card {
+      border-radius: 28px;
+      padding: 56px 48px;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 44px;
+      align-items: center;
+      margin-bottom: 34px;
+      overflow: hidden;
+    }
+    .hero-eyebrow {
+      font-size: 0.74rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.8vw, 3.25rem);
+      font-weight: 400;
+      line-height: 1.22;
+      color: var(--ink-primary);
+      margin-bottom: 18px;
+    }
+    .hero-subtitle {
+      color: var(--ink-secondary);
+      font-size: 0.96rem;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .home-preview-box {
+      border-radius: 20px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      box-shadow: 0 16px 36px rgba(17, 17, 17, 0.08);
+    }
+    .home-preview-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #F2F2EE;
+    }
+    .home-preview-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .home-preview-split {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      clip-path: inset(0 50% 0 0);
+      animation: heroSplitDemo 7s ease-in-out infinite alternate;
+    }
+    @keyframes heroSplitDemo {
+      0%, 15% { clip-path: inset(0 72% 0 0); }
+      45%, 55% { clip-path: inset(0 50% 0 0); }
+      85%, 100% { clip-path: inset(0 28% 0 0); }
+    }
+    .home-preview-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #FFFFFF;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      animation: heroLineDemo 7s ease-in-out infinite alternate;
+    }
+    @keyframes heroLineDemo {
+      0%, 15% { left: 28%; }
+      45%, 55% { left: 50%; }
+      85%, 100% { left: 72%; }
+    }
+    .home-preview-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 6px 4px;
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+    }
+
+    .home-portal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 42px;
+    }
+    .portal-card {
+      border-radius: 22px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.35s var(--ease-luxury), box-shadow 0.35s var(--ease-luxury);
+    }
+    .portal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(17, 17, 17, 0.09);
+    }
+    .portal-num {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--accent-gold);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .portal-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .portal-desc {
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+      margin-bottom: 20px;
+    }
+    .portal-link {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-primary);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .portal-card:hover .portal-link span {
+      transform: translateX(4px);
+    }
+    .portal-link span {
+      transition: transform 0.25s ease;
+    }
+
+    .home-featured-section {
+      margin-top: 12px;
+    }
+
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -744,6 +927,7 @@
       grid-column: 1 / -1;
     }
 
+    /* 灯箱：确保照片完整不裁切，关闭按钮固定在照片右下角 */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -1170,28 +1354,28 @@
       background: var(--ink-primary);
       color: #FFFFFF;
       border: 1px solid var(--ink-primary);
-      padding: 11px 18px;
+      padding: 11px 20px;
       min-height: 44px;
       border-radius: 999px;
       font-size: 0.84rem;
       letter-spacing: 0.08em;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
-    .btn-dark:hover { background: #2B2B2B; }
+    .btn-dark:hover { background: #2B2B2B; transform: translateY(-1px); }
     .btn-outline {
       background: rgba(255, 255, 255, 0.65);
       color: var(--ink-primary);
       border: 1px solid rgba(17, 17, 17, 0.25);
-      padding: 10px 16px;
-      min-height: 42px;
+      padding: 10px 18px;
+      min-height: 44px;
       border-radius: 999px;
       font-size: 0.82rem;
       letter-spacing: 0.08em;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
     }
-    .btn-outline:hover { background: rgba(255, 255, 255, 0.92); }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.95); transform: translateY(-1px); }
 
     .about-grid {
       display: grid;
@@ -1267,20 +1451,23 @@
       transform: translate(-50%, 0);
     }
 
-    @media (max-width: 860px) {
-      .hero-strip, .pricing-lower, .about-grid {
+    @media (max-width: 920px) {
+      .home-hero-card, .pricing-lower, .about-grid {
         grid-template-columns: 1fr;
       }
-      .hero-subtitle { justify-self: start; }
+      .home-portal-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 680px) {
-      .header-inner { height: 64px; padding: 0 14px; }
-      .brand-logo-text { font-size: 1.02rem; letter-spacing: 0.2em; }
-      .top-right-nav { gap: 8px; }
-      .nav-tab-btn { font-size: 0.84rem; padding: 8px 10px; min-height: 40px; }
-      .hero-strip { margin: 14px 12px 0; padding: 24px 18px; border-radius: 20px; gap: 12px; }
-      .container { padding: 24px 14px 64px; }
+      .header-inner { height: 64px; padding: 0 12px; }
+      .brand-logo-text { font-size: 0.98rem; letter-spacing: 0.16em; }
+      .top-right-nav { gap: 4px; }
+      .nav-tab-btn { font-size: 0.8rem; padding: 7px 9px; min-height: 38px; letter-spacing: 0.04em; }
+      .container { padding: 20px 14px 64px; }
+      .home-hero-card { padding: 28px 20px; border-radius: 22px; gap: 24px; margin-bottom: 22px; }
+      .portal-card { padding: 22px 20px; border-radius: 18px; }
       .subtabs-left { gap: 16px; }
       .subtab-btn { font-size: 0.88rem; }
       .filter-panel { padding: 14px; border-radius: 16px; }
@@ -1311,8 +1498,11 @@
   </div>
   <canvas id="glass-particle-canvas" aria-hidden="true"></canvas>
 
-  <div id="splash-screen" role="button" tabindex="0" aria-label="点击进入 ULTIMATE 网站">
+  <!-- 开场白屏黑点 -->
+  <div id="splash-screen" role="button" tabindex="0" aria-label="点击进入 ULTIMATE 首页">
+    <div class="splash-ripple-wave"></div>
     <div class="splash-dot-wrap">
+      <div class="splash-ring ring-outer"></div>
       <div class="splash-ring"></div>
       <div class="splash-dot"></div>
     </div>
@@ -1323,31 +1513,94 @@
   <div id="main-site">
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand-logo" onclick="switchMainTab('portfolio')">
+        <a class="brand-logo" onclick="switchMainTab('home')">
           <span class="brand-logo-dot"></span>
           <span id="header-brand-text" class="brand-logo-text">ULTIMATE</span>
         </a>
 
         <nav class="top-right-nav" aria-label="主导航">
-          <button class="nav-tab-btn active" data-tab="portfolio" onclick="switchMainTab('portfolio')">作品</button>
+          <button class="nav-tab-btn active" data-tab="home" onclick="switchMainTab('home')">首页</button>
+          <button class="nav-tab-btn" data-tab="portfolio" onclick="switchMainTab('portfolio')">作品</button>
           <button class="nav-tab-btn" data-tab="pricing" onclick="switchMainTab('pricing')">价钱</button>
           <button class="nav-tab-btn" data-tab="about" onclick="switchMainTab('about')">关于我们</button>
         </nav>
       </div>
     </header>
 
-    <section class="hero-strip apple-glass">
-      <div>
-        <div id="hero-eyebrow" class="hero-eyebrow">3D SPATIAL WEDDING ATELIER</div>
-        <h1 id="hero-title" class="hero-title">以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。</h1>
-      </div>
-      <p id="hero-subtitle" class="hero-subtitle">
-        先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。
-      </p>
-    </section>
-
     <main class="container">
-      <section id="tab-portfolio" class="tab-panel active">
+      <!-- 1. 首页 (Home) -->
+      <section id="tab-home" class="tab-panel active">
+        <div class="home-hero-card apple-glass reveal-stage reveal-delay-1">
+          <div>
+            <div id="hero-eyebrow" class="hero-eyebrow">3D SPATIAL WEDDING ATELIER</div>
+            <h1 id="hero-title" class="hero-title">以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。</h1>
+            <p id="hero-subtitle" class="hero-subtitle">
+              先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。
+            </p>
+            <div class="hero-actions">
+              <button type="button" class="btn-dark" onclick="switchMainTab('portfolio')">探索 3D 与实景作品</button>
+              <button type="button" class="btn-outline" onclick="switchMainTab('pricing')">查看配套与地毯预算</button>
+            </div>
+          </div>
+
+          <div class="home-preview-box">
+            <div class="home-preview-stage">
+              <img id="home-hero-actual" src="" alt="实际完成品预览" />
+              <div class="home-preview-split">
+                <img id="home-hero-concept" src="" alt="3D 概念图预览" />
+              </div>
+              <div class="home-preview-line"></div>
+            </div>
+            <div class="home-preview-caption">
+              <span>3D 空间预演 → 1:1 现场落地</span>
+              <span style="color:var(--accent-gold); font-weight:500;">ULTIMATE ATELIER</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-portal-grid reveal-stage reveal-delay-2">
+          <div class="portal-card apple-glass" onclick="switchMainTab('portfolio')">
+            <div>
+              <div class="portal-num">01 · PORTFOLIO</div>
+              <h2 class="portal-title">3D 概念与实景对比</h2>
+              <p class="portal-desc">左右滑动对比三维空间渲染图与宴会厅实景，亦可按区域、主题色系与尺寸浏览实体作品图库。</p>
+            </div>
+            <div class="portal-link">进入作品档案 <span>→</span></div>
+          </div>
+
+          <div class="portal-card apple-glass" onclick="switchMainTab('pricing')">
+            <div>
+              <div class="portal-num">02 · PRICING &amp; BUDGET</div>
+              <h2 class="portal-title">婚礼配套与地毯预算</h2>
+              <p class="portal-desc">查阅核心布置配套、走道/拱门/舞台/特效加购明细，并使用地毯心理预算计算器即时估算。</p>
+            </div>
+            <div class="portal-link">查看价钱方案 <span>→</span></div>
+          </div>
+
+          <div class="portal-card apple-glass" onclick="switchMainTab('about')">
+            <div>
+              <div class="portal-num">03 · ATELIER</div>
+              <h2 class="portal-title">关于我们与预约提案</h2>
+              <p class="portal-desc">了解 ULTIMATE 的建筑空间设计理念，预约一对一婚礼场地尺寸评估与 3D 空间规划。</p>
+            </div>
+            <div class="portal-link">预约空间顾问 <span>→</span></div>
+          </div>
+        </div>
+
+        <div class="home-featured-section reveal-stage reveal-delay-3">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">近期空间作品精选</h2>
+              <p class="section-desc">直接拖动下方滑杆预览 3D 效果图与实际搭建对比，或点击放大全屏查看。</p>
+            </div>
+            <button type="button" class="btn-outline" onclick="switchMainTab('portfolio')">查看全部作品 →</button>
+          </div>
+          <div id="home-featured-grid" class="portfolio-grid"></div>
+        </div>
+      </section>
+
+      <!-- 2. 作品 (Portfolio) -->
+      <section id="tab-portfolio" class="tab-panel">
         <div class="section-head">
           <div>
             <h2 id="portfolio-heading" class="section-title">精选作品 · 空间美学档案</h2>
@@ -1390,12 +1643,13 @@
         </div>
       </section>
 
+      <!-- 3. 价钱 (Pricing) -->
       <section id="tab-pricing" class="tab-panel">
         <div id="pricing-auth-gate" class="gmail-gate-card apple-glass">
           <div class="gmail-gate-eyebrow">MEMBER ACCESS · GMAIL VERIFICATION</div>
           <h2 class="gmail-gate-title">登录 Google 邮箱查看价钱与预算</h2>
           <p class="gmail-gate-desc">
-            作品与 3D 对比可自由浏览；如需查看完整婚礼配套、加购项目及地毯预算计算器，请先使用您的 Google Mail（@gmail.com）账号登录。
+            首页与作品可自由浏览；如需查看完整婚礼配套、加购项目及地毯预算计算器，请先使用您的 Google Mail（@gmail.com）账号登录。
           </p>
           <div class="google-btn-wrap" id="google-signin-button-container"></div>
           <div id="google-fallback-wrap" style="display:none; margin-top:12px;">
@@ -1476,6 +1730,7 @@
         </div>
       </section>
 
+      <!-- 4. 关于我们 (About) -->
       <section id="tab-about" class="tab-panel">
         <div class="section-head">
           <div>
@@ -1511,6 +1766,7 @@
     </footer>
   </div>
 
+  <!-- 3D vs 实景对比全屏灯箱 -->
   <div id="compare-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="lb-project-title">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
@@ -1552,6 +1808,7 @@
     </div>
   </div>
 
+  <!-- 实体作品图库单图完整大图灯箱 -->
   <div id="single-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="slb-title">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
@@ -2058,8 +2315,10 @@
         });
     }
 
+    /* 点击开场黑点 -> 自然波纹扩散 -> 展开进入首页 */
     function enterSite() {
       clearTimeout(replayAutoTimer);
+      switchMainTab("home", false);
       const splash = document.getElementById("splash-screen");
       const main = document.getElementById("main-site");
       splash.classList.add("is-exiting");
@@ -2076,7 +2335,7 @@
       splash.classList.remove("is-exiting");
       replayAutoTimer = setTimeout(() => {
         enterSite();
-      }, 1900);
+      }, 2000);
     }
 
     document.getElementById("splash-screen").addEventListener("click", enterSite);
@@ -2155,7 +2414,7 @@
       tick();
     })();
 
-    function switchMainTab(tabName) {
+    function switchMainTab(tabName, smoothScroll = true) {
       document.querySelectorAll(".nav-tab-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.tab === tabName);
       });
@@ -2165,7 +2424,11 @@
       if (tabName === "pricing") {
         updatePricingGateUI();
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (smoothScroll) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
 
     function switchPortfolioSubtab(sub) {
@@ -2209,6 +2472,10 @@
       document.getElementById("studio-social").textContent = t.studioSocial;
       document.getElementById("footer-copy").textContent = t.footerCopy;
 
+      const firstProject = siteConfig.portfolio[0] || DEFAULT_CONFIG.portfolio[0];
+      document.getElementById("home-hero-actual").src = firstProject.actualImg;
+      document.getElementById("home-hero-concept").src = firstProject.conceptImg;
+
       updatePricingGateUI();
       renderAboutMetrics();
       renderPortfolio();
@@ -2235,55 +2502,61 @@
       `).join("");
     }
 
-    function renderPortfolio() {
-      const grid = document.getElementById("portfolio-grid");
-      grid.innerHTML = siteConfig.portfolio.map((item, idx) => {
-        const simClass = item.hasCustomConcept ? "" : "simulated-look";
-        return `
-          <article class="project-card apple-glass" data-index="${idx}">
-            <div class="visual-stage mode-compare" id="stage-${idx}">
-              <img src="${item.actualImg}" alt="${escapeHtml(item.title)} 实际完成品" class="visual-layer" />
-              <div class="split-top-layer" id="split-top-${idx}">
-                <img src="${item.conceptImg}" alt="${escapeHtml(item.title)} 3D 概念图" class="visual-layer concept-3d ${simClass}" />
-              </div>
-              <div class="grid-overlay-3d"></div>
-              <div class="split-divider" id="split-divider-${idx}">
-                <div class="split-knob">⇄</div>
-              </div>
-              <input type="range" min="0" max="100" value="50" class="split-range" aria-label="拖动对比 3D 概念图与实际完成品" oninput="scrubCompare(${idx}, this.value)" />
-              <div class="mode-pill-bar">
-                <div class="mode-switch-group">
-                  <button type="button" class="mode-btn" id="btn-3d-${idx}" onclick="setCardViewMode(${idx}, '3d')">3D 概念图</button>
-                  <button type="button" class="mode-btn active" id="btn-compare-${idx}" onclick="setCardViewMode(${idx}, 'compare')">对比滑杆</button>
-                  <button type="button" class="mode-btn" id="btn-actual-${idx}" onclick="setCardViewMode(${idx}, 'actual')">实际完成品</button>
-                </div>
-              </div>
-              <div class="stage-bottom-bar">
-                <span class="stage-tag" id="tag-${idx}">左 3D / 右实景</span>
-                <button type="button" class="expand-compare-btn" onclick="openCompareLightbox(${idx})" aria-label="放大对比大图">
-                  <span>⤢</span><span>放大对比</span>
-                </button>
+    function buildCompareCardHtml(item, idx, prefix) {
+      const simClass = item.hasCustomConcept ? "" : "simulated-look";
+      const uid = `${prefix}-${idx}`;
+      return `
+        <article class="project-card apple-glass" data-index="${idx}">
+          <div class="visual-stage mode-compare" id="stage-${uid}">
+            <img src="${item.actualImg}" alt="${escapeHtml(item.title)} 实际完成品" class="visual-layer" />
+            <div class="split-top-layer" id="split-top-${uid}">
+              <img src="${item.conceptImg}" alt="${escapeHtml(item.title)} 3D 概念图" class="visual-layer concept-3d ${simClass}" />
+            </div>
+            <div class="grid-overlay-3d"></div>
+            <div class="split-divider" id="split-divider-${uid}">
+              <div class="split-knob">⇄</div>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="split-range" aria-label="拖动对比 3D 概念图与实际完成品" oninput="scrubCompare('${uid}', this.value)" />
+            <div class="mode-pill-bar">
+              <div class="mode-switch-group">
+                <button type="button" class="mode-btn" id="btn-3d-${uid}" onclick="setCardViewMode('${uid}', '3d')">3D 概念图</button>
+                <button type="button" class="mode-btn active" id="btn-compare-${uid}" onclick="setCardViewMode('${uid}', 'compare')">对比滑杆</button>
+                <button type="button" class="mode-btn" id="btn-actual-${uid}" onclick="setCardViewMode('${uid}', 'actual')">实际完成品</button>
               </div>
             </div>
-            <div class="project-body">
-              <div>
-                <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
-                <h3 class="project-title">${escapeHtml(item.title)}</h3>
-                <p class="project-desc">${escapeHtml(item.description)}</p>
-              </div>
+            <div class="stage-bottom-bar">
+              <span class="stage-tag" id="tag-${uid}">左 3D / 右实景</span>
+              <button type="button" class="expand-compare-btn" onclick="openCompareLightbox(${idx}, '${uid}')" aria-label="放大对比大图">
+                <span>⤢</span><span>放大对比</span>
+              </button>
             </div>
-          </article>
-        `;
-      }).join("");
+          </div>
+          <div class="project-body">
+            <div>
+              <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
+              <h3 class="project-title">${escapeHtml(item.title)}</h3>
+              <p class="project-desc">${escapeHtml(item.description)}</p>
+            </div>
+          </div>
+        </article>
+      `;
     }
 
-    function setCardViewMode(idx, mode) {
-      const stage = document.getElementById(`stage-${idx}`);
-      const topLayer = document.getElementById(`split-top-${idx}`);
-      const tag = document.getElementById(`tag-${idx}`);
-      document.getElementById(`btn-3d-${idx}`).classList.toggle("active", mode === "3d");
-      document.getElementById(`btn-compare-${idx}`).classList.toggle("active", mode === "compare");
-      document.getElementById(`btn-actual-${idx}`).classList.toggle("active", mode === "actual");
+    function renderPortfolio() {
+      const portfolioGrid = document.getElementById("portfolio-grid");
+      portfolioGrid.innerHTML = siteConfig.portfolio.map((item, idx) => buildCompareCardHtml(item, idx, "p")).join("");
+
+      const homeFeaturedGrid = document.getElementById("home-featured-grid");
+      homeFeaturedGrid.innerHTML = siteConfig.portfolio.slice(0, 2).map((item, idx) => buildCompareCardHtml(item, idx, "h")).join("");
+    }
+
+    function setCardViewMode(uid, mode) {
+      const stage = document.getElementById(`stage-${uid}`);
+      const topLayer = document.getElementById(`split-top-${uid}`);
+      const tag = document.getElementById(`tag-${uid}`);
+      document.getElementById(`btn-3d-${uid}`).classList.toggle("active", mode === "3d");
+      document.getElementById(`btn-compare-${uid}`).classList.toggle("active", mode === "compare");
+      document.getElementById(`btn-actual-${uid}`).classList.toggle("active", mode === "actual");
       stage.classList.remove("mode-3d", "mode-compare", "mode-actual");
       stage.classList.add(`mode-${mode}`);
       if (mode === "3d") {
@@ -2294,16 +2567,16 @@
         tag.textContent = "实际完成品";
       } else {
         const range = stage.querySelector(".split-range");
-        scrubCompare(idx, range ? range.value : 50);
+        scrubCompare(uid, range ? range.value : 50);
         tag.textContent = "左 3D / 右实景";
       }
     }
 
-    function scrubCompare(idx, pct) {
+    function scrubCompare(uid, pct) {
       const val = Number(pct);
       const rightInset = 100 - val;
-      const topLayer = document.getElementById(`split-top-${idx}`);
-      const divider = document.getElementById(`split-divider-${idx}`);
+      const topLayer = document.getElementById(`split-top-${uid}`);
+      const divider = document.getElementById(`split-divider-${uid}`);
       if (topLayer) topLayer.style.clipPath = `inset(0 ${rightInset}% 0 0)`;
       if (divider) divider.style.left = `${val}%`;
     }
@@ -2417,10 +2690,10 @@
       document.body.style.overflow = "";
     }
 
-    function openCompareLightbox(idx) {
+    function openCompareLightbox(idx, uid) {
       const item = siteConfig.portfolio[idx];
       if (!item) return;
-      const cardStage = document.getElementById(`stage-${idx}`);
+      const cardStage = document.getElementById(`stage-${uid || "p-" + idx}`);
       const cardRange = cardStage ? cardStage.querySelector(".split-range") : null;
       let initialMode = "compare";
       if (cardStage?.classList.contains("mode-3d")) initialMode = "3d";
