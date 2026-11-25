@@ -1,3 +1,3 @@
-# ULTIMATE — 极简奢华婚礼空间美学网站（Netlify 独立后台版 V4）
+# ULTIMATE — 极简奢华婚礼空间美学网站（Netlify 独立后台版 V5）
 
-解压后将所有内容直接放到 GitHub 仓库根目录（不要多套一层子文件夹），并在 Netlify 后台开启 Identity 与 Git Gateway 即可通过 `/admin` 管理内容。
+新增「实体作品图库」子栏目，支持后台预设/自由填写区域分类、色系与背景尺寸（16ft / 20ft / 24ft 等）并自动生成前台多维筛选器。
