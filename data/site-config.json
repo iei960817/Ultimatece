@@ -1,71 +1,76 @@
 {
-  "portfolio": [
-    {
-      "title": "新中式搭配",
-      "category": "3D CONCEPT & REALIZED",
-      "description": "传统加现代的创新感，先通过 3D 比例推演红金帷幔与屏风层次，再 1:1 还原现场。",
-      "conceptImg": "/images/uploads/0314-背景2.jpg",
-      "actualImg": "/images/uploads/03模型实体.jpg"
-    },
-    {
-      "title": "音符与星星人的碰撞",
-      "category": "3D CONCEPT & REALIZED",
-      "description": "音乐元素+剧场带来超梦幻的视觉体验",
-      "conceptImg": "/images/uploads/0725-1.jpg",
-      "actualImg": "/images/uploads/7255-.jpg"
-    }
-  ],
-  "realizedWorks": [
-    {
-      "title": "星空婚礼布置",
-      "category": "背景",
-      "color": "蓝色主题",
-      "size": "20ft+高14ft",
-      "image": "/images/uploads/星空.jpeg"
-    },
-    {
-      "title": "香槟布幔主题",
-      "category": "背景",
-      "color": "香槟主题",
-      "size": "20ft",
-      "image": "/images/uploads/粉紫色-1.jpg"
-    },
-    {
-      "title": "青粉主题",
-      "category": "背景",
-      "color": "青色主题",
-      "size": "16ft",
-      "image": "/images/uploads/青-.jpg",
-      "description": "青+粉色搭配"
-    },
-    {
-      "title": "青色柠檬主题",
-      "category": "背景",
-      "color": "青色主题",
-      "size": "18FT",
-      "image": "/images/uploads/青色相关-1-.jpeg"
-    },
-    {
-      "title": "莫纳多巴胺",
-      "category": "背景",
-      "color": "彩色主题",
-      "size": "20ft",
-      "image": "/images/uploads/彩色.jpg"
-    }
-  ],
+  "authConfig": {
+    "requireGmailForPricing": true,
+    "googleClientId": "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com",
+    "sheetsWebhookUrl": "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec"
+  },
+  "texts": {
+    "splashBrand": "ULTIMATE",
+    "splashHint": "点击任意处进入空间",
+    "heroEyebrow": "3D SPATIAL WEDDING ATELIER",
+    "heroTitle": "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。",
+    "heroSubtitle": "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
+    "portfolioHeading": "精选作品 · 空间美学档案",
+    "portfolioSubheading": "切换「3D 概念与实景对比」或「实体作品图库（按区域 / 色系 / 尺寸筛选）」。",
+    "pricingHeading": "价钱方案与额外加购",
+    "pricingSubheading": "先看主要婚礼布置配套，再切换至「额外加购与地毯预算」查看附加项目与地毯心理预算。",
+    "addonsTitle": "额外加购项目 (Add-ons)",
+    "addonsSubtitle": "可根据场地动线、走道/拱门/舞台/地毯与现场特效单独加购的附加项目",
+    "calcTitle": "地毯心理预算计算器",
+    "calcSubtitle": "选择场地长度与有无木底（无木底固定 6ft 宽 / 有木底固定 8ft 宽），快速估算心理预算",
+    "aboutHeading": "关于 ULTIMATE",
+    "aboutSubheading": "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
+    "aboutP1": "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
+    "aboutP2": "在正式进场搭建前，我们会依据新人选定的宴会厅尺寸建立 3D 空间模型，让您提前看见拱门高度、走道比例、花艺层次与灯光氛围。",
+    "aboutP3": "从方案推演到现场落地，我们的制作团队严格把控每一个结构细节，让 3D 概念图成为婚礼当天真实可触的浪漫现场。",
+    "studioLocation": "Kuala Lumpur · 预约制空间",
+    "studioEmail": "hello@ultimate-atelier.my",
+    "studioSocial": "@ultimate.wedding.my",
+    "footerCopy": "© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved."
+  },
   "tagPresets": {
-    "colors": []
+    "categories": [
+      "背景",
+      "照片墙",
+      "迎宾区",
+      "互动区",
+      "长桌",
+      "走道",
+      "舞台视觉中心"
+    ],
+    "colors": [
+      "红色主题",
+      "青色主题",
+      "蓝色主题"
+    ],
+    "sizes": [
+      "16ft",
+      "20ft",
+      "24ft"
+    ]
+  },
+  "carpetRates": {
+    "lengths": [
+      40,
+      52,
+      60,
+      80
+    ],
+    "noWoodWidthFt": 6,
+    "withWoodWidthFt": 8,
+    "noWoodPerSqft": 1.5,
+    "withWoodPerSqft": 4.0
   },
   "packages": [
     {
       "tier": "ESSENTIAL",
       "name": "静谧序曲配套 (Serenity)",
-      "price": "RM 4800",
+      "price": "RM 6,800",
       "featured": false,
-      "desc": "适合现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
+      "desc": "适合精致午宴或现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
       "items": [
-        "主背景+渲染图",
-        "回忆照片墙",
+        "1 套主舞台建筑感背景与花艺点缀",
+        "1 组 3D 空间概念渲染图（含 1 次调整）",
         "迎宾签到台极简陈设与花器组",
         "专业进场搭建与活动后撤场服务"
       ]
@@ -73,14 +78,14 @@
     {
       "tier": "SIGNATURE · 推荐",
       "name": "三维境象配套 (3D Atelier)",
-      "price": "RM 8888",
+      "price": "RM 12,800",
       "featured": true,
       "desc": "ULTIMATE 招牌方案：完整 3D 空间还原 + 双视角氛围灯影与花艺层次。",
       "items": [
         "主舞台立面造型 + 立体花艺与光影层次",
         "完整 3D 概念渲染图 + 重点视角实景对齐",
         "迎宾区 + 拍照打卡空间 + 主桌花艺",
-        "含 40ft 无木底标准走道地毯（可升级木底/加长）"
+        "核心布置结构与现场花艺统筹"
       ]
     },
     {
@@ -99,70 +104,128 @@
   ],
   "addons": [
     {
-      "name": "额外 3D 空间视角渲染（单张）",
-      "note": "适合需要查看特定机位或灯光切换效果",
-      "price": "RM 380"
+      "category": "WALKWAY 走道花艺与灯饰",
+      "name": "走道花艺 · 配套 C 单点",
+      "note": "地花款 20粒+灯饰 6个 / 白柱款 8个+灯饰 6个 / 铁艺款 8个+灯饰 6个",
+      "price": "RM 1,800"
     },
     {
-      "name": "加长 / 加宽地毯木底结构升级",
-      "note": "按实际 sqft 差价计算（无木 RM1.50 / 有木 RM4.00）",
-      "price": "按计算器"
+      "category": "WALKWAY 走道花艺与灯饰",
+      "name": "走道花艺 · 配套 D 单点",
+      "note": "地花款 22粒 + 灯饰 8个",
+      "price": "RM 2,000"
     },
     {
-      "name": "迎宾廊道立柱花艺与柔光灯带",
-      "note": "提升宾客入场仪式感（一对）",
-      "price": "RM 1,650"
+      "category": "WALKWAY 走道花艺与灯饰",
+      "name": "WALKWAY LED LIGHT 走道灯饰款式",
+      "note": "苹果树灯 / 烟花灯 / 大蝴蝶 mix 小蝴蝶 / 水晶灯（视档期供应 Until fully booked）",
+      "price": "按配套 / 档期确认"
     },
     {
-      "name": "主桌镜面/亚克力长桌花艺陈设",
-      "note": "含烛台、餐盘美学搭配与花材升级",
-      "price": "RM 2,200"
+      "category": "ARCH 拱门",
+      "name": "半圆拱门 2个 (Curve Arch 2pcs)",
+      "note": "含 2 个半圆造型拱门与主题花艺点缀",
+      "price": "RM 1,200"
     },
     {
-      "name": "超长夜场拆场 / 跨城运输附加费",
-      "note": "视宴会厅地点与凌晨拆场时段评估",
-      "price": "RM 600+"
+      "category": "ARCH 拱门",
+      "name": "花艺拱门 (Flower Arch)",
+      "note": "定制主题花艺拱门",
+      "price": "RM 1,500"
+    },
+    {
+      "category": "ARCH 拱门",
+      "name": "定制拱门设计 (Customized Arch)",
+      "note": "其他特别造型或尺寸需求，需向工作人员询问报价",
+      "price": "需询价"
+    },
+    {
+      "category": "WALKWAY STAGE 走道舞台",
+      "name": "ROUND STAGE 圆台",
+      "note": "直径 8ft · 高 10cm，可按主题设计印刷图案 + 仿真花艺与布置品",
+      "price": "RM 1,000"
+    },
+    {
+      "category": "WALKWAY STAGE 走道舞台",
+      "name": "TWO LAYER STAGE 双层台阶",
+      "note": "8ft圆台(高10cm) + 10ft×10ft方形台(高7cm)，可按主题设计印刷图案 + 仿真花艺与布置品",
+      "price": "RM 1,600"
+    },
+    {
+      "category": "WALKWAY STAGE 走道舞台",
+      "name": "T STAGE WALKWAY T台走道",
+      "note": "高 2ft，宽 4ft 或 8ft，长 28ft 起（白地毯）；需另加必选舞台保护费 RM 300",
+      "price": "RM 6 / sqft（RM 1,700 起 + RM 300 保护费）"
+    },
+    {
+      "category": "CARPET 地毯",
+      "name": "WHITE CARPET 白地毯（无木底）",
+      "note": "宽 3ft 或 6ft，长 30ft–50ft 起，颜色可选白/深红/黑；不适用于酒店地毯地面",
+      "price": "RM 1.50 / sqft（RM 300 起）"
+    },
+    {
+      "category": "CARPET 地毯",
+      "name": "WHITE CARPET WITH BASED 白地毯+实木地板",
+      "note": "宽 4ft 或 8ft，长 50ft 起，白色；适用于酒店地毯地面",
+      "price": "RM 4.00 / sqft（RM 800 起）"
+    },
+    {
+      "category": "SPECIAL EFFECTS 现场特效",
+      "name": "地爆球 Ground Balloon Boom（35粒小气球/粒）",
+      "note": "Standard 4粒 RM1,388 / 6粒 RM1,688 / Premium 8粒 RM1,988 / Luxury 10粒 RM2,388；换天爆球 +RM50/粒，定金 50%",
+      "price": "RM 1,388 起"
+    },
+    {
+      "category": "SPECIAL EFFECTS 现场特效",
+      "name": "天爆球 Sky Boom（35粒小气球/粒）",
+      "note": "Standard 4粒 RM1,488 / 6粒 RM1,788 / Premium 8粒 RM2,188 / Luxury 10粒 RM2,588；加羽毛 +RM15/粒，定金 50%",
+      "price": "RM 1,488 起"
+    },
+    {
+      "category": "SPECIAL EFFECTS 现场特效",
+      "name": "冷烟花 COOL SPARKLES",
+      "note": "最少预订 2 台（约 3-4 轮）：2台 RM1,000 / 4台 RM2,000 / 6台 RM3,000；需确认场地允许，定金 50%",
+      "price": "RM 1,000 起"
+    },
+    {
+      "category": "SPECIAL EFFECTS 现场特效",
+      "name": "FOG EFFECT 地雾效果",
+      "note": "最少预订 2 台（约 4-6 轮）：2台 RM1,600 / 4台 RM3,000；需场地配合，定金 50%",
+      "price": "RM 1,600 起"
+    },
+    {
+      "category": "MEMORY LANE 照片墙",
+      "name": "MEMORY LANE 照片墙（标准款）",
+      "note": "8ft(高)×12ft(宽)，不限照片数量，可定制词句",
+      "price": "RM 650"
+    },
+    {
+      "category": "MEMORY LANE 照片墙",
+      "name": "MEMORY LANE 照片墙 · 胶片/唱片款",
+      "note": "普通照片墙升级款，胶片会旋转（不播放音乐），可定制文字",
+      "price": "RM 800"
+    },
+    {
+      "category": "MEMORY LANE 照片墙",
+      "name": "CUSTOMIZED MEMORY LANE 定制特别款式",
+      "note": "特殊造型或结构定制，需向工作人员询问报价",
+      "price": "需询价"
+    },
+    {
+      "category": "BACKDROP SIZE 背景尺寸参考",
+      "name": "背景尺寸与容纳人数参考",
+      "note": "8x12(2-8人) / 9x16(2-12人) / 9x20(2-16人) 等；另有 8x16 / 9x12 / 9x24 / 9x28 / 10x16 / 10x20ft 可咨询",
+      "price": "尺寸参考"
     }
   ],
-  "carpetRates": {
-    "lengths": [
-      40,
-      60,
-      80,
-      100
-    ],
-    "noWoodPerSqft": 1.5,
-    "withWoodPerSqft": 4,
-    "noWoodWidthFt": 6,
-    "withWoodWidthFt": 8
-  },
-  "authConfig": {
-    "requireGmailForPricing": true,
-    "googleClientId": "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com",
-    "sheetsWebhookUrl": "[https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec](https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec)"
-  },
-  "texts": {
-    "splashBrand": "ULTIMATE",
-    "studioSocial": "@ultimate.wedding.my",
-    "calcTitle": "地毯 / 舞台走道简易计算器",
-    "addonsTitle": "单独加购项目 (Add-ons)",
-    "studioEmail": "ultimatecreationconcept@gmail.com",
-    "pricingSubheading": "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
-    "portfolioSubheading": "每组作品可切换「3D 概念图」、「对比滑杆」或「实际完成品」，点击右下角「放大对比」可全屏细致查看。",
-    "addonsSubtitle": "可根据宴会厅动线与仪式流程自由叠加",
-    "studioLocation": "33a, Jalan Sutera Merah 3, Taman Sutera, 81200 Johor Bahru, Johor Darul Ta'zim",
-    "calcSubtitle": "选择场地长度（40 /  60 / 80 / 100ft）与木底结构，实时计算面积与价格（RM）作为参考",
-    "splashHint": "点击任意处进入空间",
-    "aboutP1": "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
-    "aboutP2": "在正式进场搭建前，我们会依据新人选定的宴会厅尺寸建立 3D 空间模型，让您提前看见拱门高度、走道比例、花艺层次与灯光氛围。",
-    "heroEyebrow": "3D SPATIAL WEDDING ATELIER",
-    "aboutSubheading": "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
-    "aboutP3": "从方案推演到现场落地，我们的制作团队严格把控每一个结构细节，让 3D 概念图成为婚礼当天真实可触的浪漫现场。",
-    "footerCopy": "© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved.",
-    "heroSubtitle": "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
-    "aboutHeading": "关于 ULTIMATE",
-    "portfolioHeading": "精选作品 · 3D 概念与实景",
-    "pricingHeading": "价钱方案与地毯计算器",
-    "heroTitle": "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。"
-  }
+  "portfolio": [
+    {
+      "title": "白昼之境 · 极简拱廊婚礼",
+      "category": "3D CONCEPT & REALIZED",
+      "description": "以纯白与暖沙色花艺勾勒干净线条，在 3D 阶段先确认拱门高度与走道比例，现场严格还原光影。",
+      "conceptImg": "/images/uploads/demo-3d.svg",
+      "actualImg": "/images/uploads/demo-actual.svg"
+    }
+  ],
+  "realizedWorks": []
 }

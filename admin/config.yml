@@ -96,13 +96,14 @@ collections:
                 widget: "list"
                 field: { label: "条目", name: "item", widget: "string" }
 
-          - label: "5. 额外加购项目 Add-ons（价钱分页 · 子分页 2）"
+          - label: "5. 额外加购项目 Add-ons（可自由新增/删除/修改分类与项目）"
             name: "addons"
             widget: "list"
-            summary: "{{fields.name}} — {{fields.price}}"
+            summary: "[{{fields.category}}] {{fields.name}} — {{fields.price}}"
             fields:
+              - { label: "加购分类", name: "category", widget: "string", default: "WALKWAY 走道花艺与灯饰", required: false }
               - { label: "加购项目名称", name: "name", widget: "string" }
-              - { label: "说明备注", name: "note", widget: "string" }
+              - { label: "说明备注", name: "note", widget: "string", required: false }
               - { label: "价格显示", name: "price", widget: "string" }
 
           - label: "6. 地毯心理预算计算器设置（可改长度选项与单价）"
@@ -123,8 +124,8 @@ collections:
             widget: "object"
             fields:
               - { label: "查看价钱前需先登录 Gmail", name: "requireGmailForPricing", widget: "boolean", default: true }
-              - { label: "Google OAuth Client ID", name: "googleClientId", widget: "string", default: "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com" }
-              - { label: "Google Sheets 接收网址 (/exec)", name: "sheetsWebhookUrl", widget: "string", default: "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec" }
+              - { label: "Google OAuth Client ID", name: "googleClientId", widget: "string", required: false, default: "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com" }
+              - { label: "Google Sheets 接收网址 (/exec)", name: "sheetsWebhookUrl", widget: "string", required: false, default: "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec" }
 
           - label: "8. 全站文字与关于我们编辑"
             name: "texts"
