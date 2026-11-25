@@ -9,7 +9,7 @@ locale: "zh-Hans"
 
 collections:
   - name: "site_settings"
-    label: "全站内容管理（作品 / 实体图库 / 价钱 / 文字）"
+    label: "全站内容管理（作品 / 实体图库 / 配套加购 / 登录记录）"
     files:
       - name: "site_config"
         label: "ULTIMATE 网站总配置"
@@ -26,36 +26,62 @@ collections:
               - { label: "3D 概念效果图", name: "conceptImg", widget: "image" }
               - { label: "实际完成品照片", name: "actualImg", widget: "image" }
 
-          - label: "2. 实体作品图库（完整实拍 · 支持区域/色系/尺寸筛选）"
+          - label: "2. 实体作品图库（上传照片时直接下拉选择区域/色系/尺寸）"
             name: "realizedWorks"
             widget: "list"
             summary: "{{fields.title}} — [{{fields.category}} / {{fields.color}} / {{fields.size}}]"
             fields:
               - { label: "作品名称", name: "title", widget: "string", default: "婚礼实景布置" }
-              - { label: "区域大分类（如：背景、照片墙、迎宾区、互动区、长桌、走道、舞台视觉中心，可自由填写新分类）", name: "category", widget: "string", default: "背景" }
-              - { label: "色系标签（如：纯白极简、暖沙香槟、新中式红金，可自由填写新色系）", name: "color", widget: "string", default: "纯白极简" }
-              - { label: "尺寸标签（背景常用 16ft / 20ft / 24ft，其他区域可留空或填规格）", name: "size", widget: "string", required: false, default: "20ft" }
+              - label: "区域分类（直接下拉选择，无需手打）"
+                name: "category"
+                widget: "select"
+                options:
+                  - "背景"
+                  - "照片墙"
+                  - "迎宾区"
+                  - "互动区"
+                  - "长桌"
+                  - "走道"
+                  - "舞台视觉中心"
+                default: "背景"
+              - label: "主题色系（直接下拉选择，无需手打）"
+                name: "color"
+                widget: "select"
+                options:
+                  - "红色主题"
+                  - "青色主题"
+                  - "蓝色主题"
+                default: "红色主题"
+              - label: "背景尺寸（直接下拉选择，无需手打）"
+                name: "size"
+                widget: "select"
+                required: false
+                options:
+                  - "16ft"
+                  - "20ft"
+                  - "24ft"
+                default: "20ft"
               - { label: "实体高清照片", name: "image", widget: "image" }
               - { label: "作品说明（选填）", name: "description", widget: "text", required: false }
 
-          - label: "3. 前台筛选标签预设库（可随时新增默认展示的筛选标签）"
+          - label: "3. 前台筛选标签预设库（可随时新增或修改预设选项）"
             name: "tagPresets"
             widget: "object"
             fields:
               - label: "预设区域分类列表"
                 name: "categories"
                 widget: "list"
-                field: { label: "分类名称", name: "item", widget: "string" }
-              - label: "预设色系分类列表"
+                field: { label: "区域名称", name: "item", widget: "string" }
+              - label: "预设主题色系列表"
                 name: "colors"
                 widget: "list"
-                field: { label: "色系名称", name: "item", widget: "string" }
-              - label: "预设尺寸分类列表"
+                field: { label: "主题名称", name: "item", widget: "string" }
+              - label: "预设背景尺寸列表"
                 name: "sizes"
                 widget: "list"
-                field: { label: "尺寸名称", name: "item", widget: "string" }
+                field: { label: "尺寸规格", name: "item", widget: "string" }
 
-          - label: "4. 常规婚礼布置配套"
+          - label: "4. 主要婚礼布置配套（价钱分页 · 子分页 1）"
             name: "packages"
             widget: "list"
             summary: "{{fields.name}} — {{fields.price}}"
@@ -70,7 +96,7 @@ collections:
                 widget: "list"
                 field: { label: "条目", name: "item", widget: "string" }
 
-          - label: "5. 单独加购项目 (Add-ons)"
+          - label: "5. 额外加购项目 Add-ons（价钱分页 · 子分页 2）"
             name: "addons"
             widget: "list"
             summary: "{{fields.name}} — {{fields.price}}"
@@ -79,14 +105,28 @@ collections:
               - { label: "说明备注", name: "note", widget: "string" }
               - { label: "价格显示", name: "price", widget: "string" }
 
-          - label: "6. 地毯计算器单价设置"
+          - label: "6. 地毯心理预算计算器设置（可改长度选项与单价）"
             name: "carpetRates"
             widget: "object"
             fields:
+              - label: "可选地毯长度列表（ft，可自由增减/修改）"
+                name: "lengths"
+                widget: "list"
+                field: { label: "长度数值 (ft)", name: "length", widget: "number", value_type: "float" }
+              - { label: "无木底固定宽度 (ft)", name: "noWoodWidthFt", widget: "number", value_type: "float", default: 6 }
               - { label: "无木底每平方尺价格 (RM/sqft)", name: "noWoodPerSqft", widget: "number", value_type: "float", default: 1.5 }
+              - { label: "有木底固定宽度 (ft)", name: "withWoodWidthFt", widget: "number", value_type: "float", default: 8 }
               - { label: "有木底每平方尺价格 (RM/sqft)", name: "withWoodPerSqft", widget: "number", value_type: "float", default: 4.0 }
 
-          - label: "7. 全站文字与关于我们编辑"
+          - label: "7. Gmail 登录验证与 Google Sheets 记录设置"
+            name: "authConfig"
+            widget: "object"
+            fields:
+              - { label: "查看价钱前需先登录 Gmail", name: "requireGmailForPricing", widget: "boolean", default: true }
+              - { label: "Google OAuth Client ID", name: "googleClientId", widget: "string", default: "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com" }
+              - { label: "Google Sheets 接收网址 (/exec)", name: "sheetsWebhookUrl", widget: "string", default: "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec" }
+
+          - label: "8. 全站文字与关于我们编辑"
             name: "texts"
             widget: "object"
             fields:

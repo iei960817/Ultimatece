@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
       --bg-canvas: #FFFFFF;
@@ -36,7 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* Splash */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -146,7 +146,6 @@
       transform: translateY(0);
     }
 
-    /* Header */
     .site-header {
       position: sticky;
       top: 0;
@@ -225,7 +224,6 @@
       background: var(--ink-primary);
     }
 
-    /* Hero */
     .hero-strip {
       max-width: 1320px;
       margin: 0 auto;
@@ -287,13 +285,20 @@
       font-size: 0.9rem;
     }
 
-    /* Portfolio Sub-tabs */
-    .portfolio-subtabs {
-      display: inline-flex;
+    .subtabs-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
       border-bottom: 1px solid var(--border-light);
       width: 100%;
-      gap: 28px;
       margin-bottom: 28px;
+    }
+    .subtabs-left {
+      display: inline-flex;
+      gap: 28px;
+      flex-wrap: wrap;
     }
     .subtab-btn {
       position: relative;
@@ -322,7 +327,6 @@
       background: var(--ink-primary);
     }
 
-    /* Filter Bar for Realized Works */
     .filter-panel {
       background: var(--bg-subtle);
       border: 1px solid var(--border-light);
@@ -394,7 +398,6 @@
       cursor: pointer;
     }
 
-    /* Grids */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -409,7 +412,6 @@
     }
     .project-card:hover { border-color: #C8C8C2; }
 
-    /* Compare Visual Stage (Existing) */
     .visual-stage {
       position: relative;
       width: 100%;
@@ -582,7 +584,6 @@
       transform: translateY(-1px);
     }
 
-    /* Realized Single Photo Stage */
     .realized-stage {
       position: relative;
       width: 100%;
@@ -648,7 +649,6 @@
       grid-column: 1 / -1;
     }
 
-    /* Lightboxes (Compare + Single Photo Fullscreen) */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
@@ -809,12 +809,63 @@
       font-weight: 600;
     }
 
-    /* Pricing & Calculator */
+    .gmail-gate-card {
+      max-width: 540px;
+      margin: 24px auto;
+      border: 1px solid var(--border-light);
+      background: var(--bg-subtle);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .gmail-gate-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .gmail-gate-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .gmail-gate-desc {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      margin-bottom: 24px;
+    }
+    .google-btn-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .gmail-user-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+    }
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+    }
+
     .packages-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 22px;
-      margin-bottom: 44px;
     }
     .package-card {
       border: 1px solid var(--border-light);
@@ -913,8 +964,8 @@
     }
     .option-group.two-col { grid-template-columns: repeat(2, 1fr); }
     .calc-choice-btn {
-      padding: 12px 8px;
-      min-height: 44px;
+      padding: 12px 10px;
+      min-height: 48px;
       border: 1px solid var(--border-light);
       background: #FFFFFF;
       color: var(--ink-primary);
@@ -922,30 +973,33 @@
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
+      line-height: 1.35;
+    }
+    .calc-choice-btn .sub-hint {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.75;
+      margin-top: 2px;
     }
     .calc-choice-btn.active {
       background: var(--ink-primary);
       color: #FFFFFF;
       border-color: var(--ink-primary);
     }
-    .width-input-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .width-lock-banner {
       margin-top: 10px;
-    }
-    .input-field {
-      width: 100%;
-      padding: 11px 12px;
-      min-height: 44px;
+      padding: 10px 14px;
+      background: var(--bg-subtle);
       border: 1px solid var(--border-light);
-      font-family: inherit;
-      font-size: 0.95rem;
-      background: #FFFFFF;
-      color: var(--ink-primary);
-      border-radius: 0;
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .input-field:focus { outline: none; border-color: var(--ink-primary); }
+    .width-lock-banner strong {
+      color: var(--ink-primary);
+    }
     .calc-result-box {
       margin-top: 22px;
       padding: 20px;
@@ -1073,7 +1127,7 @@
       .nav-tab-btn { font-size: 0.85rem; padding: 8px 2px; }
       .hero-strip { padding: 32px 16px 26px; gap: 14px; }
       .container { padding: 32px 16px 64px; }
-      .portfolio-subtabs { gap: 18px; }
+      .subtabs-left { gap: 18px; }
       .subtab-btn { font-size: 0.88rem; }
       .filter-panel { padding: 14px; }
       .filter-label { width: 100%; padding-top: 0; margin-bottom: -6px; }
@@ -1136,17 +1190,17 @@
           </div>
         </div>
 
-        <div class="portfolio-subtabs" role="tablist">
-          <button type="button" class="subtab-btn active" id="subtab-compare" onclick="switchPortfolioSubtab('compare')">3D 概念与实景对比</button>
-          <button type="button" class="subtab-btn" id="subtab-realized" onclick="switchPortfolioSubtab('realized')">实体作品图库</button>
+        <div class="subtabs-bar" role="tablist">
+          <div class="subtabs-left">
+            <button type="button" class="subtab-btn active" id="subtab-compare" onclick="switchPortfolioSubtab('compare')">3D 概念与实景对比</button>
+            <button type="button" class="subtab-btn" id="subtab-realized" onclick="switchPortfolioSubtab('realized')">实体作品图库</button>
+          </div>
         </div>
 
-        <!-- Sub-panel 1: 3D vs Actual Compare -->
         <div id="subpanel-compare">
           <div id="portfolio-grid" class="portfolio-grid"></div>
         </div>
 
-        <!-- Sub-panel 2: Realized Gallery with Dynamic Tags -->
         <div id="subpanel-realized" style="display:none;">
           <div class="filter-panel">
             <div class="filter-row">
@@ -1172,61 +1226,85 @@
       </section>
 
       <section id="tab-pricing" class="tab-panel">
-        <div class="section-head">
-          <div>
-            <h2 id="pricing-heading" class="section-title">价钱方案与地毯计算器</h2>
-            <p id="pricing-subheading" class="section-desc">常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。</p>
+        <div id="pricing-auth-gate" class="gmail-gate-card">
+          <div class="gmail-gate-eyebrow">MEMBER ACCESS · GMAIL VERIFICATION</div>
+          <h2 class="gmail-gate-title">登录 Google 邮箱查看价钱与预算</h2>
+          <p class="gmail-gate-desc">
+            作品与 3D 对比可自由浏览；如需查看完整婚礼配套、加购项目及地毯预算计算器，请先使用您的 Google Mail（@gmail.com）账号登录。
+          </p>
+          <div class="google-btn-wrap" id="google-signin-button-container"></div>
+          <div id="google-fallback-wrap" style="display:none; margin-top:12px;">
+            <button type="button" class="btn-dark" onclick="triggerGoogleTokenLogin()">使用 Google 账号登录解锁</button>
           </div>
+          <p id="gmail-gate-status" style="font-size:0.78rem; color:var(--ink-muted); margin-top:12px;"></p>
         </div>
 
-        <div id="packages-grid" class="packages-grid"></div>
-
-        <div class="pricing-lower">
-          <div class="panel-box">
-            <h3 id="addons-title" class="panel-box-title">单独加购项目 (Add-ons)</h3>
-            <p id="addons-subtitle" class="panel-box-sub">可根据宴会厅动线与仪式流程自由叠加</p>
-            <div id="addons-list"></div>
+        <div id="pricing-unlocked-content" style="display:none;">
+          <div class="gmail-user-bar">
+            <div>
+              已登录：<strong id="logged-user-display"></strong>
+              <span id="sheet-sync-status" class="sync-badge" style="margin-left:10px;"></span>
+            </div>
+            <button type="button" class="btn-outline" style="padding:6px 12px; min-height:34px; font-size:0.76rem;" onclick="signOutGmail()">切换 / 退出账号</button>
           </div>
 
-          <div class="panel-box">
-            <h3 id="calc-title" class="panel-box-title">地毯 / 舞台走道简易计算器</h3>
-            <p id="calc-subtitle" class="panel-box-sub">选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）</p>
-
-            <label class="calc-label">1. 选择长度（ft）</label>
-            <div class="option-group" id="length-options">
-              <button type="button" class="calc-choice-btn active" data-len="40" onclick="selectLength(40)">40 ft</button>
-              <button type="button" class="calc-choice-btn" data-len="52" onclick="selectLength(52)">52 ft</button>
-              <button type="button" class="calc-choice-btn" data-len="60" onclick="selectLength(60)">60 ft</button>
-              <button type="button" class="calc-choice-btn" data-len="80" onclick="selectLength(80)">80 ft</button>
+          <div class="section-head">
+            <div>
+              <h2 id="pricing-heading" class="section-title">价钱方案与额外加购</h2>
+              <p id="pricing-subheading" class="section-desc">先看主要婚礼布置配套，再切换至「额外加购与地毯预算」查看附加项目与地毯心理预算。</p>
             </div>
+          </div>
 
-            <label class="calc-label">2. 选择宽度（ft，可手动微调）</label>
-            <div class="option-group" id="width-presets">
-              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(4)">4 ft</button>
-              <button type="button" class="calc-choice-btn active" onclick="setWidthPreset(6)">6 ft</button>
-              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(8)">8 ft</button>
-              <button type="button" class="calc-choice-btn" onclick="setWidthPreset(10)">10 ft</button>
+          <div class="subtabs-bar" role="tablist">
+            <div class="subtabs-left">
+              <button type="button" class="subtab-btn active" id="pricing-subtab-packages" onclick="switchPricingSubtab('packages')">主要配套</button>
+              <button type="button" class="subtab-btn" id="pricing-subtab-addons" onclick="switchPricingSubtab('addons')">额外加购与地毯预算</button>
             </div>
-            <div class="width-input-row">
-              <input id="carpet-width-input" type="number" inputmode="decimal" min="1" max="60" step="0.5" value="6" class="input-field" oninput="recalcCarpet()" />
-              <span style="font-size:0.84rem; color:var(--ink-secondary); white-space:nowrap;">ft 宽</span>
-            </div>
+          </div>
 
-            <label class="calc-label">3. 选择结构类型</label>
-            <div class="option-group two-col">
-              <button type="button" id="base-no-wood-btn" class="calc-choice-btn active" onclick="selectWoodBase(false)">
-                无木底 (RM 1.50 / sqft)
-              </button>
-              <button type="button" id="base-with-wood-btn" class="calc-choice-btn" onclick="selectWoodBase(true)">
-                有木底 (RM 4.00 / sqft)
-              </button>
-            </div>
+          <div id="pricing-panel-packages">
+            <div id="packages-grid" class="packages-grid"></div>
+          </div>
 
-            <div class="calc-result-box">
-              <div id="calc-formula-text" class="calc-formula">40 ft × 6 ft = 240 sqft × RM 1.50 / sqft</div>
-              <div id="calc-total-price" class="calc-total">RM 360.00</div>
-              <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <button type="button" class="btn-dark" onclick="copyCarpetQuote()">复制报价明细</button>
+          <div id="pricing-panel-addons" style="display:none;">
+            <div class="pricing-lower">
+              <div class="panel-box">
+                <h3 id="addons-title" class="panel-box-title">额外加购项目 (Add-ons)</h3>
+                <p id="addons-subtitle" class="panel-box-sub">可根据场地动线与仪式流程单独加购的附加项目</p>
+                <div id="addons-list"></div>
+              </div>
+
+              <div class="panel-box">
+                <h3 id="calc-title" class="panel-box-title">地毯心理预算计算器</h3>
+                <p id="calc-subtitle" class="panel-box-sub">选择场地长度与有无木底（无木底固定 6ft 宽 / 有木底固定 8ft 宽），快速估算心理预算</p>
+
+                <label class="calc-label">1. 选择长度（ft）</label>
+                <div class="option-group" id="length-options"></div>
+
+                <label class="calc-label">2. 选择木底版本（宽度自动匹配）</label>
+                <div class="option-group two-col">
+                  <button type="button" id="base-no-wood-btn" class="calc-choice-btn active" onclick="selectWoodBase(false)">
+                    无木底 · 宽 6ft
+                    <span class="sub-hint" id="rate-hint-no-wood">RM 1.50 / sqft</span>
+                  </button>
+                  <button type="button" id="base-with-wood-btn" class="calc-choice-btn" onclick="selectWoodBase(true)">
+                    有木底 · 宽 8ft
+                    <span class="sub-hint" id="rate-hint-with-wood">RM 4.00 / sqft</span>
+                  </button>
+                </div>
+
+                <div class="width-lock-banner">
+                  <span>当前对应宽度：</span>
+                  <strong id="current-locked-width">6 ft（无木底专属规格）</strong>
+                </div>
+
+                <div class="calc-result-box">
+                  <div id="calc-formula-text" class="calc-formula">40 ft × 6 ft = 240.0 sqft × RM 1.50 / sqft（无木底）</div>
+                  <div id="calc-total-price" class="calc-total">RM 360.00</div>
+                  <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" class="btn-dark" onclick="copyAndRecordCarpetQuote()">复制预算并记录明细</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1254,7 +1332,7 @@
             <p style="font-size:0.88rem; margin-bottom:10px;"><strong>工作室：</strong><span id="studio-location">Kuala Lumpur · 预约制空间</span></p>
             <p style="font-size:0.88rem; margin-bottom:10px;"><strong>联络电邮：</strong><span id="studio-email">hello@ultimate-atelier.my</span></p>
             <p style="font-size:0.88rem; margin-bottom:20px;"><strong>Instagram / 作品集：</strong><span id="studio-social">@ultimate.wedding.my</span></p>
-            <button type="button" class="btn-dark" onclick="switchMainTab('pricing')">前往查看价钱与地毯计算器</button>
+            <button type="button" class="btn-dark" onclick="switchMainTab('pricing')">前往查看价钱与地毯预算</button>
           </div>
         </div>
       </section>
@@ -1268,7 +1346,6 @@
     </footer>
   </div>
 
-  <!-- Compare Lightbox -->
   <div id="compare-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="lb-project-title">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
@@ -1309,7 +1386,6 @@
     </div>
   </div>
 
-  <!-- Single Realized Fullscreen Lightbox -->
   <div id="single-lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-labelledby="slb-title">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
@@ -1329,6 +1405,11 @@
   <div id="toast" class="toast-banner"></div>
 
   <script>
+    const EMBEDDED_AUTH_DEFAULTS = {
+      googleClientId: "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com",
+      sheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec"
+    };
+
     function svgPlaceholder(title, subtitle, bg1, bg2, accent) {
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
         <defs>
@@ -1348,6 +1429,11 @@
     }
 
     const DEFAULT_CONFIG = {
+      authConfig: {
+        requireGmailForPricing: true,
+        googleClientId: EMBEDDED_AUTH_DEFAULTS.googleClientId,
+        sheetsWebhookUrl: EMBEDDED_AUTH_DEFAULTS.sheetsWebhookUrl
+      },
       texts: {
         splashBrand: "ULTIMATE",
         splashHint: "点击任意处进入空间",
@@ -1356,12 +1442,12 @@
         heroSubtitle: "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
         portfolioHeading: "精选作品 · 空间美学档案",
         portfolioSubheading: "切换「3D 概念与实景对比」或「实体作品图库（按区域 / 色系 / 尺寸筛选）」。",
-        pricingHeading: "价钱方案与地毯计算器",
-        pricingSubheading: "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
-        addonsTitle: "单独加购项目 (Add-ons)",
-        addonsSubtitle: "可根据宴会厅动线与仪式流程自由叠加",
-        calcTitle: "地毯 / 舞台走道简易计算器",
-        calcSubtitle: "选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）",
+        pricingHeading: "价钱方案与额外加购",
+        pricingSubheading: "先看主要婚礼布置配套，再切换至「额外加购与地毯预算」查看附加项目与地毯心理预算。",
+        addonsTitle: "额外加购项目 (Add-ons)",
+        addonsSubtitle: "可根据场地动线与仪式流程单独加购的附加项目",
+        calcTitle: "地毯心理预算计算器",
+        calcSubtitle: "选择场地长度与有无木底（无木底固定 6ft 宽 / 有木底固定 8ft 宽），快速估算心理预算",
         aboutHeading: "关于 ULTIMATE",
         aboutSubheading: "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
         aboutP1: "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
@@ -1374,11 +1460,13 @@
       },
       tagPresets: {
         categories: ["背景", "照片墙", "迎宾区", "互动区", "长桌", "走道", "舞台视觉中心"],
-        colors: ["纯白极简", "暖沙香槟", "新中式红金", "莫兰迪灰粉", "森系绿意", "暗调黑金"],
-        sizes: ["16ft", "20ft", "24ft", "定制尺寸"]
+        colors: ["红色主题", "青色主题", "蓝色主题"],
+        sizes: ["16ft", "20ft", "24ft"]
       },
       carpetRates: {
         lengths: [40, 52, 60, 80],
+        noWoodWidthFt: 6,
+        withWoodWidthFt: 8,
         noWoodPerSqft: 1.5,
         withWoodPerSqft: 4.0
       },
@@ -1406,7 +1494,7 @@
             "主舞台立面造型 + 立体花艺与光影层次",
             "完整 3D 概念渲染图 + 重点视角实景对齐",
             "迎宾区 + 拍照打卡空间 + 主桌花艺",
-            "含 40ft 无木底标准走道地毯（可升级木底/加长）"
+            "核心布置结构与现场花艺统筹"
           ]
         },
         {
@@ -1425,7 +1513,6 @@
       ],
       addons: [
         { name: "额外 3D 空间视角渲染（单张）", note: "适合需要查看特定机位或灯光切换效果", price: "RM 380" },
-        { name: "加长 / 加宽地毯木底结构升级", note: "按实际 sqft 差价计算（无木 RM1.50 / 有木 RM4.00）", price: "按计算器" },
         { name: "迎宾廊道立柱花艺与柔光灯带", note: "提升宾客入场仪式感（一对）", price: "RM 1,650" },
         { name: "主桌镜面/亚克力长桌花艺陈设", note: "含烛台、餐盘美学搭配与花材升级", price: "RM 2,200" },
         { name: "超长夜场拆场 / 跨城运输附加费", note: "视宴会厅地点与凌晨拆场时段评估", price: "RM 600+" }
@@ -1440,37 +1527,35 @@
           hasCustomConcept: false
         }
       ],
-      realizedWorks: [
-        {
-          title: "云端白沙主舞台 · 20ft 弧形建筑背景",
-          category: "背景",
-          color: "纯白极简",
-          size: "20ft",
-          image: svgPlaceholder("REALIZED BACKDROP", "20FT WHITE ARCHITECTURAL STAGE", "#F7F6F2", "#E5E2D9", "#111111"),
-          description: "20ft 宽幅哑光白弧形立面，搭配层次感白绿花艺与底部漫反射洗墙灯。"
-        },
-        {
-          title: "宋韵赤金 · 迎宾区与拍照墙",
-          category: "照片墙",
-          color: "新中式红金",
-          size: "16ft",
-          image: svgPlaceholder("PHOTO WALL", "16FT MODERN ORIENTAL GALLERY", "#F4ECE8", "#E3CFC7", "#8B2E2E"),
-          description: "16ft 新中式丝绸屏风结构，融合立体红金花艺与宾客合影留白构图。"
-        }
-      ]
+      realizedWorks: []
     };
 
     let siteConfig = structuredClone(DEFAULT_CONFIG);
-    let calcState = { lengthFt: 40, widthFt: 6, withWood: false };
+    let calcState = { lengthFt: 40, withWood: false };
     let lightboxState = { projectIndex: 0, mode: "compare", sliderPct: 50 };
     let realizedFilter = { category: "全部", color: "全部", size: "全部" };
+    let loggedGmailUser = null;
+
+    function normalizeLengths(rawLengths) {
+      const list = Array.isArray(rawLengths) && rawLengths.length
+        ? rawLengths.map((n) => Number(n)).filter((n) => !Number.isNaN(n) && n > 0)
+        : [40, 52, 60, 80];
+      return list.length ? list : [40, 52, 60, 80];
+    }
 
     async function initSiteData() {
       try {
         const res = await fetch("data/site-config.json?v=" + Date.now());
         if (res.ok) {
           const remote = await res.json();
+          const mergedClientId = (remote.authConfig?.googleClientId || "").trim() || DEFAULT_CONFIG.authConfig.googleClientId;
+          const mergedWebhookUrl = (remote.authConfig?.sheetsWebhookUrl || "").trim() || DEFAULT_CONFIG.authConfig.sheetsWebhookUrl;
           siteConfig = {
+            authConfig: {
+              requireGmailForPricing: remote.authConfig?.requireGmailForPricing !== false,
+              googleClientId: mergedClientId,
+              sheetsWebhookUrl: mergedWebhookUrl
+            },
             texts: { ...DEFAULT_CONFIG.texts, ...(remote.texts || {}) },
             tagPresets: {
               categories: Array.isArray(remote.tagPresets?.categories) && remote.tagPresets.categories.length
@@ -1483,19 +1568,212 @@
                 ? remote.tagPresets.sizes
                 : DEFAULT_CONFIG.tagPresets.sizes
             },
-            carpetRates: { ...DEFAULT_CONFIG.carpetRates, ...(remote.carpetRates || {}) },
+            carpetRates: {
+              ...DEFAULT_CONFIG.carpetRates,
+              ...(remote.carpetRates || {}),
+              lengths: normalizeLengths(remote.carpetRates?.lengths)
+            },
             packages: Array.isArray(remote.packages) && remote.packages.length ? remote.packages : DEFAULT_CONFIG.packages,
             addons: Array.isArray(remote.addons) && remote.addons.length ? remote.addons : DEFAULT_CONFIG.addons,
             portfolio: Array.isArray(remote.portfolio) && remote.portfolio.length
               ? remote.portfolio.map((item) => ({ ...item, hasCustomConcept: true }))
               : DEFAULT_CONFIG.portfolio,
-            realizedWorks: Array.isArray(remote.realizedWorks)
-              ? remote.realizedWorks
-              : DEFAULT_CONFIG.realizedWorks
+            realizedWorks: Array.isArray(remote.realizedWorks) ? remote.realizedWorks : []
           };
         }
       } catch (e) {}
+
+      if (!siteConfig.carpetRates.lengths.includes(calcState.lengthFt)) {
+        calcState.lengthFt = siteConfig.carpetRates.lengths[0];
+      }
+
+      restoreSessionUser();
       renderAll();
+      initGoogleSignIn();
+    }
+
+    function restoreSessionUser() {
+      try {
+        const saved = sessionStorage.getItem("ultimate_gmail_user");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.email && parsed.email.toLowerCase().endsWith("@gmail.com")) {
+            loggedGmailUser = parsed;
+          }
+        }
+      } catch (e) {}
+    }
+
+    function decodeJwtPayload(token) {
+      const part = token.split(".")[1];
+      const base64 = part.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonStr = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      return JSON.parse(jsonStr);
+    }
+
+    function handleGoogleCredentialResponse(response) {
+      try {
+        const payload = decodeJwtPayload(response.credential);
+        const email = (payload.email || "").trim().toLowerCase();
+        const name = (payload.name || email.split("@")[0] || "访客").trim();
+        if (!email.endsWith("@gmail.com")) {
+          document.getElementById("gmail-gate-status").textContent = "请使用 @gmail.com 结尾的 Google 邮箱账号登录。";
+          showToast("仅支持 @gmail.com 邮箱登录");
+          return;
+        }
+        loggedGmailUser = { name, email, picture: payload.picture || "" };
+        sessionStorage.setItem("ultimate_gmail_user", JSON.stringify(loggedGmailUser));
+        updatePricingGateUI();
+        sendToGoogleSheets("登录查看价钱", "-");
+        showToast(`欢迎 ${name}，价钱方案已解锁`);
+      } catch (err) {
+        showToast("Google 登录解析失败，请重试");
+      }
+    }
+
+    function triggerGoogleTokenLogin() {
+      const clientId = (siteConfig.authConfig?.googleClientId || "").trim();
+      if (!clientId) {
+        showToast("尚未配置 Google Client ID");
+        return;
+      }
+      if (!window.google?.accounts?.oauth2) {
+        showToast("Google 登录组件加载中，请稍后再试");
+        return;
+      }
+      const tokenClient = window.google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: "openid email profile",
+        callback: async (tokenResponse) => {
+          if (tokenResponse.error) {
+            showToast("登录已取消或失败");
+            return;
+          }
+          try {
+            const infoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+              headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+            });
+            const info = await infoRes.json();
+            const email = (info.email || "").trim().toLowerCase();
+            const name = (info.name || email.split("@")[0] || "访客").trim();
+            if (!email.endsWith("@gmail.com")) {
+              showToast("请使用 @gmail.com 结尾的 Google 邮箱账号登录");
+              return;
+            }
+            loggedGmailUser = { name, email, picture: info.picture || "" };
+            sessionStorage.setItem("ultimate_gmail_user", JSON.stringify(loggedGmailUser));
+            updatePricingGateUI();
+            sendToGoogleSheets("登录查看价钱", "-");
+            showToast(`欢迎 ${name}，价钱方案已解锁`);
+          } catch (e) {
+            showToast("获取 Google 账号信息失败");
+          }
+        }
+      });
+      tokenClient.requestAccessToken();
+    }
+
+    function initGoogleSignIn() {
+      const clientId = (siteConfig.authConfig?.googleClientId || "").trim();
+      const btnContainer = document.getElementById("google-signin-button-container");
+      const fallbackWrap = document.getElementById("google-fallback-wrap");
+      const statusEl = document.getElementById("gmail-gate-status");
+
+      if (!clientId) {
+        statusEl.textContent = "提示：管理员尚未在后台填入 Google Client ID。";
+        fallbackWrap.style.display = "block";
+        return;
+      }
+
+      let attempts = 0;
+      const timer = setInterval(() => {
+        attempts += 1;
+        if (window.google?.accounts?.id) {
+          clearInterval(timer);
+          try {
+            window.google.accounts.id.initialize({
+              client_id: clientId,
+              callback: handleGoogleCredentialResponse
+            });
+            btnContainer.innerHTML = "";
+            window.google.accounts.id.renderButton(btnContainer, {
+              theme: "outline",
+              size: "large",
+              text: "signin_with",
+              shape: "rectangular",
+              width: 280
+            });
+            fallbackWrap.style.display = "block";
+            statusEl.textContent = "安全验证：仅记录您主动授权的 Gmail 邮箱与查看/预算明细。";
+          } catch (e) {
+            fallbackWrap.style.display = "block";
+          }
+        } else if (attempts >= 25) {
+          clearInterval(timer);
+          fallbackWrap.style.display = "block";
+        }
+      }, 200);
+    }
+
+    function signOutGmail() {
+      loggedGmailUser = null;
+      sessionStorage.removeItem("ultimate_gmail_user");
+      window.google?.accounts?.id?.disableAutoSelect?.();
+      updatePricingGateUI();
+      showToast("已退出当前 Gmail 账号");
+    }
+
+    function updatePricingGateUI() {
+      const requireAuth = siteConfig.authConfig?.requireGmailForPricing !== false;
+      const gateEl = document.getElementById("pricing-auth-gate");
+      const unlockedEl = document.getElementById("pricing-unlocked-content");
+      const userDisp = document.getElementById("logged-user-display");
+
+      if (!requireAuth || loggedGmailUser) {
+        gateEl.style.display = "none";
+        unlockedEl.style.display = "block";
+        userDisp.textContent = loggedGmailUser
+          ? `${loggedGmailUser.name} (${loggedGmailUser.email})`
+          : "已开放浏览";
+      } else {
+        gateEl.style.display = "block";
+        unlockedEl.style.display = "none";
+      }
+    }
+
+    function sendToGoogleSheets(action, quoteText) {
+      const webhookUrl = (siteConfig.authConfig?.sheetsWebhookUrl || "").trim();
+      const syncEl = document.getElementById("sheet-sync-status");
+      if (!webhookUrl || !loggedGmailUser) {
+        if (syncEl) syncEl.textContent = "";
+        return;
+      }
+      if (syncEl) syncEl.textContent = "· 正在同步记录...";
+
+      const payload = JSON.stringify({
+        name: loggedGmailUser.name,
+        email: loggedGmailUser.email,
+        action: action,
+        quote: quoteText
+      });
+
+      fetch(webhookUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: payload
+      })
+        .then(() => {
+          if (syncEl) syncEl.textContent = "· 已记录至 Google 表格";
+        })
+        .catch(() => {
+          if (syncEl) syncEl.textContent = "· 记录同步待重试";
+        });
     }
 
     function enterSite() {
@@ -1527,6 +1805,9 @@
       document.querySelectorAll(".tab-panel").forEach((panel) => {
         panel.classList.toggle("active", panel.id === "tab-" + tabName);
       });
+      if (tabName === "pricing") {
+        updatePricingGateUI();
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -1535,6 +1816,14 @@
       document.getElementById("subtab-realized").classList.toggle("active", sub === "realized");
       document.getElementById("subpanel-compare").style.display = sub === "compare" ? "block" : "none";
       document.getElementById("subpanel-realized").style.display = sub === "realized" ? "block" : "none";
+    }
+
+    function switchPricingSubtab(sub) {
+      const isPkg = sub === "packages";
+      document.getElementById("pricing-subtab-packages").classList.toggle("active", isPkg);
+      document.getElementById("pricing-subtab-addons").classList.toggle("active", !isPkg);
+      document.getElementById("pricing-panel-packages").style.display = isPkg ? "block" : "none";
+      document.getElementById("pricing-panel-addons").style.display = isPkg ? "none" : "block";
     }
 
     function renderAll() {
@@ -1563,19 +1852,21 @@
       document.getElementById("studio-social").textContent = t.studioSocial;
       document.getElementById("footer-copy").textContent = t.footerCopy;
 
+      updatePricingGateUI();
       renderAboutMetrics();
       renderPortfolio();
       renderRealizedFilters();
       renderRealizedGrid();
       renderPackagesAndAddons();
-      updateCarpetButtons();
+      renderLengthOptions();
+      updateCarpetWoodButtons();
       recalcCarpet();
     }
 
     function renderAboutMetrics() {
       const metrics = [
         { num: "100%", label: "先出 3D 空间预演再搭建" },
-        { num: "40–80 ft", label: "多规格场地地毯快速测算" },
+        { num: "6ft / 8ft", label: "无木底 6ft · 有木底 8ft" },
         { num: "RM 1.5 / 4", label: "无木底 / 有木底清晰单价" },
         { num: "1 : 1", label: "概念效果图与现场实景还原" }
       ];
@@ -1587,7 +1878,6 @@
       `).join("");
     }
 
-    /* Compare Portfolio (Unchanged) */
     function renderPortfolio() {
       const grid = document.getElementById("portfolio-grid");
       grid.innerHTML = siteConfig.portfolio.map((item, idx) => {
@@ -1619,9 +1909,11 @@
               </div>
             </div>
             <div class="project-body">
-              <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
-              <h3 class="project-title">${escapeHtml(item.title)}</h3>
-              <p class="project-desc">${escapeHtml(item.description)}</p>
+              <div>
+                <div class="project-meta">${escapeHtml(item.category || "3D CONCEPT & REALIZED")}</div>
+                <h3 class="project-title">${escapeHtml(item.title)}</h3>
+                <p class="project-desc">${escapeHtml(item.description)}</p>
+              </div>
             </div>
           </article>
         `;
@@ -1659,7 +1951,6 @@
       if (divider) divider.style.left = `${val}%`;
     }
 
-    /* Realized Works Dynamic Tags & Filtering */
     function getUniqueOptions(presetList, workItems, key) {
       const set = new Set(["全部"]);
       (presetList || []).forEach((v) => { if (v && String(v).trim()) set.add(String(v).trim()); });
@@ -1676,6 +1967,10 @@
       const categories = getUniqueOptions(presets.categories, works, "category");
       const colors = getUniqueOptions(presets.colors, works, "color");
       const sizes = getUniqueOptions(presets.sizes, works, "size");
+
+      if (!categories.includes(realizedFilter.category)) realizedFilter.category = "全部";
+      if (!colors.includes(realizedFilter.color)) realizedFilter.color = "全部";
+      if (!sizes.includes(realizedFilter.size)) realizedFilter.size = "全部";
 
       document.getElementById("filter-categories").innerHTML = categories.map((cat) => `
         <button type="button" class="filter-pill ${realizedFilter.category === cat ? "active" : ""}" onclick="setRealizedFilter('category', '${escapeJs(cat)}')">${escapeHtml(cat)}</button>
@@ -1715,7 +2010,7 @@
 
       const grid = document.getElementById("realized-grid");
       if (!filtered.length) {
-        grid.innerHTML = `<div class="empty-state-box">当前筛选条件下暂无实体作品，可点击上方「重置全部筛选」查看全部案例。</div>`;
+        grid.innerHTML = `<div class="empty-state-box">当前筛选条件下暂无实体作品，可点击上方「重置全部筛选」或前往后台添加作品。</div>`;
         return;
       }
 
@@ -1765,7 +2060,6 @@
       document.body.style.overflow = "";
     }
 
-    /* Compare Lightbox */
     function openCompareLightbox(idx) {
       const item = siteConfig.portfolio[idx];
       if (!item) return;
@@ -1867,7 +2161,6 @@
       }
     });
 
-    /* Pricing & Carpet Calc */
     function renderPackagesAndAddons() {
       document.getElementById("packages-grid").innerHTML = siteConfig.packages.map((pkg) => `
         <div class="package-card ${pkg.featured ? "featured" : ""}">
@@ -1878,7 +2171,7 @@
             <p class="pkg-desc">${escapeHtml(pkg.desc)}</p>
             <ul class="pkg-list">${(pkg.items || []).map((li) => `<li>${escapeHtml(li)}</li>`).join("")}</ul>
           </div>
-          <button type="button" class="btn-outline" onclick="switchMainTab('about')">咨询此配套档期</button>
+          <button type="button" class="btn-outline" onclick="inquirePackage('${escapeJs(pkg.name)}', '${escapeJs(pkg.price)}')">咨询此配套档期</button>
         </div>
       `).join("");
 
@@ -1893,11 +2186,38 @@
       `).join("");
     }
 
-    function updateCarpetButtons() {
+    function inquirePackage(pkgName, pkgPrice) {
+      sendToGoogleSheets("咨询主要配套", `${pkgName} (${pkgPrice})`);
+      switchMainTab("about");
+      showToast(`已记录您对「${pkgName}」的意向`);
+    }
+
+    function renderLengthOptions() {
+      const lengths = normalizeLengths(siteConfig.carpetRates?.lengths);
+      if (!lengths.includes(calcState.lengthFt)) {
+        calcState.lengthFt = lengths[0];
+      }
+      document.getElementById("length-options").innerHTML = lengths.map((len) => `
+        <button type="button" class="calc-choice-btn ${calcState.lengthFt === len ? "active" : ""}" data-len="${len}" onclick="selectLength(${len})">${len} ft</button>
+      `).join("");
+    }
+
+    function updateCarpetWoodButtons() {
       const rNoWood = Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5).toFixed(2);
       const rWithWood = Number(siteConfig.carpetRates.withWoodPerSqft ?? 4.0).toFixed(2);
-      document.getElementById("base-no-wood-btn").textContent = `无木底 (RM ${rNoWood} / sqft)`;
-      document.getElementById("base-with-wood-btn").textContent = `有木底 (RM ${rWithWood} / sqft)`;
+      const wNoWood = Number(siteConfig.carpetRates.noWoodWidthFt ?? 6);
+      const wWithWood = Number(siteConfig.carpetRates.withWoodWidthFt ?? 8);
+
+      document.getElementById("base-no-wood-btn").innerHTML = `
+        无木底 · 宽 ${wNoWood}ft
+        <span class="sub-hint">RM ${rNoWood} / sqft</span>
+      `;
+      document.getElementById("base-with-wood-btn").innerHTML = `
+        有木底 · 宽 ${wWithWood}ft
+        <span class="sub-hint">RM ${rWithWood} / sqft</span>
+      `;
+      document.getElementById("base-no-wood-btn").classList.toggle("active", !calcState.withWood);
+      document.getElementById("base-with-wood-btn").classList.toggle("active", calcState.withWood);
     }
 
     function selectLength(len) {
@@ -1908,41 +2228,39 @@
       recalcCarpet();
     }
 
-    function setWidthPreset(w) {
-      calcState.widthFt = Number(w);
-      document.getElementById("carpet-width-input").value = w;
-      document.querySelectorAll("#width-presets .calc-choice-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.textContent.trim() === `${w} ft`);
-      });
-      recalcCarpet();
-    }
-
     function selectWoodBase(withWood) {
       calcState.withWood = Boolean(withWood);
-      document.getElementById("base-no-wood-btn").classList.toggle("active", !calcState.withWood);
-      document.getElementById("base-with-wood-btn").classList.toggle("active", calcState.withWood);
+      updateCarpetWoodButtons();
       recalcCarpet();
     }
 
     function recalcCarpet() {
-      const widthVal = Math.max(0.5, Number(document.getElementById("carpet-width-input").value) || 0);
-      calcState.widthFt = widthVal;
-      const sqft = calcState.lengthFt * calcState.widthFt;
+      const wNoWood = Number(siteConfig.carpetRates.noWoodWidthFt ?? 6);
+      const wWithWood = Number(siteConfig.carpetRates.withWoodWidthFt ?? 8);
+      const widthFt = calcState.withWood ? wWithWood : wNoWood;
       const rate = calcState.withWood
         ? Number(siteConfig.carpetRates.withWoodPerSqft ?? 4.0)
         : Number(siteConfig.carpetRates.noWoodPerSqft ?? 1.5);
+      const sqft = calcState.lengthFt * widthFt;
       const total = sqft * rate;
       const baseLabel = calcState.withWood ? "有木底" : "无木底";
+
+      document.getElementById("current-locked-width").textContent = `${widthFt} ft（${baseLabel}专属规格）`;
       document.getElementById("calc-formula-text").textContent =
-        `${calcState.lengthFt} ft × ${calcState.widthFt} ft = ${sqft.toFixed(1)} sqft × RM ${rate.toFixed(2)} / sqft（${baseLabel}）`;
-      document.getElementById("calc-total-price").textContent = `RM ${total.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        `${calcState.lengthFt} ft × ${widthFt} ft = ${sqft.toFixed(1)} sqft × RM ${rate.toFixed(2)} / sqft（${baseLabel}）`;
+      document.getElementById("calc-total-price").textContent =
+        `RM ${total.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
-    function copyCarpetQuote() {
+    function copyAndRecordCarpetQuote() {
       const formula = document.getElementById("calc-formula-text").textContent;
       const total = document.getElementById("calc-total-price").textContent;
-      const text = `【ULTIMATE 地毯/走道报价预估】\n规格与算式：${formula}\n预估金额：${total}`;
-      navigator.clipboard?.writeText(text).then(() => showToast("已复制地毯报价明细")).catch(() => showToast("报价明细已准备好"));
+      const summary = `${formula} -> ${total}`;
+      const text = `【ULTIMATE 地毯心理预算预估】\n规格与算式：${formula}\n心理预算：${total}`;
+      sendToGoogleSheets("测算地毯心理预算", summary);
+      navigator.clipboard?.writeText(text)
+        .then(() => showToast("已复制地毯预算并同步记录"))
+        .catch(() => showToast("已同步记录地毯预算"));
     }
 
     function showToast(msg) {
