@@ -1,91 +1,154 @@
 backend:
-  name: github
-  repo: iei960817/Ultimatece
+  name: git-gateway
   branch: main
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
+locale: "zh-Hans"
+
 collections:
-  - name: "site_content"
-    label: "全站内容管理（作品 / 加购清单 / 价格设置）"
+  - name: "site_settings"
+    label: "全站内容管理（作品 / 实体图库 / 配套加购 / 登录记录）"
     files:
-      - name: "main_data"
-        label: "网站主数据配置"
-        file: "data.json"
+      - name: "site_config"
+        label: "ULTIMATE 网站总配置"
+        file: "data/site-config.json"
         fields:
-          - { label: "品牌主标题", name: "siteTitle", widget: "string", default: "ULTIMATE CREATION EVENT" }
-          - { label: "首页副标题", name: "heroSubtitle", widget: "string", default: "3D 视觉还原 · 定制婚礼空间美学" }
-          - { label: "无木底地毯单价 (RM/SQFT)", name: "carpetNoBasePrice", widget: "number", value_type: "float", default: 1.5 }
-          - { label: "有木底地毯单价 (RM/SQFT)", name: "carpetWithBasePrice", widget: "number", value_type: "float", default: 4.0 }
-
-          - label: "GMAIL 登录与 GOOGLE SHEETS 记录设置"
-            name: "googleSettings"
-            widget: "object"
-            collapsed: true
-            fields:
-              - { label: "查看价格需要登录 GMAIL", name: "requireGmailForPrice", widget: "boolean", default: false }
-              - { label: "GOOGLE OAUTH CLIENT ID", name: "googleClientId", widget: "string", required: false }
-              - { label: "GOOGLE SHEETS 接收网址 (/EXEC)", name: "googleSheetsWebhook", widget: "string", required: false }
-
-          - label: "作品展示（3D 效果图 & 实体图对比）"
-            name: "works"
+          - label: "1. 精选作品对比列表（3D 概念图 & 实际完成品）"
+            name: "portfolio"
             widget: "list"
-            summary: "{{fields.title}} ({{fields.size}} · {{fields.color}})"
+            summary: "{{fields.title}} ({{fields.category}})"
             fields:
-              - { label: "作品标题", name: "title", widget: "string" }
-              - label: "背景尺寸"
+              - { label: "作品名称", name: "title", widget: "string", default: "全新婚礼空间案例" }
+              - { label: "英文副标签", name: "category", widget: "string", default: "3D CONCEPT & REALIZED" }
+              - { label: "作品简介", name: "description", widget: "text" }
+              - { label: "3D 概念效果图", name: "conceptImg", widget: "image" }
+              - { label: "实际完成品照片", name: "actualImg", widget: "image" }
+
+          - label: "2. 实体作品图库（上传照片时直接下拉选择区域/色系/尺寸）"
+            name: "realizedWorks"
+            widget: "list"
+            summary: "{{fields.title}} — [{{fields.category}} / {{fields.color}} / {{fields.size}}]"
+            fields:
+              - { label: "作品名称", name: "title", widget: "string", default: "婚礼实景布置" }
+              - label: "区域分类（直接下拉选择，无需手打）"
+                name: "category"
+                widget: "select"
+                options:
+                  - "背景"
+                  - "照片墙"
+                  - "迎宾区"
+                  - "互动区"
+                  - "长桌"
+                  - "走道"
+                  - "舞台视觉中心"
+                default: "背景"
+              - label: "主题色系（直接下拉选择，无需手打）"
+                name: "color"
+                widget: "select"
+                options:
+                  - "红色主题"
+                  - "青色主题"
+                  - "蓝色主题"
+                default: "红色主题"
+              - label: "背景尺寸（直接下拉选择，无需手打）"
                 name: "size"
                 widget: "select"
-                options: ["16ft", "20ft", "24ft", "其他尺寸"]
+                required: false
+                options:
+                  - "16ft"
+                  - "20ft"
+                  - "24ft"
                 default: "20ft"
-              - { label: "色系标签", name: "color", widget: "string", default: "白金色" }
-              - { label: "3D 效果图", name: "renderImage", widget: "image" }
-              - { label: "现场实体图", name: "actualImage", widget: "image" }
-              - { label: "作品说明", name: "description", widget: "text", required: false }
+              - { label: "实体高清照片", name: "image", widget: "image" }
+              - { label: "作品说明（选填）", name: "description", widget: "text", required: false }
 
-          - label: "加购项目分类管理（可自由新增/排序/修改）"
-            name: "addons"
-            widget: "list"
-            summary: "{{fields.category}}"
+          - label: "3. 前台筛选标签预设库（可随时新增或修改预设选项）"
+            name: "tagPresets"
+            widget: "object"
             fields:
-              - { label: "分类名称（如：ARCH 拱门、SPECIAL EFFECTS 特效）", name: "category", widget: "string" }
-              - label: "该分类下的加购项目"
+              - label: "预设区域分类列表"
+                name: "categories"
+                widget: "list"
+                field: { label: "区域名称", name: "item", widget: "string" }
+              - label: "预设主题色系列表"
+                name: "colors"
+                widget: "list"
+                field: { label: "主题名称", name: "item", widget: "string" }
+              - label: "预设背景尺寸列表"
+                name: "sizes"
+                widget: "list"
+                field: { label: "尺寸规格", name: "item", widget: "string" }
+
+          - label: "4. 主要婚礼布置配套（价钱分页 · 子分页 1）"
+            name: "packages"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "档次标签", name: "tier", widget: "string", default: "SIGNATURE" }
+              - { label: "配套名称", name: "name", widget: "string" }
+              - { label: "配套价格", name: "price", widget: "string", default: "RM 12,800" }
+              - { label: "是否主推高亮", name: "featured", widget: "boolean", default: false }
+              - { label: "配套简介", name: "desc", widget: "text" }
+              - label: "包含服务明细"
                 name: "items"
                 widget: "list"
-                summary: "{{fields.name}} - RM {{fields.price}}"
-                fields:
-                  - { label: "项目名称", name: "name", widget: "string" }
-                  - label: "计价方式"
-                    name: "pricingType"
-                    widget: "select"
-                    options:
-                      - { label: "固定单价 (fixed)", value: "fixed" }
-                      - { label: "多档位规格 (tiers)", value: "tiers" }
-                      - { label: "按面积平方尺计算 (sqft)", value: "sqft" }
-                      - { label: "需询问报价/尺寸参考 (inquiry)", value: "inquiry" }
-                    default: "fixed"
-                  - { label: "基础/起步价格 (RM)", name: "price", widget: "number", value_type: "float", default: 0 }
-                  - { label: "附加必要费用 (如 T台保护费 RM300，无则填0)", name: "extraFee", widget: "number", value_type: "float", default: 0, required: false }
-                  - { label: "最小长度限制 (ft，仅按面积计价使用)", name: "minLength", widget: "number", value_type: "int", default: 30, required: false }
-                  - label: "可选宽度 (ft，仅按面积计价使用)"
-                    name: "widthOptions"
-                    widget: "list"
-                    field: { label: "宽度(ft)", name: "width", widget: "number" }
-                    required: false
-                  - { label: "价格与规格简述", name: "unitNote", widget: "string", required: false }
-                  - { label: "项目参考配图", name: "image", widget: "image", required: false }
-                  - label: "可选子款式/颜色/配置（客户勾选时可单选）"
-                    name: "options"
-                    widget: "list"
-                    field: { label: "选项描述", name: "option", widget: "string" }
-                    required: false
-                  - label: "多档位价格列表（仅当计价方式为 tiers 时填写）"
-                    name: "tiers"
-                    widget: "list"
-                    summary: "{{fields.label}} - RM {{fields.price}}"
-                    fields:
-                      - { label: "档位名称（如：Standard 4粒）", name: "label", widget: "string" }
-                      - { label: "档位价格 (RM)", name: "price", widget: "number", value_type: "float" }
-                    required: false
-                  - { label: "注意事项与说明", name: "notes", widget: "text", required: false }
+                field: { label: "条目", name: "item", widget: "string" }
+
+          - label: "5. 额外加购项目 Add-ons（价钱分页 · 子分页 2）"
+            name: "addons"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}}"
+            fields:
+              - { label: "加购项目名称", name: "name", widget: "string" }
+              - { label: "说明备注", name: "note", widget: "string" }
+              - { label: "价格显示", name: "price", widget: "string" }
+
+          - label: "6. 地毯心理预算计算器设置（可改长度选项与单价）"
+            name: "carpetRates"
+            widget: "object"
+            fields:
+              - label: "可选地毯长度列表（ft，可自由增减/修改）"
+                name: "lengths"
+                widget: "list"
+                field: { label: "长度数值 (ft)", name: "length", widget: "number", value_type: "float" }
+              - { label: "无木底固定宽度 (ft)", name: "noWoodWidthFt", widget: "number", value_type: "float", default: 6 }
+              - { label: "无木底每平方尺价格 (RM/sqft)", name: "noWoodPerSqft", widget: "number", value_type: "float", default: 1.5 }
+              - { label: "有木底固定宽度 (ft)", name: "withWoodWidthFt", widget: "number", value_type: "float", default: 8 }
+              - { label: "有木底每平方尺价格 (RM/sqft)", name: "withWoodPerSqft", widget: "number", value_type: "float", default: 4.0 }
+
+          - label: "7. Gmail 登录验证与 Google Sheets 记录设置"
+            name: "authConfig"
+            widget: "object"
+            fields:
+              - { label: "查看价钱前需先登录 Gmail", name: "requireGmailForPricing", widget: "boolean", default: true }
+              - { label: "Google OAuth Client ID", name: "googleClientId", widget: "string", default: "68734888992-kkuavt164shonlj06gkke56oepa3jvu8.apps.googleusercontent.com" }
+              - { label: "Google Sheets 接收网址 (/exec)", name: "sheetsWebhookUrl", widget: "string", default: "https://script.google.com/macros/s/AKfycbwWm28jTtzSrMmbEgEMwwbIu6C53ROzQjCgTpc9AsQ3p5ezUwhsEpuLIZPbtXClUs_aAw/exec" }
+
+          - label: "8. 全站文字与关于我们编辑"
+            name: "texts"
+            widget: "object"
+            fields:
+              - { label: "开场白屏品牌字样", name: "splashBrand", widget: "string", default: "ULTIMATE" }
+              - { label: "开场白屏提示语", name: "splashHint", widget: "string", default: "点击任意处进入空间" }
+              - { label: "首页顶部英文小标语", name: "heroEyebrow", widget: "string" }
+              - { label: "首页主标题", name: "heroTitle", widget: "string" }
+              - { label: "首页副标题", name: "heroSubtitle", widget: "text" }
+              - { label: "作品区主标题", name: "portfolioHeading", widget: "string" }
+              - { label: "作品区副标题", name: "portfolioSubheading", widget: "text" }
+              - { label: "价钱区主标题", name: "pricingHeading", widget: "string" }
+              - { label: "价钱区副标题", name: "pricingSubheading", widget: "text" }
+              - { label: "单独加购区标题", name: "addonsTitle", widget: "string" }
+              - { label: "单独加购区副标题", name: "addonsSubtitle", widget: "string" }
+              - { label: "地毯计算器标题", name: "calcTitle", widget: "string" }
+              - { label: "地毯计算器副标题", name: "calcSubtitle", widget: "string" }
+              - { label: "关于我们主标题", name: "aboutHeading", widget: "string" }
+              - { label: "关于我们副标题", name: "aboutSubheading", widget: "string" }
+              - { label: "关于我们 · 第一段", name: "aboutP1", widget: "text" }
+              - { label: "关于我们 · 第二段", name: "aboutP2", widget: "text" }
+              - { label: "关于我们 · 第三段", name: "aboutP3", widget: "text" }
+              - { label: "工作室地址", name: "studioLocation", widget: "string" }
+              - { label: "联络电邮", name: "studioEmail", widget: "string" }
+              - { label: "Instagram / 社交账号", name: "studioSocial", widget: "string" }
+              - { label: "页脚版权声明", name: "footerCopy", widget: "string" }
