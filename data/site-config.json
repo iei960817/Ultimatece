@@ -1,73 +1,30 @@
 {
-  "texts": {
-    "splashBrand": "ULTIMATE",
-    "splashHint": "点击任意处进入空间",
-    "heroEyebrow": "3D SPATIAL WEDDING ATELIER",
-    "heroTitle": "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。",
-    "heroSubtitle": "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
-    "portfolioHeading": "精选作品 · 空间美学档案",
-    "portfolioSubheading": "切换「3D 概念与实景对比」或「实体作品图库（按区域 / 色系 / 尺寸筛选）」。",
-    "pricingHeading": "价钱方案与地毯计算器",
-    "pricingSubheading": "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
-    "addonsTitle": "单独加购项目 (Add-ons)",
-    "addonsSubtitle": "可根据宴会厅动线与仪式流程自由叠加",
-    "calcTitle": "地毯 / 舞台走道简易计算器",
-    "calcSubtitle": "选择场地长度（40 / 52 / 60 / 80 ft）与木底结构，实时计算面积与价格（RM）",
-    "aboutHeading": "关于 ULTIMATE",
-    "aboutSubheading": "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
-    "aboutP1": "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
-    "aboutP2": "在正式进场搭建前，我们会依据新人选定的宴会厅尺寸建立 3D 空间模型，让您提前看见拱门高度、走道比例、花艺层次与灯光氛围。",
-    "aboutP3": "从方案推演到现场落地，我们的制作团队严格把控每一个结构细节，让 3D 概念图成为婚礼当天真实可触的浪漫现场。",
-    "studioLocation": "Kuala Lumpur · 预约制空间",
-    "studioEmail": "hello@ultimate-atelier.my",
-    "studioSocial": "@ultimate.wedding.my",
-    "footerCopy": "© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved."
-  },
-  "tagPresets": {
-    "categories": [
-      "背景",
-      "照片墙",
-      "迎宾区",
-      "互动区",
-      "长桌",
-      "走道",
-      "舞台视觉中心"
-    ],
-    "colors": [
-      "纯白极简",
-      "暖沙香槟",
-      "新中式红金",
-      "莫兰迪灰粉",
-      "森系绿意",
-      "暗调黑金"
-    ],
-    "sizes": [
-      "16ft",
-      "20ft",
-      "24ft",
-      "定制尺寸"
-    ]
-  },
-  "carpetRates": {
-    "lengths": [
-      40,
-      52,
-      60,
-      80
-    ],
-    "noWoodPerSqft": 1.5,
-    "withWoodPerSqft": 4.0
-  },
+  "portfolio": [
+    {
+      "title": "新中式搭配",
+      "category": "3D CONCEPT & REALIZED",
+      "description": "传统加现代的创新感，先通过 3D 比例推演红金帷幔与屏风层次，再 1:1 还原现场。",
+      "conceptImg": "/images/uploads/0314-背景2.jpg",
+      "actualImg": "/images/uploads/03模型实体.jpg"
+    },
+    {
+      "title": "音符与星星人的碰撞",
+      "category": "3D CONCEPT & REALIZED",
+      "description": "音乐元素+剧场带来超梦幻的视觉体验",
+      "conceptImg": "/images/uploads/0725-1.jpg",
+      "actualImg": "/images/uploads/7255-.jpg"
+    }
+  ],
   "packages": [
     {
       "tier": "ESSENTIAL",
       "name": "静谧序曲配套 (Serenity)",
-      "price": "RM 6,800",
+      "price": "RM 4800",
       "featured": false,
-      "desc": "适合精致午宴或现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
+      "desc": "适合现代极简酒店宴会厅，聚焦主舞台视觉与迎宾动线。",
       "items": [
-        "1 套主舞台建筑感背景与花艺点缀",
-        "1 组 3D 空间概念渲染图（含 1 次调整）",
+        "主背景+渲染图",
+        "回忆照片墙",
         "迎宾签到台极简陈设与花器组",
         "专业进场搭建与活动后撤场服务"
       ]
@@ -126,23 +83,38 @@
       "price": "RM 600+"
     }
   ],
-  "portfolio": [
-    {
-      "title": "新中式搭配",
-      "category": "3D CONCEPT & REALIZED",
-      "description": "传统加现代的创新感，先通过 3D 比例推演红金帷幔与屏风层次，再 1:1 还原现场。",
-      "conceptImg": "/images/uploads/demo-3d.svg",
-      "actualImg": "/images/uploads/demo-actual.svg"
-    }
-  ],
-  "realizedWorks": [
-    {
-      "title": "云端白沙主舞台 · 20ft 弧形建筑背景",
-      "category": "背景",
-      "color": "纯白极简",
-      "size": "20ft",
-      "image": "/images/uploads/demo-actual.svg",
-      "description": "20ft 宽幅哑光白弧形立面，搭配层次感白绿花艺与底部漫反射洗墙灯。"
-    }
-  ]
+  "carpetRates": {
+    "lengths": [
+      40,
+      52,
+      60,
+      80
+    ],
+    "noWoodPerSqft": 1.5,
+    "withWoodPerSqft": 4
+  },
+  "texts": {
+    "splashBrand": "ULTIMATE",
+    "studioSocial": "@ultimate.wedding.my",
+    "calcTitle": "地毯 / 舞台走道简易计算器",
+    "addonsTitle": "单独加购项目 (Add-ons)",
+    "studioEmail": "hello@ultimate-atelier.my",
+    "pricingSubheading": "常规婚礼布置配套、单项加购明细，以及按场地尺寸计算的跑道/地毯报价器。",
+    "portfolioSubheading": "每组作品可切换「3D 概念图」、「对比滑杆」或「实际完成品」，点击右下角「放大对比」可全屏细致查看。",
+    "addonsSubtitle": "可根据宴会厅动线与仪式流程自由叠加",
+    "studioLocation": "Kuala Lumpur · 预约制空间",
+    "calcSubtitle": "选择场地长度（40 /  60 / 80 / 100ft）与木底结构，实时计算面积与价格（RM）",
+    "splashHint": "点击任意处进入空间",
+    "aboutP1": "ULTIMATE 是一家专注于高端极简婚礼空间设计的创作工作室。我们相信真正的奢华并非堆砌，而是留白、比例、材质与光影之间的精准呼吸。",
+    "aboutP2": "在正式进场搭建前，我们会依据新人选定的宴会厅尺寸建立 3D 空间模型，让您提前看见拱门高度、走道比例、花艺层次与灯光氛围。",
+    "heroEyebrow": "3D SPATIAL WEDDING ATELIER",
+    "aboutSubheading": "先见空间，再筑仪式——用建筑思维与 3D 可视化还原每一份期待。",
+    "aboutP3": "从方案推演到现场落地，我们的制作团队严格把控每一个结构细节，让 3D 概念图成为婚礼当天真实可触的浪漫现场。",
+    "footerCopy": "© 2026 ULTIMATE Wedding Spatial Studio. All rights reserved.",
+    "heroSubtitle": "先在三维空间中推演光影、材质与比例，再将设计原封不动带入真实宴会厅。",
+    "aboutHeading": "关于 ULTIMATE",
+    "portfolioHeading": "精选作品 · 3D 概念与实景",
+    "pricingHeading": "价钱方案与地毯计算器",
+    "heroTitle": "以建筑级克制与 3D 预演，雕琢每一场婚礼的静谧时刻。"
+  }
 }
