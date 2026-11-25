@@ -17,11 +17,40 @@
   ],
   "realizedWorks": [
     {
-      "title": "婚礼实景布置",
+      "title": "星空婚礼布置",
       "category": "背景",
-      "color": "纯白极简",
+      "color": "星空主题",
+      "size": "20ft+高14ft",
+      "image": "/images/uploads/星空.jpeg"
+    },
+    {
+      "title": "香槟布幔主题",
+      "category": "背景",
+      "color": "香槟主题",
       "size": "20ft",
       "image": "/images/uploads/粉紫色-1.jpg"
+    },
+    {
+      "title": "青粉主题",
+      "category": "背景",
+      "color": "青色主题",
+      "size": "16ft",
+      "image": "/images/uploads/青-.jpg",
+      "description": "青+粉色搭配"
+    },
+    {
+      "title": "青色柠檬主题",
+      "category": "背景",
+      "color": "青色主题",
+      "size": "18FT",
+      "image": "/images/uploads/青色相关-1-.jpeg"
+    },
+    {
+      "title": "莫纳多巴胺花园风",
+      "category": "背景",
+      "color": "彩色主题",
+      "size": "20ft",
+      "image": "/images/uploads/彩色.jpg"
     }
   ],
   "packages": [
